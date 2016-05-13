@@ -405,6 +405,9 @@ li {
 .shop .right .star-sales {
     position: relative;
 }
+.shop .right .span::before {
+    color : #666;
+}
 .shop .right i::before {
     color: #FFC30C;
     position: absolute;
