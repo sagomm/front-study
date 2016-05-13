@@ -1,0 +1,402 @@
+/*
+* 一些样式的重置
+*/
+
+a {
+    text-decoration: none;
+}
+a:visited {
+    color: white;
+}
+* {
+    box-sizing: border-box;
+}
+li {
+    list-style: none;
+}
+/*
+* 主包含容器，给侧边栏留下位置
+*/
+
+.container {
+    padding-right: 35px;
+}
+
+/*
+* 页面顶部样式,全部float:left
+*/
+
+.header {
+    height: 60px;
+    background-color: rgb(30, 137, 224);
+    color: #fff;
+    font-size: 14px;
+    line-height: 60px;
+}
+
+.header .header-wrap > *{
+    float: left;
+}
+/*logo部分*/
+.header .logo {
+    font-size: 32px;
+    margin-right: 35px;
+}
+
+/*导航部分*/
+
+.header .nav .nav-item,
+.header .toolBar .toolBar-item{
+    list-style: none;
+    float: left;    
+}
+
+.header .nav {
+    margin-right :30px;
+    font-size: 16px;
+}
+.header .nav .nav-item {
+    color: #fff;
+    width: 134px;
+    text-align: center;
+}
+.header .nav .nav-item a,
+.header .toolBar .toolBar-item a {
+    display: block;
+    height: 100%;
+}
+.header .nav .nav-item a:hover {
+    background: #0c77d1; 
+}
+.header .nav .item-active,
+.header .nav .item-active a:hover {
+    background : #006bc7;    
+}
+.header .nav .nav-item i {
+    position: absolute;
+    margin-left: 60px;
+    margin-top :3px;
+}
+.header .toolBar {
+    font-size: 14px;
+    margin-right: 70px;
+}
+.header .toolBar .toolBar-item a{
+    width: 106px;
+    text-align: center; 
+    color:#d2e7f9;
+}
+.header .toolBar .toolBar-item a:hover {
+    color: #fff;
+}
+.header .toolBar .toolBar-item .icon:before {
+    display: inline-block;
+    font-size: 22px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+/*二维码*/
+.header .weixin {
+    position: absolute;
+    background: white;
+    color: black;
+    /*border: 1px solid #ccc;*/
+    padding: 3px 10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 40px;
+	box-shadow: 0 1px 2px rgba(0,0,0,.5);
+    margin-top: -10px;
+    display: none;  
+}
+.header .weixin img {
+    display: block;
+}
+.header .weixin::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+    margin-top: -15px;
+    margin-left: -13px;
+}
+.header .weixin-hover:hover + .weixin {
+    display: block;
+    z-index: 999;
+}
+
+/*用户登录/注册*/
+
+.header .login .icon:before {
+    font-size: 22px;
+    vertical-align: middle;
+    margin-right: 5px;
+    display: inline-block;
+    margin-top: -3px;
+}
+
+/*
+* 顶部下面的位置信息与搜索框
+*/
+
+.search-wrap {
+    height: 51px;
+    line-height: 51px;
+    /*设置margin防止头部的float对文本的影响*/
+    margin-top : 3px;
+    text-align: justify;
+}
+.search-wrap .location,
+.search-wrap .search {
+    display: inline-block;
+}
+/*左边声明位置信息*/
+.search-wrap .location {  
+   color: #999;
+   font-size: 12px;
+}
+.search-wrap .current-location {
+    color: black;
+    width: 30px;
+    white-space: nowrap;    
+}
+.search-wrap .current-location:hover {
+    color: #0089dc;
+}
+.search-wrap .change-location {
+    color :#0089dc;
+}
+/*右边的搜索框*/
+.search-wrap .search {
+    text-align: right;
+}
+.search-wrap .search-border {
+    display: inline;
+    border : 1px solid #ccc;
+    padding : 5px;            
+}
+.search-wrap .search-border > input {
+    border-style: none;
+    width: 240px;
+	transition: width .3s ease-in-out;
+}
+.search-wrap .search-border > input:focus {
+    width: 320px;
+}
+.search-wrap .search-border >a {
+    color : #ccc;
+    vertical-align: middle;
+}
+.search-wrap .search-border >a:before {
+    font-size: 20px;
+    color: inherit;
+}
+.search-wrap .search-border > a:hover {
+    color: #0089dc;
+}
+/*
+* 轮播图片动画
+*/
+.picBanner {
+  height: 98px;
+  overflow: hidden;  
+  position: relative;
+}
+
+.picBanner .pictures,
+.picBanner img {
+  width: inherit;
+  height: inherit;
+}
+/*通过margin负值来调整图片的位置*/
+.picBanner .pictures {
+    position: absolute;
+    transition :margin-top .3s ease-in-out;
+}
+
+.picBanner .toggles {
+    position: absolute;
+    right: 10px;   
+    bottom: 6px;        
+}
+.picBanner .toggles > li {
+    background-color:rgba(255,255,255,.5);
+    display: inline-block;
+    line-height: 17px;
+    font-size: 12px;
+    text-align: center;
+    margin : 0 2px;
+}
+.picBanner .toggles > li,
+.picBanner .toggles > li > a,
+.picBanner .toggles > li > input {
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+}
+.picBanner .toggles > li > a {
+    display: inline-block;
+    width: 100%;
+    color: #999;
+} 
+.picBanner .toggles > li > input {
+    opacity: 0;
+    position: absolute;
+}
+
+.picBanner .toggles > li > input:checked + a {
+    background-color: rgba(255,102,0,.8);
+    color: white;
+}
+
+/*
+* 外卖的分类区域
+*/
+
+.take-out-classify {
+    color: black;
+    margin-top: 10px;            
+}
+/**
+* 图片的样式
+*/
+.take-out-classify > .img,
+.take-out-classify > .img > img {
+    height: 55px;
+}
+.take-out-classify > .img {
+    text-align: right;
+}
+.take-out-classify > .img > img {
+    width: 186px;
+}
+/**
+* 外卖分类选择区域的样式
+*/
+/* 外卖分类*/
+.take-out-classify .wrap {
+    margin-top: -5px;
+	border: 1px solid #E6E6E6;
+}
+.take-out-classify .classify {
+    background-color: white;
+    font-size: 14px;
+    width: 100%;
+    height: 56px;
+    padding: 10px;
+}
+.take-out-classify .classify > li {
+    display: inline-block;
+    width: 76px;
+    height: 26px;            
+    vertical-align: middle;
+    line-height: 26px;
+    text-align: center;
+    margin-right: 10px;
+    cursor: pointer;
+    color: #666;    
+}
+.take-out-classify .classify .active {
+    color: white;
+    background: #0089DC;
+    border-radius: 5px;
+} 
+.take-out-classify .classify .label {
+    width: 81px;
+    color: #999;
+}
+.take-out-classify .classify .hot {
+    color: red;
+}
+
+
+/* 外卖排序的样式*/
+.take-out-classify .sort {
+    background-color: #F6F6F6;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 13px;
+    font-size: 14px;
+    text-align: justify;
+}
+.take-out-classify li {
+    cursor: pointer;
+}
+.take-out-classify .value-sort, 
+.take-out-classify .type-sort{
+    display: inline-block;
+}
+.take-out-classify .sort > ul > li {
+    display: inline-block;
+}
+.take-out-classify .value-sort {
+    color: #666;
+}
+.take-out-classify .value-sort .active{
+    color: #0089DC;
+}
+.take-out-classify .value-sort > li {
+    padding: 0 7px;
+}
+.take-out-classify .drop-down,
+.take-out-classify .drop-down-price {
+    position: relative;
+}
+.take-out-classify .drop-down-body{
+    position: absolute;
+    display: none;
+}
+.take-out-classify .drop-down-price:hover > .drop-down-body,
+.take-out-classify .drop-down:hover > .drop-down-body {
+    display: block;
+}
+.take-out-classify .type-sort {
+    color: #333;
+    padding-left: 5px;
+    border-left: 1px solid #E6E6E6; 
+}
+.take-out-classify .type-sort input,
+.take-out-classify .type-sort span {
+    vertical-align: middle;
+    margin-right: 3px;
+}
+/**
+* 商铺的样式
+*/
+.shops {
+    border: 1px solid #E6E6E6;
+}
+.shop {
+    width: 200px;
+    display: inline-block;
+}
+.shop .left,
+.shop .right {
+    display: inline-block;  
+    
+}
+
+/**
+* 页脚
+*/
+.footer {
+    height: 284px;
+}
+
+/*
+* 页面侧边栏
+*/
+
+.slideBar {
+    position: fixed;
+    color:rgb(51, 51, 51);
+    background-color: rgb(80, 77, 83);
+    width: 35px;
+    top: 0;
+    bottom: 0;  
+    right: 0;
+}

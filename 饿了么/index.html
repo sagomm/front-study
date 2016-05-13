@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>一个特别远的地方</title>
+    <link rel="stylesheet" href="./css/config.css">
+    <link rel="stylesheet" href="./css/icon.css">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-wrap scope clearfix">
+                <div class="logo"><span class="icon icon-logo"></span></div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item item-active"><a href="#">首页</a></li>
+                        <li class="nav-item">
+                            <!-- 小的hot标签 -->
+                            <a href="#"><i class="sprite hot"></i>品牌商家</a>
+                        </li>
+                        <li class="nav-item"><a href="#">我的订单</a></li>
+                        <li class="nav-item"><a href="#">加盟合作</a></li>
+                    </ul>
+                </nav>
+                <div class="toolBar">
+                    <ul class="toolBar-list">
+                        <li class="toolBar-item"><a href="#"><i class="icon icon-gift"></i>积分商城</a></li>
+                        <li class="toolBar-item"><a href="#"><i class="icon icon-service"></i>服务中心</a></li>
+                        <li class="toolBar-item">
+                            <!--触发图片的hover标签-->
+                            <a href="#" class="weixin-hover"><i class="icon icon-mobile"></i>手机应用</a>
+                            <!-- 手机应用二维码 -->
+                            <div class="weixin">
+                                <span>扫一扫手机订餐更方便</span>
+                                <img src="./images/weixin.png" alt="图片">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="login">
+                    <a href=""><i class="icon icon-profile"></i>登陆/注册</a>
+                </div>
+            </div>
+        </header>
+        <!-- 顶部下面的位置信息与搜索框 -->
+        <div class="search-wrap scope justify">
+            <div class="location">
+                <span>当前位置</span>
+                <span class="current-location" id="current-location">{{地址信息}}</span>
+                <a href="#" class="change-location">[切换地址]</a>
+            </div>
+            <div class="search">
+                <label for="search" style="display:none">搜索</label>
+                <div class="search-border">
+                    <input class="search-text" type="search" name="search" placeholder="搜索商家,美食...">
+                    <a class="icon icon-search"></a>
+                </div>
+            </div>
+        </div>
+        <!-- 图片轮播区域 -->
+        <div id="picBanner" class="picBanner scope">
+            <!-- 图片 -->
+            <div class="pictures"></div>
+            <!-- 触发按钮 -->
+            <ul class="toggles"></ul>
+        </div>
+        <!-- 外卖的分类区域 -->
+        <div class="take-out-classify scope">
+            <div class="img">
+                <img src="images/wotowaimai.png" alt="谁去拿外卖">
+            </div>
+            <div class="wrap">
+                <ul class="classify">
+                    <li class="label">商家分类:</li>
+                    <li class="active">全部商家</li>
+                    <li class="hot">品牌商家</li>
+                    <li>快餐便当</li>
+                    <li>特色菜系</li>
+                    <li>异国料理</li>
+                    <li>小吃夜宵</li>
+                    <li>甜品饮品</li>
+                    <li>果蔬生鲜</li>
+                    <li>鲜花蛋糕</li>
+                    <li>商店超市</li>
+                </ul>
+                <div class="sort justify">
+                    <ul class="value-sort">
+                        <li class="active">默认排序</li>
+                        <li>销量高</li>
+                        <li>评价好</li>
+                        <li class="drop-down">
+                            <span class="drop-down-header">其他排序</span>
+                            <i class="icon icon-arrow-down"></i>
+                            <i class="icon icon-arrow-up"></i>
+                            <ul class="drop-down-body">
+                                <li>距离最近</li>
+                                <li>配送速度</li>
+                                <li>起送金额</li>
+                            </ul>
+                        </li>
+                        <li class="drop-down-price">  
+                            <span class="drop-down-header">起送价格</span>
+                            <i class="icon icon-arrow-down"></i>
+                            <i class="icon icon-arrow-up"></i>
+                            <ul class="drop-down-body">
+                                <li class="drop-down-label"></li>
+                                <li>不限</li>
+                                <li class="">15元以下</li>
+                                <li>20元以下</li>
+                                <li>30元以下</li>
+                                <li>40元以下</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="type-sort">
+                        <li><input type="checkbox" name="sort-type"><span>新开商家</span></li>
+                        <li><input type="checkbox" name="sort-type"><span>免费派送</span></li>
+                        <li><input type="checkbox" name="sort-type"><span>蜂鸟快送</span></li>
+                        <li><input type="checkbox" name="sort-type"><span>可开发票</span></li>
+                        <li><input type="checkbox" name="sort-type"><span>在线支付</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="shops scope">
+            <div class="shop">
+                <div class="left">
+                    <img src="./images/shop.jpeg" alt="">
+                    <span class="timeinfo">24分钟</span>    
+                </div>
+                <div class="right">
+                    <div class="title"></div>
+                    <div class="star">
+                        
+                    </div>
+                    <div class=""></div>
+                    <div class="icons">
+                        
+                    </div>
+                </div>
+            </div> 
+                        <div class="shop">
+                <div class="left">
+                    <img src="./images/shop.jpeg" alt="">
+                    <span class="timeinfo">24分钟</span>    
+                </div>
+                <div class="right">
+                    <div class="title"></div>
+                    <div class="star">
+                        
+                    </div>
+                    <div class=""></div>
+                    <div class="icons">
+                        
+                    </div>
+                </div>
+            </div> 
+                        <div class="shop">
+                <div class="left">
+                    <img src="./images/shop.jpeg" alt="">
+                    <span class="timeinfo">24分钟</span>    
+                </div>
+                <div class="right">
+                    <div class="title"></div>
+                    <div class="star">
+                        
+                    </div>
+                    <div class=""></div>
+                    <div class="icons">
+                        
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div> 
+    <div class="footer">
+        
+    </div>
+    <div class="slideBar">
+
+    </div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
