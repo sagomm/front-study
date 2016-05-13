@@ -371,13 +371,32 @@ li {
     border: 1px solid #E6E6E6;
 }
 .shop {
-    width: 200px;
     display: inline-block;
+    padding: 20px;
+}
+.shop:hover .title {
+    color: #0089DC;
 }
 .shop .left,
 .shop .right {
-    display: inline-block;  
-    
+    display: inline-block;     
+}
+.shop .left {
+    text-align: center;
+    width: 70px;
+    line-height: 20px;
+}
+.shop .left logo {
+    width: 70px;
+    height: 70px;
+}
+.shop .left span {
+    color : #999;
+    font-size: 9pt;
+}
+.shop .right .title {
+    font-size: 1pc;
+    font-weight: 600;
 }
 
 /**
