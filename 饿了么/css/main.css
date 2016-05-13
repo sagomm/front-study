@@ -379,7 +379,8 @@ li {
 }
 .shop .left,
 .shop .right {
-    display: inline-block;     
+    display: inline-block;
+    vertical-align: top;     
 }
 .shop .left {
     text-align: center;
@@ -397,6 +398,11 @@ li {
 .shop .right .title {
     font-size: 1pc;
     font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.shop .right .star::before {
+    content:"\e950\e950\e950\e950\e950"
 }
 
 /**
