@@ -403,16 +403,23 @@ li {
     width: 25%;
     white-space: nowrap;
 }
-.shop .title {
+.shop .right .title {
     color: #333;
+    margin-bottom: 6px;
 }
-.shop:hover .title {
+.shop:hover .right .title {
     color: #0089DC;
 }
 .shop .left,
 .shop .right {
     display: inline-block;
     vertical-align: top;     
+}
+.shop .left {
+    width: 40%;
+}
+.shop .right {
+    width: 60%;
 }
 .shop .left {
     text-align: center;
@@ -438,17 +445,20 @@ li {
 }
 .shop .right .star-sales {
     position: relative;
+    margin-bottom: 6px;
+}
+.shop .right .star-base {
+    vertical-align: baseline;
 }
 .shop .right .star-sales .star-base::before {
     color : #ccc;
-    vertical-align: middle;
 }
 .shop .right i::before {
     color: #FFC30C;
     position: absolute;
     left: 0;
     font-size: 9pt;
-    top: 4px;
+    top: 1px;
 }
 .shop .sales,
 .shop .take-out-info {
