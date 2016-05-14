@@ -336,7 +336,7 @@ li {
 .take-out-classify .value-sort {
     color: #666;
 }
-.take-out-classify .value-sort .active{
+.take-out-classify .active{
     color: #0089DC;
 }
 .take-out-classify .value-sort > li {
@@ -344,19 +344,40 @@ li {
 }
 .take-out-classify .drop-down,
 .take-out-classify .drop-down-price {
-    position: relative;
-    background: white;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+    position: relative;  
 }
 .take-out-classify .drop-down-body{
     position: absolute;
     display: none;
+    left: 0;
+    right: 0;
+    padding-left: 10px;
+}
+.take-out-classify .drop-down-price > .icon-arrow-up,
+.take-out-classify .drop-down > .icon-arrow-up{
+    display: none;
+}
+/*下拉菜单hover之后的样式*/
+.take-out-classify .drop-down-price:hover,
+.take-out-classify .drop-down:hover {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);    
+    background: white; 
 }
 .take-out-classify .drop-down-price:hover > .drop-down-body,
 .take-out-classify .drop-down:hover > .drop-down-body {
     display: block;
-    background: inherit;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);    
+    background: white;
 }
+.take-out-classify .drop-down-price:hover > .icon-arrow-down,
+.take-out-classify .drop-down:hover > .icon-arrow-down{
+    display: none;
+}
+.take-out-classify .drop-down-price:hover > .icon-arrow-up,
+.take-out-classify .drop-down:hover > .icon-arrow-up{
+    display: inline;
+}
+
 .take-out-classify .type-sort {
     color: #333;
     padding-left: 5px;
@@ -372,6 +393,7 @@ li {
 */
 .shops {
     border: 1px solid #E6E6E6;
+    margin-top: 40px;
 }
 .shop {
     display: inline-block;
