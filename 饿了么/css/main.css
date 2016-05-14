@@ -394,11 +394,14 @@ li {
 .shops {
     border: 1px solid #E6E6E6;
     margin-top: 40px;
+    /*width: 100%;*/
 }
 .shop {
     display: inline-block;
     padding: 20px;
     font-size: 9pt;
+    width: 25%;
+    white-space: nowrap;
 }
 .shop .title {
     color: #333;
@@ -415,6 +418,7 @@ li {
     text-align: center;
     width: 70px;
     line-height: 20px;
+    white-space: normal;
 }
 .shop .left logo {
     width: 70px;
@@ -427,14 +431,17 @@ li {
 .shop .right .title {
     font-size: 1pc;
     font-weight: 600;
+    width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
+    overflow: hidden;
 }
 .shop .right .star-sales {
     position: relative;
 }
 .shop .right .star-sales .star-base::before {
     color : #ccc;
+    vertical-align: middle;
 }
 .shop .right i::before {
     color: #FFC30C;
@@ -443,6 +450,11 @@ li {
     font-size: 9pt;
     top: 4px;
 }
+.shop .sales,
+.shop .take-out-info {
+    color: #999;
+}
+
 
 
 /**
