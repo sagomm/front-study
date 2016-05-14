@@ -400,6 +400,9 @@ li {
     padding: 20px;
     font-size: 9pt;
 }
+.shop .title {
+    color: #333;
+}
 .shop:hover .title {
     color: #0089DC;
 }
@@ -430,8 +433,8 @@ li {
 .shop .right .star-sales {
     position: relative;
 }
-.shop .right .span::before {
-    color : #666;
+.shop .right .star-sales .star-base::before {
+    color : #ccc;
 }
 .shop .right i::before {
     color: #FFC30C;
