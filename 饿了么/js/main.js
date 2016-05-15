@@ -20,12 +20,18 @@ app.template = {
             }
         }
     },
-    shopClassify: {
-
-    },
-    shop: function () {
-        return '';
-    }
+    shop: {
+        shopImg: function() {
+                
+        },
+        shopIcon:function(value,color) {
+            return '<i style="color='+color+';>'+value+'</i>';
+        },
+        shopTitle: function() {
+            return ;
+        },
+        shop
+    }    
 }
 
 
