@@ -14,6 +14,9 @@ a:visited {
 li {
     list-style: none;
 }
+i {
+    font-style: normal;
+}
 /*
 * 主包含容器，给侧边栏留下位置
 */
@@ -416,24 +419,20 @@ li {
     vertical-align: top;     
 }
 .shop .left {
-    width: 40%;
-}
-.shop .right {
-    width: 60%;
-}
-.shop .left {
     text-align: center;
-    width: 70px;
-    line-height: 20px;
+    width: 110px;
+    padding-right:20px;
     white-space: normal;
 }
-.shop .left logo {
-    width: 70px;
-    height: 70px;
+.shop .left .logo {
+    width: 100%;
 }
 .shop .left span {
     color : #999;
     font-size: 9pt;
+}
+.shop .right {
+    vertical-align: baseline;
 }
 .shop .right .title {
     font-size: 1pc;
@@ -464,7 +463,14 @@ li {
 .shop .take-out-info {
     color: #999;
 }
-
+.shop .icons {
+    color: white;
+    margin-top: 7px;
+}
+.shop .icons i {
+    padding : 1px;
+    border-radius: 2px;
+}
 
 
 /**

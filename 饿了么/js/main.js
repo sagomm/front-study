@@ -29,8 +29,7 @@ app.template = {
         },
         shopTitle: function() {
             return ;
-        },
-        shop
+        }
     }    
 }
 
@@ -99,6 +98,15 @@ app.picBanner = (function () {
 /**
  * 页面商店的显示，包括两部分，一部分是商品的列表，一部分是商品的展示部分。
  */
+/**简单的观察者模式 */
+function Event(){
+    
+}
+
+app.classify = {
+    
+}
+
 app.shops = {
     
 }
