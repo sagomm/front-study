@@ -401,10 +401,10 @@ i {
 }
 .shop {
     display: inline-block;
-    padding: 20px;
     font-size: 9pt;
     width: 25%;
     white-space: nowrap;
+    overflow: hidden;
 }
 .shop .right .title {
     color: #333;
@@ -416,12 +416,12 @@ i {
 .shop .left,
 .shop .right {
     display: inline-block;
-    vertical-align: top;     
+    /*vertical-align: top;     */
 }
 .shop .left {
     text-align: center;
     width: 110px;
-    padding-right:20px;
+    padding:20px;
     white-space: normal;
 }
 .shop .left .logo {
