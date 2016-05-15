@@ -395,9 +395,9 @@ i {
 * 商铺的样式
 */
 .shops {
-    border: 1px solid #E6E6E6;
+    border: 0px solid #E6E6E6;
     margin-top: 40px;
-    /*width: 100%;*/
+    box-sizing: border-box;
 }
 .shop {
     display: inline-block;
@@ -405,18 +405,18 @@ i {
     width: 25%;
     white-space: nowrap;
     overflow: hidden;
+    position: relative;
 }
-.shop .right .title {
-    color: #333;
-    margin-bottom: 6px;
-}
-.shop:hover .right .title {
-    color: #0089DC;
+.shop .right {
+    position: absolute;
+    left: 110px;
+    right: 0;
+    top: 20px;
+    bottom: 20px;
 }
 .shop .left,
 .shop .right {
     display: inline-block;
-    /*vertical-align: top;     */
 }
 .shop .left {
     text-align: center;
@@ -434,12 +434,17 @@ i {
 .shop .right {
     vertical-align: baseline;
 }
+.shop:hover .right .title {
+    color: #0089DC;
+}
 .shop .right .title {
     font-size: 1pc;
     font-weight: 600;
     width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: #333;
+    margin-bottom: 6px;
     overflow: hidden;
 }
 .shop .right .star-sales {
