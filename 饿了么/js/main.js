@@ -21,30 +21,38 @@ app.template = {
         }
     },
     shop: {
-        shopImg: function(image) {
-            return '<img class="logo" src="./images/'+image+'">';            
+        shopImg: function (image) {
+            return '<img class="logo" src="./images/' + image + '">';
         },
-        shopTime: function(time) {
-            return '<span class="timeinfo">'+time+' 分钟</span>';  
+        shopTime: function (time) {
+            return '<span class="timeinfo">' + time + ' 分钟</span>';
         },
-        shopTitle: function(title,location) {
-            return '<div class="title">'+title+'('+Location+')</div>';
+        shopTitle: function (title, location) {
+            return '<div class="title">' + title + '(' + Location + ')</div>';
         },
-        shopSales: function(sale) {
-            return '<div class="sales">月售'+sale+'单</div>';        
+        shopSales: function (sale) {
+            return '<div class="sales">月售' + sale + '单</div>';
         },
-        shopTake: function(startCost,cost) {
-            return '<div class="take-out-info">'+startCost+'起送 / 配送费'+cost+'元</div>';    
+        shopTake: function (startCost, cost) {
+            return '<div class="take-out-info">' + startCost + '起送 / 配送费' + cost + '元</div>';
         },
         // 注册商店下面的小图标
-        shopAddIcon : function(iconName,iconTemplate) {
-                                
+        shopAddIcon: function (iconName, iconTemplate) {
+            this.shopArr[iconName] = iconTemplate;
         },
+        shopIconArr: [],
         // 得到整个商店模板
-        getShop: function(img,time,title,loaction,sale,startCost,cost,iconArr){
-                               
+        getShop: function (img, time, title, loaction, sale, startCost, cost, iconArr) {
+            var shopIcons;
+            for (i in this.shopIconArr) {
+                shopIcons += shopIconArr;
+            }
+            var left = '<div　class="shop"><div class="left">' + this.shopImg(img) + this.shopTime(time) + '</div>';
+            var right = '<div class="right">' + this.shopTitle(title, location) + '<div class="star-sales"><span class="star-base icon icon-star"><i class="icon icon-star"></i></span>' + this.shopSales(sale) + '</div>' + shopTake(startCost, cose) + '<div class="icons">' + shopIcons + '</div></div>';
+            var shop = left + right;
+            return shop;
         }
-    }    
+    }
 }
 
 
@@ -113,7 +121,26 @@ app.picBanner = (function () {
  * 页面商店的显示，包括两部分，一部分是商品的列表，一部分是商品的展示部分。
  */
 
-/**先初始化页面，拿到模板填充到页面中*/
+app.shop = (function () {
+    var shops = document.getElementById('shops');
+    function shopTemplate() {
+        /**定义商铺中显示的图标 */
+        app.template.shop.shopAddIcon('减','<i style="background:#f07373;">减</i>');
+        app.template.shop.shopAddIcon('首','<i style="background:#70bc46;">首</i>');
+        app.template.shop.shopAddIcon('特','<i style="background:#f1884f;">特</i>'); 
+        app.template.shop.shopAddIcon('付','<i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">付</i>'); 
+        app.template.shop.shopAddIcon('票','<i style="background:#fff;color:#9071CB;border:1px solid;padding:0;">票</i>'); 
+        app.template.shop.shopAddIcon('保','<i style="background:#fff;color:#4B9A18;border:1px solid;padding:0;">保</i>');
+        app.template.shop.shopAddIcon('赔','<i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">赔</i>');
+        /**返回整个商铺的模板 */
+        return app.template.shop.getShop();         
+    }
+    function 
+    
+    
+    
+
+})();
 
 
 
