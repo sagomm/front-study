@@ -355,6 +355,7 @@ i {
     left: 0;
     right: 0;
     padding-left: 10px;
+    z-index: 999;
 }
 .take-out-classify .drop-down-price > .icon-arrow-up,
 .take-out-classify .drop-down > .icon-arrow-up{
@@ -406,6 +407,7 @@ i {
     white-space: nowrap;
     overflow: hidden;
     position: relative;
+    cursor: pointer;
 }
 .shop .right {
     position: absolute;
@@ -476,6 +478,8 @@ i {
     padding : 1px;
     border-radius: 2px;
 }
+/*商铺被hover之后的样式*/
+
 
 
 /**
