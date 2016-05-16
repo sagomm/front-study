@@ -22,13 +22,13 @@ app.template = {
     },
     shop: {
         shopImg: function() {
-                
+            return '';            
         },
         shopIcon:function(value,color) {
             return '<i style="color='+color+';>'+value+'</i>';
         },
         shopTitle: function() {
-            return ;
+            return '';
         }
     }    
 }
