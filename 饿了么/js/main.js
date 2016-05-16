@@ -52,6 +52,10 @@ app.template = {
             var shop = left + right;
             return shop;
         }
+    },
+    /**在页面中对shop hover之后出现的说明模块的模板 */
+    shopInfo: {
+        
     }
 }
 
@@ -108,6 +112,7 @@ app.picBanner = (function () {
     }
 
     return {
+        /**初始化函数 */
         init: function (banner, pics, timeDelay) {
             var pictures = banner.getElementsByClassName('pictures')[0];
             var toggles = banner.getElementsByClassName('toggles')[0];
@@ -123,29 +128,52 @@ app.picBanner = (function () {
 
 app.shop = (function () {
     var shops = document.getElementById('shops');
-    function setShopIcon() {
-        /**定义商铺中显示的图标 */
-        app.template.shop.shopAddIcon('减','<i style="background:#f07373;">减</i>');
-        app.template.shop.shopAddIcon('首','<i style="background:#70bc46;">首</i>');
-        app.template.shop.shopAddIcon('特','<i style="background:#f1884f;">特</i>'); 
-        app.template.shop.shopAddIcon('付','<i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">付</i>'); 
-        app.template.shop.shopAddIcon('票','<i style="background:#fff;color:#9071CB;border:1px solid;padding:0;">票</i>'); 
-        app.template.shop.shopAddIcon('保','<i style="background:#fff;color:#4B9A18;border:1px solid;padding:0;">保</i>');
-        app.template.shop.shopAddIcon('赔','<i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">赔</i>');
-    }
+    /**定义商铺中显示的图标 */
+    app.template.shop.shopAddIcon('减','<i style="background:#f07373;">减</i>');
+    app.template.shop.shopAddIcon('首','<i style="background:#70bc46;">首</i>');
+    app.template.shop.shopAddIcon('特','<i style="background:#f1884f;">特</i>'); 
+    app.template.shop.shopAddIcon('付','<i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">付</i>'); 
+    app.template.shop.shopAddIcon('票','<i style="background:#fff;color:#9071CB;border:1px solid;padding:0;">票</i>'); 
+    app.template.shop.shopAddIcon('保','<i style="background:#fff;color:#4B9A18;border:1px solid;padding:0;">保</i>');
+    app.template.shop.shopAddIcon('赔','<i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">赔</i>');
+    
     /**
+     * 对商铺的说明，出现在商铺被hover之后
+     */
+    function ShopInfo() {
+        
+    }
+    
+    /**
+     * 商铺
      * logo 商标图片
      * time 配送时间
      * title 商铺名称
      * location 商铺位置
+     * distance 商铺离用户的距离
      * sale 一个月售出的的单数
      * startCost 起送价格
      * cost 配送的费用
      * iconArr 商铺下面的标记以及它的说明，出现在对shop,hover之后
      */
-    function shop(logo,time,title,location,sale,startCost,cost,iconArr,shopIconInfo) {
+    function Shop(logo,time,title,location,sale,startCost,cost,iconArr,shopIconInfo) {
         this.shopTemplate = '';
         this.shop
+    }
+    
+    /**
+     * 商铺的显示区域
+     *　 
+     */
+    function Shops() {
+        
+    }
+    
+    /**
+     * 管理商铺分类的导航
+     */
+    function ClassIfy() {
+        
     }
 })();
 
