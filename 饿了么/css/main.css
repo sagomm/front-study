@@ -395,7 +395,7 @@ i {
 * 商铺的样式
 */
 .shops {
-    border: 0px solid #E6E6E6;
+    border: 1px solid #E6E6E6;
     margin-top: 40px;
     box-sizing: border-box;
 }
@@ -410,7 +410,7 @@ i {
 .shop .right {
     position: absolute;
     left: 110px;
-    right: 0;
+    right: 20px;
     top: 20px;
     bottom: 20px;
 }

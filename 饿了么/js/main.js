@@ -21,14 +21,28 @@ app.template = {
         }
     },
     shop: {
-        shopImg: function() {
-            return '';            
+        shopImg: function(image) {
+            return '<img class="logo" src="./images/'+image+'">';            
         },
-        shopIcon:function(value,color) {
-            return '<i style="color='+color+';>'+value+'</i>';
+        shopTime: function(time) {
+            return '<span class="timeinfo">'+time+' 分钟</span>';  
         },
-        shopTitle: function() {
-            return '';
+        shopTitle: function(title,location) {
+            return '<div class="title">'+title+'('+Location+')</div>';
+        },
+        shopSales: function(sale) {
+            return '<div class="sales">月售'+sale+'单</div>';        
+        },
+        shopTake: function(startCost,cost) {
+            return '<div class="take-out-info">'+startCost+'起送 / 配送费'+cost+'元</div>';    
+        },
+        // 注册商店下面的小图标
+        shopAddIcon : function(iconName,iconTemplate) {
+                                
+        },
+        // 得到整个商店模板
+        getShop: function(img,time,title,loaction,sale,startCost,cost,iconArr){
+                               
         }
     }    
 }
@@ -98,18 +112,12 @@ app.picBanner = (function () {
 /**
  * 页面商店的显示，包括两部分，一部分是商品的列表，一部分是商品的展示部分。
  */
-/**简单的观察者模式 */
-function Event(){
-    
-}
 
-app.classify = {
-    
-}
+/**先初始化页面，拿到模板填充到页面中*/
 
-app.shops = {
-    
-}
+
+
+
 
 
 
