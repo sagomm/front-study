@@ -405,7 +405,6 @@ i {
     font-size: 9pt;
     width: 25%;
     white-space: nowrap;
-    overflow: hidden;
     position: relative;
     cursor: pointer;
 }
@@ -487,12 +486,35 @@ i {
     width: 100%;
     background: white;
     color: black;
-    z-index: 999;
+    top:20px;
+    right: -100%;
+    border: 2px solid #ccc;
+    padding: 20px;
+}
+/*小三角*/
+.shopInfo::before {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border: inherit;
+    border-right-color:transparent;
+    border-bottom-color: transparent;
+    background: inherit;
+    transform: rotate(-45deg); 
+    margin-top: -9px;
+    margin-left: -25px;
 }
 .shopInfo .shopTitle {
-        
+    font-size: 25px;    
+    font-weight: 200;
+    border-bottom: 1px solid #ccc; 
+    height: 50px;
+    line-height: 40px;       
 }
-
+.shopInfo .icon {
+    
+}
 
 /**
 * 页脚
