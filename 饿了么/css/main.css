@@ -478,8 +478,16 @@ i {
     padding : 1px;
     border-radius: 2px;
 }
-/*商铺被hover之后的样式*/
-
+/*商铺被hover之后出现的商铺信息的样式*/
+.shopInfo {
+    position: absolute;
+    width: 100%;
+    background: white;
+    
+}
+.shopInfo .shopTitle {
+    
+}
 
 
 /**

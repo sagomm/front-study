@@ -1,4 +1,12 @@
+
+/*全局的范围设置*/
 .scope {
-    
+   width: 1230px;
+   margin: auto; 
 }
- 
+
+
+.header {
+    height: 32px;
+    position: relative;
+} 
