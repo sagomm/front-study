@@ -134,7 +134,7 @@ app.shop = (function (document) {
      * 对商铺的说明，出现在商铺被hover之后
      */
     function ShopInfo() {
-
+                        
     }
 
     /**
