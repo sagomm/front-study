@@ -556,8 +556,8 @@ i {
     bottom: 0;  
     right: 0;
 }
-.slideBar .slideList,
-.slideBar .cart {
+.slideBar > .slideList,
+.slideBar > .cart {
     position: absolute;
 }
 .slideBar .slideList {
@@ -567,12 +567,15 @@ i {
     top:0;
     bottom: 0;
     left: 0;
+}   
+.slideList .icon::before {
+    font-size: 25px;
+    text-align: center;
 }
 .slideList .order {
     margin-top: 90px;
-    font-size: 25px;
-    text-align: center;
     line-height: 50px;
+
 }
 .slideList .seprator {
     margin: 0 8px;
@@ -580,7 +583,8 @@ i {
     height: 1px;
 }
 .slideList .cart {
-    font-weight: 700;
+    font-weight: 700;    
+    font-size: 14px;
     padding:8px 8px;        
 }
 
