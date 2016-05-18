@@ -1,5 +1,5 @@
 /*
-* 一些样式的重置
+* 一些样式的重置,以及一些公共样式
 */
 
 a {
@@ -17,6 +17,36 @@ li {
 i {
     font-style: normal;
 }
+.scope{
+    margin: auto;
+    width: 1190px;  
+    min-width: 1190px;  
+}
+*{
+    margin: 0;
+    padding: 0;
+    font-family: PingFang SC,Lantinghei SC,Helvetica Neue,Microsoft Yahei,Hiragino Sans GB,Microsoft Sans Serif,WenQuanYi Micro Hei,sans;
+    box-sizing: border-box;
+}
+.clearfix::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+/*实现文本两端对齐*/
+.justify::after {
+    content:  '';
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+}
+div {
+    box-sizing: border-box;
+}
+/*******************
+* 开始页面样式    ***
+*******************/
+
 /*
 * 主包含容器，给侧边栏留下位置
 */
