@@ -508,20 +508,40 @@ i {
 .shopInfo .shopTitle {
     font-size: 25px;    
     font-weight: 200;
-    border-bottom: 1px solid #ccc; 
+    border-bottom: 1px solid #ccc;
+    margin-top: -10px;
     height: 50px;
     line-height: 40px;       
 }
-.shopInfo .icon {
-    
+.shopInfo .shopIcon {
+    margin: 10px 0;
+}
+.shopInfo .shopIcon i{
+    color: white;
+    padding :1px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.shopInfo .shopIcon span {
+    color: #999;
+}
+.shopInfo .takeaway-sale {
+    background: #E6E6E6;
+    margin-top:20px;
+    margin-bottom: 10px;
+    padding: 2px;
+}
+.shopInfo .takeaway-sale span{
+    margin-right: 3px;
+}
+.shopInfo .takeaway-sale em {
+    color: red;
+    font-style: normal;
+} 
+.shopInfo .shopIntro {
+    color:　#E6E6E6;
 }
 
-/**
-* 页脚
-*/
-.footer {
-    height: 284px;
-}
 
 /*
 * 页面侧边栏
@@ -530,9 +550,44 @@ i {
 .slideBar {
     position: fixed;
     color:rgb(51, 51, 51);
-    background-color: rgb(80, 77, 83);
-    width: 35px;
+    background-color:#E6E6E6;
+    width: 295px;
     top: 0;
     bottom: 0;  
     right: 0;
+}
+.slideBar .slideList,
+.slideBar .cart {
+    position: absolute;
+}
+.slideBar .slideList {
+    width: 35px;
+    background: #504D53;
+    color: #ccc;
+    top:0;
+    bottom: 0;
+    left: 0;
+}
+.slideList .order {
+    margin-top: 90px;
+    font-size: 25px;
+    text-align: center;
+    line-height: 50px;
+}
+.slideList .seprator {
+    margin: 0 8px;
+    background: #737074;
+    height: 1px;
+}
+.slideList .cart {
+    font-weight: 700;
+    padding:8px 8px;        
+}
+
+
+/**
+* 页脚
+*/
+.footer {
+    height: 284px;
 }
