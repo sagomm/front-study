@@ -29,7 +29,7 @@ i {
 * 页面顶部样式,全部float:left
 */
 
-.header {
+.container > .header {
     height: 60px;
     background-color: rgb(30, 137, 224);
     color: #fff;
@@ -556,26 +556,23 @@ i {
     bottom: 0;  
     right: 0;
 }
-.slideBar > .slideList,
-.slideBar > .cart {
+.slideBar > .slideList {
     position: absolute;
-}
-.slideBar .slideList {
     width: 35px;
     background: #504D53;
     color: #ccc;
     top:0;
     bottom: 0;
     left: 0;
+    text-align: center;
 }   
 .slideList .icon::before {
-    font-size: 25px;
-    text-align: center;
+    font-size: 20px;
+    font-weight: 400;
 }
 .slideList .order {
     margin-top: 90px;
     line-height: 50px;
-
 }
 .slideList .seprator {
     margin: 0 8px;
@@ -587,7 +584,40 @@ i {
     font-size: 14px;
     padding:8px 8px;        
 }
+.slideList .notice {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+.slideList .history {
+    margin-bottom: 130px;
+}
+.slideList .QR-code {
+    margin-bottom: 20px;
+}
+.slideList .service {}
 
+.slideBar > .cart {
+    padding-left: 35px;   
+}
+.slideBar > .cart > .header {
+    color: #333;
+    font-size:　16px;   
+    height: 35px;
+    line-height: 35px;
+    background: white;
+    box-shadow: 0px 1px 1px #ccc;
+    text-indent: 1em;
+}
+.slideBar > .cart > .header::before {
+    float: right;
+    margin-right: 10px;
+}
+.slideBar > .cart > .body {}
+
+.slideBar > .cart > .body > span {
+    font-size: 50px;
+    color: #999;
+}
 
 /**
 * 页脚
