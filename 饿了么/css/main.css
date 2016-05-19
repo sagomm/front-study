@@ -53,6 +53,7 @@ div {
 
 .container {
     padding-right: 35px;
+    background: #F7F7F7;
 }
 
 /*
@@ -585,6 +586,7 @@ div {
     top: 0;
     bottom: 0;  
     right: 0;
+    display: none;
 }
 .slideBar > .slideList {
     position: absolute;
@@ -599,6 +601,9 @@ div {
 .slideList .icon::before {
     font-size: 20px;
     font-weight: 400;
+}
+.slideList > .icon {
+    cursor: pointer;
 }
 .slideList .order {
     margin-top: 90px;
@@ -642,12 +647,22 @@ div {
     float: right;
     margin-right: 10px;
 }
-.slideBar > .cart > .body {}
+.slideBar > .cart > .body {
+    padding-top: 50px;
+    text-align: center;
+}
 
 .slideBar > .cart > .body > span {
     font-size: 50px;
     color: #999;
-    text-align: center;
+}
+.slideBar > .cart > .body > h3{
+    color: #333;
+    margin-top:20px;
+}
+.slideBar > .cart > .body > p {
+    font-size: 9pt;
+    color: #999;
 }
 
 /**
@@ -655,4 +670,33 @@ div {
 */
 .footer {
     height: 284px;
+    margin-top: 177px;
+}
+.footer .footer-contect,
+.footer .footer-link,
+.footer .footer-mobile {
+    vertical-align: top;
+}
+.footer > .footer-link {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 120px;
+}
+.footer > .footer-link > h3 {
+    font-size: 14px;
+    line-height: 30px;
+    font-weight: 400;
+}
+.footer > .footer-link  li {
+    font-size: 9pt;
+    color: #999;
+    line-height: 24px;
+}
+.footer > .footer-contect {
+    display: inline-block;
+    color: #666;
+    font-size: 14px;
+}
+.footer > .footer-mobile {
+    display: inline-block;
 }
