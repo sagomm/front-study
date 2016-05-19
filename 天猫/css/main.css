@@ -14,7 +14,6 @@ em {
 }
 
 /**************开始页面样式***********/
-
 /**上半部分的广告***/
 
 .ad {
@@ -32,9 +31,17 @@ em {
 .ad > img {
     position: relative;
 }
+
 /****头部广告部分结束**/
 
-/*****头部***********/
+/***页面主体**************/
+.container {
+    width: 1230px;
+    margin: auto;
+}
+/***********************/
+
+/*****页面头部*******/
 
 .header {
     height: 32px;
@@ -42,6 +49,7 @@ em {
     color: #999;
     font-size: 12px;
     box-shadow: 0px 1px 0px #ccc;
+    background: #F2F2F2;
 }
 .header > .login {
    display: inline-block;

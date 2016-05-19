@@ -647,6 +647,7 @@ div {
 .slideBar > .cart > .body > span {
     font-size: 50px;
     color: #999;
+    text-align: center;
 }
 
 /**
