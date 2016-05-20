@@ -662,7 +662,7 @@ div {
 }
 .slideBar > .cart > .body > p {
     font-size: 9pt;
-    color: #999;
+    color: #999;    
 }
 
 /**
@@ -670,7 +670,9 @@ div {
 */
 .footer {
     height: 284px;
-    margin-top: 177px;
+    margin-top: 157px;
+    border-top: 1px solid #ccc;
+    padding-top: 30px;
 }
 .footer .footer-contect,
 .footer .footer-link,
@@ -692,11 +694,56 @@ div {
     color: #999;
     line-height: 24px;
 }
-.footer > .footer-contect {
+.footer > .footer-connect {
     display: inline-block;
     color: #666;
     font-size: 14px;
 }
 .footer > .footer-mobile {
     display: inline-block;
+}
+.footer > .footer-connect {
+    font-size: 14px;
+    padding-left: 3%;
+    border-left: 1px solid #E6E6E6;
+    width: 23%;
+}
+.footer > .footer-connect  .footer-connect-item {
+    margin-bottom: 20px;    
+}
+.footer .footer-connect-item > i {
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;    
+}
+.footer .footer-connect-item > .icon-wechat:hover {
+    color: green;
+}
+.footer .footer-connect-item > .icon-weibo:hover {
+    color: red;
+}
+.footer .footer-connect-item > .icon-renren:hover {
+    color: blue;
+} 
+.footer > .footer-mobile {
+    width: 265px;
+    float: right;    
+}
+.footer > .footer-mobile img {
+    height: 90px;
+    width: 90px;
+    float: left;
+    margin-right: 20px;
+}
+.footer > .footer-mobile .footer-mobile-info {
+    vertical-align: middle;
+}
+.footer > .footer-mobile .footer-mobile-info h3 {
+    font-size: 1pc;
+    margin-top: 20px;
+}
+.footer > .footer-mobile .footer-mobile-info p {
+    font-size:9pt;
+    color: #666;
+    margin-top: 5px;
 }
