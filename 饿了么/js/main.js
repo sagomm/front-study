@@ -127,45 +127,73 @@ app.picBanner = (function (document) {
  */
 app.shop = (function (document) {
     /**分类事件，每次一个分类按钮触发后，都会发送这样的事件 */
-    function ClassIfyEvent() {}
-    /**先设置点击样式*/
-    function _active(e) {
-        return function(e){
-            console.log(e);
-            e.target.className = 'active';  
-        }
-    }
-    var _sorts_0 = document.getElementsByClassName('value-sort')[0].childNodes; 
-    for (var i = 0 ;i < _sorts_0.length ; i++) {
-        if(_sorts_0[i].nodeName == 'LI' && _sorts_0[i].className == '' || _sorts_0[i].className == 'active'){
+    function ClassIfyEvent() { }
+    
+    var _sorts_0 = document.getElementsByClassName('value-sort')[0].childNodes;
+    for (var i = 0; i < _sorts_0.length; i++) {
+        if (_sorts_0[i].nodeName == 'LI' && _sorts_0[i].className == '' || _sorts_0[i].className == 'active') {
             _sorts_0[i].onclick = _active();
             console.log(_sorts_0[i]);
         }
     }
+    
+    //对dom类属性的一些操作
+    function isHasClass(element, className) {
+        var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+        return element.className.match(reg);
+    }
+    function addClass(element, className) {
+        element = document.getElementById(element);
+        if (!this.ishasClass(element, className)) {
+            element.className += " " + className;
+        }
+    }
+    function removeClass(element, className) {
+        element = document.getElementById(element);
+        if (ishasClass(element, className)) {
+            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+            element.className = element.className.replace(reg, ' ');
+        }
+    }
     /**管理分类的类 */
     function Classify(_start) {
-        //为初始化点击事件，等
-        this.start = _start.bind(this,this.doms);
         //储存这个分类的所有可触发按钮
         this.doms = [];
+        //为初始化点击事件，等
+        this.start = _start.bind(this, this.doms);
         //对应上面按钮的事件，如果按钮被点击，则触发相应事件
-        this.actives = [];                
+        this.actives = [];
     }
-    Classify.prototype.addClassify = function (dom,_active) {
-        this.doms.push(dom); 
-        this.actives.push(_active);                   
+    Classify.prototype.addClassify = function (dom, _active) {
+        this.doms.push(dom);
+        this.actives.push(_active);
+        this.start();
     }
     /**保证一个doms中，只有一个被active，对应页面分类中按钮的click样式(默认排序，销量高，评价好) */
     function _active(doms) {
+        //防闭包函数
+        function _onclick(last) {
+            return function (e, last) {
+                if (!isHasClass(this, 'active')) {
+                    removeClass(last, 'active');
+                    addClass(this, 'active');
+                    last = this;
+                }
+            }
+        }
         var last = undefined;
-                                                   
+        for (i in doms) {
+            doms[i].onclick = _onclick(last);
+            // console.log(doms[i]);
+        }
     }
+
     var sort_0 = new Classify(_active);
-    var sort_1 = new Classify(_active);
-    var sort_3 = new Classify(function(){
-        
-    });            
-    sort_0.addClassify();
+    var sort_0_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_0'));
+    for(var i in sort_0_dom){
+        console.log(sort_0_dom[i]);
+        sort_0.addClassify(sort_0_dom[i],function () {});    
+    }
     
 })(window.document);
 
