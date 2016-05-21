@@ -97,7 +97,7 @@ app.picBanner = (function (document) {
     }
 
 
-    // 自动播放的动画，没间隔几秒模拟点击按钮
+    // 自动播放的动画，每间隔几秒模拟点击按钮
     function animation(pictures, toggles, timeDelay) {
         var _index = currentIndex;
         var picTotals = pictures.childNodes.length;
@@ -129,6 +129,7 @@ app.picBanner = (function (document) {
 
 app.shop = (function (document) {
     var shops = document.getElementById('shops');
+    var classify = document.getElementById('');
 
     /**
      * 对商铺的说明，出现在商铺被hover之后
@@ -166,8 +167,7 @@ app.shop = (function (document) {
      * 
      */
     function Classify() {
-        
-                
+                        
     }
 })(window.document);
 

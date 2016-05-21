@@ -586,7 +586,7 @@ div {
     top: 0;
     bottom: 0;  
     right: 0;
-    display: none;
+    transform: translateX(260px);
 }
 .slideBar > .slideList {
     position: absolute;
@@ -598,13 +598,28 @@ div {
     left: 0;
     text-align: center;
 }   
+.slideList .active {
+    background: #26A2FF;
+    color: #fff;
+}
+.slideList .icon:hover {
+    background: #26A2FF;
+    color: #fff;
+}
 .slideList .icon::before {
     font-size: 20px;
     font-weight: 400;
 }
-.slideList > .icon {
+.slideList  .icon {
     cursor: pointer;
 }
+.slideList .order,
+.slideList .notice,
+.slideList .history,
+.slideList .QR-code,
+.slideList .service {
+    line-height: 30px;
+} 
 .slideList .order {
     margin-top: 90px;
     line-height: 50px;
@@ -629,7 +644,12 @@ div {
 .slideList .QR-code {
     margin-bottom: 20px;
 }
-.slideList .service {}
+.slideList .service {
+    margin-bottom: 20px;
+}
+.slideList .icon-top {
+    display: none;
+}
 
 .slideBar > .cart {
     padding-left: 35px;   
