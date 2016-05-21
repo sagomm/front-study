@@ -37,10 +37,10 @@ app.template = {
             return '<div class="take-out-info">' + startCost + '起送 / 配送费' + cost + '元</div>';
         },
         // 注册商店下面的小图标
-        shopAddIcon: function (iconName, iconTemplate) {
-            this.shopArr[iconName] = iconTemplate;
-        },
         shopIconArr: [],
+        shopAddIcon: function (iconName, iconTemplate) {
+            this.shopIconArr[iconName] = iconTemplate;
+        },
         // 得到整个商店模板
         getShop: function (img, time, title, loaction, sale, startCost, cost, iconArr) {
             var shopIcons = undefined;
@@ -92,7 +92,6 @@ app.picBanner = (function (document) {
     function showPic(toggle) {
         var ev = document.createEvent('MouseEvents');
         ev.initEvent('click', true, true);
-        //为input分发点击事件，当初html不该这么写，但是写了就懒得改了
         toggle.childNodes[0].dispatchEvent(ev);
     }
 
@@ -126,49 +125,48 @@ app.picBanner = (function (document) {
 /**
  * 页面商店的显示，包括两部分，一部分是商品的列表，一部分是商品的展示部分。
  */
-
 app.shop = (function (document) {
-    var shops = document.getElementById('shops');
-    var classify = document.getElementById('');
-
-    /**
-     * 对商铺的说明，出现在商铺被hover之后
-     */
-    function ShopInfo() {
-                        
+    /**分类事件，每次一个分类按钮触发后，都会发送这样的事件 */
+    function ClassIfyEvent() {}
+    /**先设置点击样式*/
+    function _active(e) {
+        return function(e){
+            console.log(e);
+            e.target.className = 'active';  
+        }
     }
-
-    /**
-     * 商铺
-     * logo 商标图片 string 
-     * time 配送时间 string 
-     * title 商铺名称 string 
-     * location 商铺位置 string 
-     * distance 商铺离用户的距离 string | int
-     * sale 一个月售出的的单数 string | int 
-     * startCost 起送价格 string | int 
-     * cost 配送的费用 string | int 
-     * iconArr 商铺下面的标记以及它的说明，出现在对shop,hover之后 
-     */
-    function Shop(logo, time, title, location, sale, startCost, cost, iconArr, shopIconInfo) {
-        this.shopTemplate = '';
+    var _sorts_0 = document.getElementsByClassName('value-sort')[0].childNodes; 
+    for (var i = 0 ;i < _sorts_0.length ; i++) {
+        if(_sorts_0[i].nodeName == 'LI' && _sorts_0[i].className == '' || _sorts_0[i].className == 'active'){
+            _sorts_0[i].onclick = _active();
+            console.log(_sorts_0[i]);
+        }
     }
-
-    /**
-     * 商铺的显示区域
-     *　 
-     */
-    function Shops() {
-               
+    /**管理分类的类 */
+    function Classify(_start) {
+        //为初始化点击事件，等
+        this.start = _start.bind(this,this.doms);
+        //储存这个分类的所有可触发按钮
+        this.doms = [];
+        //对应上面按钮的事件，如果按钮被点击，则触发相应事件
+        this.actives = [];                
     }
-
-    /**
-     * 管理商铺分类的导航
-     * 
-     */
-    function Classify() {
-                        
+    Classify.prototype.addClassify = function (dom,_active) {
+        this.doms.push(dom); 
+        this.actives.push(_active);                   
     }
+    /**保证一个doms中，只有一个被active，对应页面分类中按钮的click样式(默认排序，销量高，评价好) */
+    function _active(doms) {
+        var last = undefined;
+                                                   
+    }
+    var sort_0 = new Classify(_active);
+    var sort_1 = new Classify(_active);
+    var sort_3 = new Classify(function(){
+        
+    });            
+    sort_0.addClassify();
+    
 })(window.document);
 
 
@@ -197,12 +195,10 @@ app.template.shop.shopAddIcon('赔', '<i style="background:#fff;color:#FF4E00;bo
 /**添加商铺 
  * 商铺信息　object 
  */
-app.shop.addShop({
-    
-});
+
 
 /**显示出商铺 */
-app.shop.show();
+// app.shop.show();
 
 
 
