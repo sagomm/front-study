@@ -151,7 +151,6 @@ app.shop = (function (document) {
             element.className = element.className.replace(reg, ' ');
         }
     }
-    
     /**
      * 管理商铺分类的类
      */
@@ -160,12 +159,30 @@ app.shop = (function (document) {
         this.doms = [];
         //这个回调是为了对这些按钮进行基本的样式设置，比如只1个按钮能focus
         this.start = _start.bind(this, this.doms);
-        //储存这个分类所有的可触发按钮触发的回调函数，主要用作发送事件给页面通知它显示相应的商铺商铺元素
+        //储存这个分类所有的可触发按钮触发的回调函数，通知页面显示相应的商铺商铺元素
         this.actives = [];
     }
     Classify.prototype.addClassify = function (dom, _active) {
         this.doms.push(dom);
         this.actives.push(_active);
+    }
+    /**
+     * 商铺的显示类
+     * 作用:
+     *     填充商铺数据到页面中
+     *     根据页面的按钮配置商铺的显示方式
+     */
+    function ShopArea(){
+        //现在正在页面中展示的商铺
+        this.currentShops = [];
+        //所有添加的商铺
+        this.shops = [];
+    }
+    ShopArea.prototype.addShop= function () {
+            
+    }
+    ShopArea.prototype.showAllShop = function () {
+            
     }
     /**
      * 下面的代码开始初始化几个分类
@@ -175,7 +192,7 @@ app.shop = (function (document) {
      */
     var sort_0 = new Classify(function(doms){
         var last = doms[0];
-        //防止闭包的函数,下同
+        //防止闭包的临时函数
         function _onclick() {
             if (!isHasClass(this, 'active')) {
                 removeClass(last, 'active');
@@ -190,6 +207,7 @@ app.shop = (function (document) {
     var sort_1 = new Classify(function(doms){
         var showClassify = document.getElementById('showClassify');
         var last = doms[0];
+        //防止闭包的临时函数
         function _onclick() {
             if (!isHasClass(this, 'active')) {
                 removeClass(last, 'active');
@@ -203,10 +221,19 @@ app.shop = (function (document) {
         }                 
     });
     var sort_3 = new Classify(function(doms){
-        
+        function _onclick() {
+            var ev = document.createEvent('MouseEvents');
+            ev.initEvent('click', true, true);
+            this.childNodes[0].dispatchEvent(ev);    
+        }
+        for(i in doms){
+            doms[i].onclick = _onclick;
+        }
     });
+    
     var sort_0_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_0'));
     var sort_1_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_1'));
+    
 })(window.document);
 
 
