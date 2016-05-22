@@ -123,22 +123,15 @@ app.picBanner = (function (document) {
 })(window.document)
 
 /**
- * 页面商店的显示，包括两部分，一部分是商品的列表，一部分是商品的展示部分。
+ * 页面商店部分
+ * 包括商店导航栏，对商店进行分类的一些按钮
+ * 包括商店的显示部分，对根据导航条的状态显示商店
  */
 app.shop = (function (document) {
-    /**分类事件，每次一个分类按钮触发后，都会发送这样的事件 */
-    function ClassIfyEvent() { }
-
-    var _sorts_0 = document.getElementsByClassName('value-sort')[0].childNodes;
-    for (var i = 0; i < _sorts_0.length; i++) {
-        if (_sorts_0[i].nodeName == 'LI' && _sorts_0[i].className == '' || _sorts_0[i].className == 'active') {
-            _sorts_0[i].onclick = _active();
-            console.log(_sorts_0[i]);
-        }
-    }
-    /**储存一下，当前的文档的this值 */
-    var That = this;
-    //对dom类属性的一些操作
+    /**
+     * 一些分类按钮样式的设置,用事件机制通知页面应该显示出那些商店
+     */
+    /**对页面中dom的类名的操作，时候有，添加类名字，删除类名字 */
     function isHasClass(element, className) {
         if (element) {
             var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
@@ -158,44 +151,62 @@ app.shop = (function (document) {
             element.className = element.className.replace(reg, ' ');
         }
     }
-    /**管理分类的类 */
+    
+    /**
+     * 管理商铺分类的类
+     */
     function Classify(_start) {
         //储存这个分类的所有可触发按钮
         this.doms = [];
-        //为初始化点击事件，等
+        //这个回调是为了对这些按钮进行基本的样式设置，比如只1个按钮能focus
         this.start = _start.bind(this, this.doms);
-        //对应上面按钮的事件，如果按钮被点击，则触发相应事件
+        //储存这个分类所有的可触发按钮触发的回调函数，主要用作发送事件给页面通知它显示相应的商铺商铺元素
         this.actives = [];
     }
     Classify.prototype.addClassify = function (dom, _active) {
         this.doms.push(dom);
         this.actives.push(_active);
-        this.start();
     }
-    /**保证一个doms中，只有一个被active，对应页面分类中按钮的click样式(默认排序，销量高，评价好) */
-    function _active(doms) {
-        var last = undefined;
-        //防闭包函数
-        function _onclick(last) {
-            return function (e, last) {
-                if (!isHasClass(this, 'active')) {
-                    removeClass(last, 'active');
-                    addClass(this, 'active');
-                    last = this;
-                }
+    /**
+     * 下面的代码开始初始化几个分类
+     * 0.默认排序到起送金额这类，在页面中用sort_0标注
+     * 1.起送价格这个分类，在页面中用sort_1标注
+     * 2.蜂鸟快松到在线支付这个类，在页面中用sort_2标注
+     */
+    var sort_0 = new Classify(function(doms){
+        var last = doms[0];
+        //防止闭包的函数,下同
+        function _onclick() {
+            if (!isHasClass(this, 'active')) {
+                removeClass(last, 'active');
+                addClass(this, 'active');
+                last = this;
             }
         }
         for (i in doms) {
-            doms[i].onclick = _onclick(last);
+            doms[i].onclick = _onclick;
         }
-    }
-
-    var sort_0 = new Classify(_active);
+    });
+    var sort_1 = new Classify(function(doms){
+        var showClassify = document.getElementById('showClassify');
+        var last = doms[0];
+        function _onclick() {
+            if (!isHasClass(this, 'active')) {
+                removeClass(last, 'active');
+                addClass(this, 'active');
+                last = this;
+                showClassify.innerHTML = '起送价格: ' + this.innerHTML;
+            }
+        }
+        for(i in doms){
+            doms[i].onclick = _onclick;
+        }                 
+    });
+    var sort_3 = new Classify(function(doms){
+        
+    });
     var sort_0_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_0'));
-    for (var i in sort_0_dom) {
-        console.log(sort_0_dom[i]);
-        sort_0.addClassify(sort_0_dom[i], function () { });
-    }
+    var sort_1_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_1'));
 })(window.document);
 
 
