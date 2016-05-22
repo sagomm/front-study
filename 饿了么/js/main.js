@@ -182,13 +182,11 @@ app.shop = (function (document) {
                     removeClass(last, 'active');
                     addClass(this, 'active');
                     last = this;
-                    console.log(last);
                 }
             }
         }
         for (i in doms) {
             doms[i].onclick = _onclick(last);
-            // console.log(doms[i]);
         }
     }
 
