@@ -42,7 +42,7 @@ app.template = {
             this.shopIconArr[iconName] = iconTemplate;
         },
         // 得到整个商店模板
-        getShop: function (img, time, title, loaction, sale, startCost, cost, iconArr) {
+        getShop: function (title, img, time, loaction, sale, startCost, cost, iconArr) {
             var shopIcons = undefined;
             for (i in iconArr) {
                 shopIcons += this.shopIconArr[iconArr[i]];
@@ -75,10 +75,8 @@ app.picBanner = (function (document) {
     }
     // 为页面的按钮绑定图片
     function bindToggles(pics, toggles) {
-        var index = 0;
-        for (var i = 0; i < toggles.childNodes.length; i++) {
-            toggles.childNodes[i].addEventListener('click', _showPicForToggle(pics, index), true);
-            index++;
+        for (var i = 0; i < toggles.children.length; i++) {
+            toggles.children[i].addEventListener('click', _showPicForToggle(pics, i), true);
         }
     }
     // 防止闭包的临时函数
@@ -92,17 +90,17 @@ app.picBanner = (function (document) {
     function showPic(toggle) {
         var ev = document.createEvent('MouseEvents');
         ev.initEvent('click', true, true);
-        toggle.childNodes[0].dispatchEvent(ev);
+        toggle.children[0].dispatchEvent(ev);
     }
 
 
     // 自动播放的动画，每间隔几秒模拟点击按钮
     function animation(pictures, toggles, timeDelay) {
         var _index = currentIndex;
-        var picTotals = pictures.childNodes.length;
+        var picTotals = pictures.children.length;
         (function _partAni() {
             setTimeout(function () {
-                showPic(toggles.childNodes[(_index % picTotals)]);
+                showPic(toggles.children[(_index % picTotals)]);
                 _index = _index % picTotals;
                 currentIndex = ++_index;
                 _partAni();
@@ -131,7 +129,7 @@ app.shop = (function (document) {
     /**
      * 一些分类按钮样式的设置,用事件机制通知页面应该显示出那些商店
      */
-    /**对页面中dom的类名的操作，时候有，添加类名字，删除类名字 */
+    /**对页面中dom的类名的操作，是否存在，添加类名字，删除类名字 */
     function isHasClass(element, className) {
         if (element) {
             var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
@@ -167,22 +165,61 @@ app.shop = (function (document) {
         this.actives.push(_active);
     }
     /**
-     * 商铺的显示类
-     * 作用:
-     *     填充商铺数据到页面中
-     *     根据页面的按钮配置商铺的显示方式
+     * 商铺的显示
      */
-    function ShopArea(){
+        /**商铺类
+         * titel:商铺的名称
+         * logo:商铺的logo地址
+         * intro:商铺的介绍
+         * evaluate:商铺的星级评价[0-5]
+         * spendTime:商铺配送时间
+         * lessMoney:商铺的起送金额
+         * location:商铺的地点
+         * distance:商铺离用户的距离
+         * saleInMonth：商铺一个月的营销额度
+         * Special [Object]: 商铺的其他信息，非必要
+         */
+    function Shop(id,title, logo, intro, evaluate, spendTime, lessMoney, location, distance, saleInMonth, Special) {
+        this.title = title;
+        this.logo = logo;
+        this.intro = intro;
+        this.evaluate = evaluate;
+        this.spendTime = spendTime;
+        this.lessMoney = lessMoney;
+        this.sendMondy = sendMondy;
+        this.location = location;
+        this.saleInMonth = saleInMonth;
+        this.distance = distance;
+        this.Special = Special;
+        this.instanceHTML = app.template.shop.getShop(id);
+        this.id = id;
+    }
+    Shop.prototype.show = function (shopArea) {
+        shopArea.innerHTML += this.instance;   
+    }
+    Shop.prototype.hidden = function (shopArea) {
+        shopArea.children.indexof(this.instance);
+    }
+    
+    /**
+     * 商铺的显示区域
+     * 填充商铺数据到页面中
+     * 根据页面的按钮配置商铺的显示方式
+     */
+    function ShopArea() {
         //现在正在页面中展示的商铺
         this.currentShops = [];
         //所有添加的商铺
         this.shops = [];
     }
-    ShopArea.prototype.addShop= function () {
-            
+    ShopArea.prototype.addShop = function () {
+
     }
     ShopArea.prototype.showAllShop = function () {
-            
+        
+    }
+    ShopArea.prototype.changeCurrentShops = function () {
+
     }
     /**
      * 下面的代码开始初始化几个分类
@@ -190,7 +227,7 @@ app.shop = (function (document) {
      * 1.起送价格这个分类，在页面中用sort_1标注
      * 2.蜂鸟快松到在线支付这个类，在页面中用sort_2标注
      */
-    var sort_0 = new Classify(function(doms){
+    var sort_0 = new Classify(function (doms) {
         var last = doms[0];
         //防止闭包的临时函数
         function _onclick() {
@@ -204,7 +241,7 @@ app.shop = (function (document) {
             doms[i].onclick = _onclick;
         }
     });
-    var sort_1 = new Classify(function(doms){
+    var sort_1 = new Classify(function (doms) {
         var showClassify = document.getElementById('showClassify');
         var last = doms[0];
         //防止闭包的临时函数
@@ -216,24 +253,24 @@ app.shop = (function (document) {
                 showClassify.innerHTML = '起送价格: ' + this.innerHTML;
             }
         }
-        for(i in doms){
+        for (i in doms) {
             doms[i].onclick = _onclick;
-        }                 
+        }
     });
-    var sort_3 = new Classify(function(doms){
+    var sort_3 = new Classify(function (doms) {
         function _onclick() {
             var ev = document.createEvent('MouseEvents');
             ev.initEvent('click', true, true);
-            this.childNodes[0].dispatchEvent(ev);    
+            this.children[0].dispatchEvent(ev);
         }
-        for(i in doms){
+        for (i in doms) {
             doms[i].onclick = _onclick;
         }
     });
-    
+
     var sort_0_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_0'));
     var sort_1_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_1'));
-    
+
 })(window.document);
 
 
