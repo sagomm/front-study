@@ -511,17 +511,32 @@ div {
 .shop + .shopInfo:hover {
     display: block;
 }
-/*商铺被hover之后出现的商铺信息的样式*/
+/*商铺被hover之后出现的商铺信息的样式
+* 分四种情况，一种是以底边对齐向上，一种是以顶边对齐向下
+* 一种出现在左边，一种出现在右边
+*/
 .shopInfo {
     position: absolute;
     width: 100%;
     background: white;
     color: black;
-    top:20px;
-    right: -100%;
     border: 2px solid #ccc;
     padding: 20px;
+    padding-bottom: 30px;    
 }
+.shopInfo-top {
+    top: 20px;
+}
+.shopInfo-bottom {
+    bottom: 20px;
+}
+.shopInfo-left {
+    left: -100%;
+}
+.shopInfo-right {
+    right: -100%;
+}
+
 /*小三角*/
 .shopInfo::before,
 .shopInfo::after {
@@ -535,22 +550,23 @@ div {
     background: inherit;
     display: none;
 }
-.left .shopInfo::before {
-    transform: rotate(-45deg); 
+.shopInfo-top::before {
     display: block;
-    left:-4px;
 }
-.right .shopInfo::after {
-    transform: rotate(135deg); 
+.shopInfo-bottom::after{
     display: block;
-    right: -3px;
 }
-.left .shopInfo::after {
-    
+.shopInfo-left::after,
+.shopInfo-left::before {
+    transform: rotate(135deg);
+    right: -5px;
 }
-.right .shopInfo::before {
-    
+.shopInfo-right::after,
+.shopInfo-right::before {
+    transform: rotate(-45deg);
+    left: -5px;
 }
+/*shopInfo内部元素的样式*/
 .shopInfo .shopTitle {
     font-size: 25px;    
     font-weight: 200;
@@ -649,7 +665,7 @@ div {
     font-size: 14px;
     padding:8px 8px;        
 }
-.slideList .notice {
+.   slideList .notice {
     margin-top: 15px;
     margin-bottom: 20px;
 }
