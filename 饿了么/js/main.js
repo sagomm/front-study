@@ -9,10 +9,10 @@ var app = {}
 
 app.template = {
     picBanner: {
-        img: function (src, num) {
+        getImg: function (src, num) {
             return '<img src="./images/' + src + '" alt="' + num + '">';
         },
-        toggles: function (num) {
+        getToggles: function (num) {
             if (num == 0) {
                 return '<li><input name="picBanner" type="radio" checked><a href="#">' + 1 + '</a></li>';
             } else {
@@ -55,7 +55,19 @@ app.template = {
     },
     /**在页面中对shop hover之后出现的说明模块的模板 */
     shopInfo: {
-
+        shopTitle: function (title) {
+            return '<div class="shopTitle">' + title + '</div>';
+        },
+        takeSale: function (lessMoney, cost, sendTime) {
+            return '<div class="takeaway-sale"><span><em>' + lessMoney + '</em>元起送</span><span>配送费用<em>' + cost + '</em>元</span><span>平均<em>' + sendTime + '</em>分钟送达</span></div>';
+        },
+        shopIntro: function (intro) {
+            return '<div class="shopIntro">' + intro + '</div>';
+        },
+        getShopInfo: function (iconArr) {
+                
+            return '';
+        }
     }
 }
 
@@ -69,8 +81,8 @@ app.picBanner = (function (document) {
     // 拿到模板代码，填充数据到页面中
     function create(pictures, toggles, picarr) {
         for (var i in picarr) {
-            pictures.innerHTML += app.template.picBanner.img(picarr[i], i);
-            toggles.innerHTML += app.template.picBanner.toggles(i);
+            pictures.innerHTML += app.template.picBanner.getImg(picarr[i], i);
+            toggles.innerHTML += app.template.picBanner.getToggles(i);
         }
     }
     // 为页面的按钮绑定图片
@@ -168,6 +180,7 @@ app.shop = (function (document) {
      * 商铺的显示
      */
         /**商铺类
+         * id：商铺的编号，在html中为id属性的值
          * titel:商铺的名称
          * logo:商铺的logo地址
          * intro:商铺的介绍
@@ -179,7 +192,7 @@ app.shop = (function (document) {
          * saleInMonth：商铺一个月的营销额度
          * Special [Object]: 商铺的其他信息，非必要
          */
-    function Shop(id,title, logo, intro, evaluate, spendTime, lessMoney, location, distance, saleInMonth, Special) {
+    function Shop(id, title, logo, intro, evaluate, spendTime, lessMoney, location, distance, saleInMonth, Special) {
         this.title = title;
         this.logo = logo;
         this.intro = intro;
@@ -191,16 +204,32 @@ app.shop = (function (document) {
         this.saleInMonth = saleInMonth;
         this.distance = distance;
         this.Special = Special;
-        this.instanceHTML = app.template.shop.getShop(id);
+        this.instanceHTML = app.template.shop.getShop(title, img, time, loaction, sale, startCost, cost, iconArr);
         this.id = id;
     }
     Shop.prototype.show = function (shopArea) {
-        shopArea.innerHTML += this.instance;   
+        shopArea.innerHTML += this.instance;
+        var dom = shopArea.getElementById(this.id);
+        dom.onmouseover = function () {
+            setTimeout(function () {
+                this.getElementsByClassName('shopInfo')[0].style.display = 'block';
+            }.bind(this), 100);
+        };
+        dom.onmouseout = function () {
+            this.sytle.display = 'none';
+        }
+    }
+    Shop.prototype.getHTML = function () {
+        //得到html代码，在这里定义一些其他参数的配饰
+        this, instanceHTML = app.template.shop.getShop();
     }
     Shop.prototype.hidden = function (shopArea) {
-        shopArea.children.indexof(this.instance);
+        var dom = shopArea.getElementById(this.id);
+        if (dom) {
+            shopArea.removeChild(dom);
+        }
     }
-    
+
     /**
      * 商铺的显示区域
      * 填充商铺数据到页面中
@@ -212,11 +241,11 @@ app.shop = (function (document) {
         //所有添加的商铺
         this.shops = [];
     }
-    ShopArea.prototype.addShop = function () {
-
+    ShopArea.prototype.addShop = function (shop) {
+        this.currentShops.push(shop);
     }
     ShopArea.prototype.showAllShop = function () {
-        
+
     }
     ShopArea.prototype.changeCurrentShops = function () {
 
@@ -270,7 +299,7 @@ app.shop = (function (document) {
 
     var sort_0_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_0'));
     var sort_1_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_1'));
-
+    var sort_2_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_2'));
 })(window.document);
 
 
@@ -287,10 +316,12 @@ app.shop = (function (document) {
 app.picBanner.init(document.getElementById('picBanner'), ['1.png', '2.png', '3.png']);
 
 // 初始化页面商铺们
-/**定义商铺中显示的图标 */
-app.template.shop.shopAddIcon('减', '<i style="background:#f07373;">减</i>');
-app.template.shop.shopAddIcon('首', '<i style="background:#70bc46;">首</i>');
-app.template.shop.shopAddIcon('特', '<i style="background:#f1884f;">特</i>');
+ /**定义商铺中显示的图标 
+ *　图标的类型，图标的样式，图标的说明 
+ */
+app.template.shop.shopAddIcon('减', '<i style="background:#f07373;">减</i>','在线支付满２８减８，满６０减１６(<span style="color:red;">手机客户端专享</span>)');
+app.template.shop.shopAddIcon('首', '<i style="background:#70bc46;">首</i>','(不与其他活动同享)新用户下单首减１３元(<span style="color:red;">手机客户端专享</span>)');
+app.template.shop.shopAddIcon('特', '<i style="background:#f1884f;">特</i>','');
 app.template.shop.shopAddIcon('付', '<i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">付</i>');
 app.template.shop.shopAddIcon('票', '<i style="background:#fff;color:#9071CB;border:1px solid;padding:0;">票</i>');
 app.template.shop.shopAddIcon('保', '<i style="background:#fff;color:#4B9A18;border:1px solid;padding:0;">保</i>');
@@ -308,3 +339,4 @@ app.template.shop.shopAddIcon('赔', '<i style="background:#fff;color:#FF4E00;bo
 
 
 
+var info = document.getElementsByClassName('shopInfo')[0];

@@ -523,7 +523,8 @@ div {
     padding: 20px;
 }
 /*小三角*/
-.shopInfo::before {
+.shopInfo::before,
+.shopInfo::after {
     content: '';
     position: absolute;
     width: 5px;
@@ -532,9 +533,23 @@ div {
     border-right-color:transparent;
     border-bottom-color: transparent;
     background: inherit;
+    display: none;
+}
+.left .shopInfo::before {
     transform: rotate(-45deg); 
-    margin-top: -9px;
-    margin-left: -25px;
+    display: block;
+    left:-4px;
+}
+.right .shopInfo::after {
+    transform: rotate(135deg); 
+    display: block;
+    right: -3px;
+}
+.left .shopInfo::after {
+    
+}
+.right .shopInfo::before {
+    
 }
 .shopInfo .shopTitle {
     font-size: 25px;    
