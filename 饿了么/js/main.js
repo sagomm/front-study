@@ -334,9 +334,33 @@ app.template.shop.shopAddIcon('赔', '<i style="background:#fff;color:#FF4E00;bo
 
 /**显示出商铺 */
 // app.shop.show();
+var shop = document.getElementsByClassName('shop')[1];
+var info = document.getElementsByClassName('shopInfo')[1];
+var shops = document.getElementsByClassName('shops')[0];
+var id = undefined;
+
+function show(dom){
+    var offset = dom.parentNode.offsetWidth-dom.parentNode.offsetLeft + dom.offsetLeft + dom.offsetWidth;
+    /**计算出距离，一个是视窗的Y距离，一个是距离视窗的X距离 */
+    if(offset < dom.offsetWidth){
+        //左边显示
+        console.log(1);
+    }     
+}
 
 
+shop.addEventListener('mouseleave',function(e){
+    clearTimeout(id);
+    id = undefined;
+    info.style.display = 'none';
+},false);
+shop.addEventListener('mouseover',function(e){
+    if(id){
+        return;
+    }else{
+        id = setInterval(function(){
+            show(info);
+        },300);
+    }
+},false);
 
-
-
-var info = document.getElementsByClassName('shopInfo')[0];

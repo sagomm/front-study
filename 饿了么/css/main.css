@@ -432,6 +432,7 @@ div {
     box-sizing: border-box;
 }
 .shop {
+    /*border: 1px solid #ccc;*/
     display: inline-block;
     font-size: 9pt;
     width: 25%;
@@ -523,6 +524,7 @@ div {
     border: 2px solid #ccc;
     padding: 20px;
     padding-bottom: 30px;    
+    display: none;
 }
 .shopInfo-top {
     top: 20px;
