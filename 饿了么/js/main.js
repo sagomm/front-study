@@ -3,6 +3,31 @@
 */
 var app = {}
 
+/**
+ * 页面的常用操作函数
+ * 
+ */
+
+app.common = {
+    isHasClass : function(element, className) {
+        if (element) {
+            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+            return element.className.match(reg);
+        }
+    },
+    addClass : function(element, className) {
+        if (!this.isHasClass(element, className)) {
+            element.className += " " + className;
+        }
+    },
+    removeClass : function(element, className) {
+        if (this.isHasClass(element, className)) {
+            console.log(element);
+            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+            element.className = element.className.replace(reg, ' ');
+        }
+    }
+}
 /*
  * 页面的视图模板
  */
@@ -41,6 +66,12 @@ app.template = {
         shopAddIcon: function (iconName, iconTemplate) {
             this.shopIconArr[iconName] = iconTemplate;
         },
+        shopInfo: function (shopTitle,takeSale,shopIntro,iconArr) {
+            var title = '<div class="shopTitle">' + shopTitle + '</div>';
+            var takesale = '<div class="takeaway-sale"><span><em>' + lessMoney + '</em>元起送</span><span>配送费用<em>' + cost + '</em>元</span><span>平均<em>' + sendTime + '</em>分钟送达</span></div>';
+            var shopIntro = '<div class="shopIntro">' + intro + '</div>';
+            
+        },
         // 得到整个商店模板
         getShop: function (title, img, time, loaction, sale, startCost, cost, iconArr) {
             var shopIcons = undefined;
@@ -59,10 +90,10 @@ app.template = {
             return '<div class="shopTitle">' + title + '</div>';
         },
         takeSale: function (lessMoney, cost, sendTime) {
-            return '<div class="takeaway-sale"><span><em>' + lessMoney + '</em>元起送</span><span>配送费用<em>' + cost + '</em>元</span><span>平均<em>' + sendTime + '</em>分钟送达</span></div>';
+            return '';
         },
         shopIntro: function (intro) {
-            return '<div class="shopIntro">' + intro + '</div>';
+            return '';
         },
         getShopInfo: function (iconArr) {
                 
@@ -141,26 +172,7 @@ app.shop = (function (document) {
     /**
      * 一些分类按钮样式的设置,用事件机制通知页面应该显示出那些商店
      */
-    /**对页面中dom的类名的操作，是否存在，添加类名字，删除类名字 */
-    function isHasClass(element, className) {
-        if (element) {
-            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
-            return element.className.match(reg);
-        }
-    }
-    function addClass(element, className) {
-        if (!isHasClass(element, className)) {
-            element.className += " " + className;
-        }
-    }
-    function removeClass(element, className) {
-        console.log(element);
-        if (isHasClass(element, className)) {
-            console.log(element);
-            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
-            element.className = element.className.replace(reg, ' ');
-        }
-    }
+
     /**
      * 管理商铺分类的类
      */
@@ -184,29 +196,75 @@ app.shop = (function (document) {
          * titel:商铺的名称
          * logo:商铺的logo地址
          * intro:商铺的介绍
-         * evaluate:商铺的星级评价[0-5]
+         * evaluation:商铺的星级评价(小数)
          * spendTime:商铺配送时间
          * lessMoney:商铺的起送金额
          * location:商铺的地点
          * distance:商铺离用户的距离
          * saleInMonth：商铺一个月的营销额度
-         * Special [Object]: 商铺的其他信息，非必要
+         * Special [Array]: 商铺的其他信息以及属性，非必要 --> [{属性名字，属性说明，属性样式}] 
          */
-    function Shop(id, title, logo, intro, evaluate, spendTime, lessMoney, location, distance, saleInMonth, Special) {
+    function Shop(domId, title, logo, intro, evaluation, spendTime, lessMoney, location, distance, saleInMonth, specialArr) {
         this.title = title;
         this.logo = logo;
         this.intro = intro;
-        this.evaluate = evaluate;
+        this.evaluation = evaluation;
         this.spendTime = spendTime;
         this.lessMoney = lessMoney;
         this.sendMondy = sendMondy;
         this.location = location;
         this.saleInMonth = saleInMonth;
         this.distance = distance;
-        this.Special = Special;
-        this.instanceHTML = app.template.shop.getShop(title, img, time, loaction, sale, startCost, cost, iconArr);
-        this.id = id;
+        this.domInstance = document.createDocumentFragment();
+        this.domId = domId;
+        this.domInstance.innerHTML = app.template.shop.getShop(title, img, time, loaction, sale, startCost, cost, iconArr);
+        //将Special样式与属性放入类中
+        this.setSpecial(specialArr);
+        //设置商铺的评级样式
+        this.setEvaluation(this.domInstance,this.evaluation);
+        //控制hover出来的商铺信息
+        var _id = undefined;
+        var _info = this.domInstance.getElementsByClassName('shopInfo')[0];
+        shop.addEventListener('mouseleave',function(e){
+            clearTimeout(id);
+            id = undefined;
+            this.hiddenInfo(_info);
+        }.bind(this),false);
+        shop.addEventListener('mouseover',function(e){
+            if(id){
+                return;
+            }else{
+                id = setInterval(function(){
+                    this.showInfo(_info);
+                }.bind(this),300);
+            }
+        }.bind(this),false);
     }
+    Shop.prototype.showInfo = function(dom) {
+        var offsetRight = dom.parentNode.offsetWidth+dom.parentNode.offsetLeft - dom.offsetLeft- dom.offsetWidth;
+        /**计算出距离，一个是视窗的Y距离，一个是距离视窗的X距离 */
+        if(offsetRight < dom.offsetWidth){
+            //在shop左边显示
+            app.common.addClass(dom,'shopInfo-left');
+        } else {
+            app.common.addClass(dom,'shopInfo-right');
+        };
+        if(dom.getBoundingClientRect().y > dom.offsetHeight){
+            //从底部向上显示
+            app.common.addClass(dom,'shopInfo-top');
+        }else {
+            app.common.addClass(dom,'shopInfo-bottom');
+        };
+        dom.style.display = 'block';        
+    },
+    Shop.prototype.hiddenInfo = function(dom) {
+      dom.className = 'shopInfo';
+      dom.style.display = 'none';   
+    },
+    Shop.prototype.setEvaluation = function(dom,evaluation) {
+        var eva_star = dom.getElementsByClassName('star-sales');
+        eva_star.style.width = evaluation * eva_star.offsetWidth;
+    },
     Shop.prototype.show = function (shopArea) {
         shopArea.innerHTML += this.instance;
         var dom = shopArea.getElementById(this.id);
@@ -229,7 +287,12 @@ app.shop = (function (document) {
             shopArea.removeChild(dom);
         }
     }
-
+    //商铺特殊小标的显示，在商铺的info页面上也有，在这里定义相关的属性到类中
+    Shop.prototype.setSpecial = function(specialArr){
+        for(var i in specialArr) {
+            
+        }
+    }
     /**
      * 商铺的显示区域
      * 填充商铺数据到页面中
@@ -334,33 +397,13 @@ app.template.shop.shopAddIcon('赔', '<i style="background:#fff;color:#FF4E00;bo
 
 /**显示出商铺 */
 // app.shop.show();
-var shop = document.getElementsByClassName('shop')[1];
+var shop = document.getElementsByClassName('shop')[3];
 var info = document.getElementsByClassName('shopInfo')[1];
 var shops = document.getElementsByClassName('shops')[0];
-var id = undefined;
-
-function show(dom){
-    var offset = dom.parentNode.offsetWidth-dom.parentNode.offsetLeft + dom.offsetLeft + dom.offsetWidth;
-    /**计算出距离，一个是视窗的Y距离，一个是距离视窗的X距离 */
-    if(offset < dom.offsetWidth){
-        //左边显示
-        console.log(1);
-    }     
-}
 
 
-shop.addEventListener('mouseleave',function(e){
-    clearTimeout(id);
-    id = undefined;
-    info.style.display = 'none';
-},false);
-shop.addEventListener('mouseover',function(e){
-    if(id){
-        return;
-    }else{
-        id = setInterval(function(){
-            show(info);
-        },300);
-    }
-},false);
+
+show(shop);
+
+
 
