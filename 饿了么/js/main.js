@@ -49,16 +49,16 @@ app.template = {
             return '<img class="logo" src="./images/' + logo + '">';
         },
         shopTime: function (spendTime) {
-            return '<span class="timeinfo">' + time + ' 分钟</span>';
+            return '<span class="timeinfo">' + spendTime + ' 分钟</span>';
         },
         shopTitle: function (shopTitle, location) {
-            return '<div class="title">' + title + '(' + Location + ')</div>';
+            return '<div class="title">' + shopTitle + '(' + location + ')</div>';
         },
         shopSales: function (saleInMonth) {
             return '<div class="sales">月售' + saleInMonth + '单</div>';
         },
         shopTake: function (lessMoney, takeMoney) {
-            return '<div class="take-out-info">' + lessMoney + '起送 / 配送费' + cost + '元</div>';
+            return '<div class="take-out-info">' + lessMoney + '起送 / 配送费' + takeMoney + '元</div>';
         },
         // 注册商店下面的小图标
         shopIconArr: [],
@@ -72,18 +72,21 @@ app.template = {
             for (var i in iconArr) {
                 _shopIcon += '<div class="shopIcon">' + iconArr[i].html + iconArr[i].info + '</div>';
             }
-            var _shopIntro = '<div class="shopIntro">' + ShopIntro + '</div>';
+            var _shopIntro = '<div class="shopIntro">' + shopIntro + '</div>';
             return '<div class="shopInfo">' + _title + _shopIcon + _takeSale + _shopIntro + '</div>';
         },
         // 得到整个商店模板
-        getShop: function (domId, title, logo, intro, evaluation, spendTime, lessMoney, location, distance, saleInMonth, specialArr) {
-            var _left = '<div　class="shop" id= "' + domId + '"><div class="left">' + this.shopImg(logo) + this.shopTime(spendTime) + '</div>';
+        getShop: function (domId, title, logo, intro, evaluation, spendTime, lessMoney, takeMoney,location, distance, saleInMonth, specialArr) {
+            var _left = '<div class="shop" id= "' + domId +'"><div class="left">' + this.shopImg(logo) + this.shopTime(spendTime) + '</div>';
             var _icons;
             for (var i in specialArr) {
                 _icons += specialArr[i].html;
             }
-            var _right = '<div class="right">' + this.shopTitle(title, location) + '<div class="star-sales"><span class="star-base icon icon-star"><i class="icon icon-star"></i></span>' + this.shopSales(sale) + '</div>' + shopTake(startCost, cose) + '<div class="icons">' + icons + '</div></div>';
-            var _shopInfo = this.shopInfo(title, sale);
+            var _right = '<div class="right">' + this.shopTitle(title, location) + '<div class="star-sales"><span class="star-base icon icon-star"><i class="icon icon-star"></i></span>' + 
+                        this.shopSales(saleInMonth) + '</div>' + 
+                        this.shopTake(lessMoney, takeMoney) + '<div class="icons">' + 
+                        _icons + '</div></div>';
+            var _shopInfo = this.shopInfo(title, saleInMonth);
             var shop = _left + _right + _shopInfo;
             return shop;
         }
@@ -174,45 +177,27 @@ app.shop = (function (document) {
      * saleInMonth[Int]：商铺一个月的营销额度
      * Special [Array]: 商铺的其他信息以及属性，非必要 --> [{属性名字name，属性说明info，属性样式html}] 
      */
-    function Shop(domId, title, logo, intro, evaluation, spendTime, lessMoney, takeMoney, sendMoney, location, distance, saleInMonth, specialArr) {
+    function Shop(domId, title, logo, intro, evaluation, spendTime, lessMoney, takeMoney, location, distance, saleInMonth, specialArr) {
         this.title = title;
         this.logo = logo;
         this.intro = intro;
         this.evaluation = evaluation;
         this.spendTime = spendTime;
         this.lessMoney = lessMoney;
-        this.sendMoney = sendMoney;
+        this.takeMoney = takeMoney;
         this.location = location;
         this.saleInMonth = saleInMonth;
         this.distance = distance;
-        this.domInstance = document.createDocumentFragment();
+        this.html = app.template.shop.getShop(domId, title, logo, intro, evaluation, spendTime, lessMoney, takeMoney,location, distance, saleInMonth, specialArr);
         this.domId = domId;
-        //根据上面的信息得到该商铺的html代码
-        this.domInstance.innerHTML = app.template.shop.getShop(domId, title, logo, spendTime, loaction);
         //将Special属性放入类中
         this.setSpecial(specialArr);
-        //延迟控制hover出来的商铺信息
-        var _id = undefined;
-        var _info = this.domInstance.getElementsByClassName('shopInfo')[0];
-        this.domInstance.addEventListener('mouseleave', function (e) {
-            clearTimeout(id);
-            id = undefined;
-            this.hiddenInfo(_info);
-        }.bind(this), false);
-        this.domInstance.addEventListener('mouseover', function (e) {
-            if (id) {
-                return;
-            } else {
-                id = setInterval(function () {
-                    this.showInfo(_info);
-                }.bind(this), 300);
-            }
-        }.bind(this), false);
     }
     /**
      * 显示hover出来的商铺信息
      */
-    Shop.prototype.showInfo = function (dom) {
+    Shop.prototype.showInfo = function (shop) {
+        var dom = shop.getElementsByClassName('shopInfo')[0];
         var offsetRight = dom.parentNode.offsetWidth + dom.parentNode.offsetLeft - dom.offsetLeft - dom.offsetWidth;
         /**计算出距离，一个是视窗的Y距离，一个是距离视窗的X距离 */
         if (offsetRight < dom.offsetWidth) {
@@ -221,7 +206,7 @@ app.shop = (function (document) {
         } else {
             app.common.addClass(dom, 'shopInfo-right');
         };
-        if (dom.getBoundingClientRect().y > dom.offsetHeight) {
+        if (document.documentElement.clientHeight - shop.getBoundingClientRect().y  > 2 * shop.offsetHeight) {
             //从底部向上显示
             app.common.addClass(dom, 'shopInfo-top');
         } else {
@@ -233,23 +218,43 @@ app.shop = (function (document) {
      * 隐藏hover出来的商铺信息
      */
     Shop.prototype.hiddenInfo = function (dom) {
-        dom.className = 'shopInfo';
-        dom.style.display = 'none';
+        var _info = dom.getElementsByClassName('shopInfo')[0];
+        _info.className = 'shopInfo';
+        _info.style.display = 'none';
     }
     /**
      * 为商铺设置评分,必须在加载后才能调用
      */
     Shop.prototype.setEvaluation = function (dom, evaluation) {
-        var eva_star = dom.getElementsByClassName('star-sales');
+        var eva_star = dom.getElementsByClassName('star-sales')[0];
         eva_star.style.width = evaluation * eva_star.offsetWidth;
     }
     /**
      * 将商铺加载到显示区域中，在页面中显示
      */
     Shop.prototype.show = function (shopArea) {
-        shopArea.appendChild(shopArea);
+        shopArea.innerHTML += this.html; 
+        console.log(this.domId);
+        var domInstance = document.getElementById(this.domId);
+        console.log(domInstance);
         //设置该商铺的评分样式
-        this.setEvaluation(this.domInstance, this.evaluation);
+        this.setEvaluation(domInstance, this.evaluation);
+        //延迟控制hover出来的商铺信息
+        var _id = undefined;
+        domInstance.addEventListener('mouseleave', function (e) {
+            clearTimeout(_id);
+            _id = undefined;
+            this.hiddenInfo(domInstance);
+        }.bind(this), false);
+        domInstance.addEventListener('mouseover', function (e) {
+            if (_id) {
+                return;
+            } else {
+                _id = setTimeout(function () {
+                    this.showInfo(domInstance);
+                }.bind(this), 300);
+            }
+        }.bind(this), false);
     }
     /**
      * 得到商铺的dom
@@ -261,7 +266,7 @@ app.shop = (function (document) {
      * 将商铺从显示区域中删除
      */
     Shop.prototype.hidden = function (shopArea) {
-        var dom = shopArea.getElementById(this.id);
+        var dom = document.getElementById(this.id);
         if (dom) {
             shopArea.removeChild(dom);
         }
@@ -370,11 +375,11 @@ app.shop = (function (document) {
 
     // domId, title, logo, intro, evaluation, spendTime, lessMoney, location, distance, saleInMonth, specialArr`
 
-    var s = new Shop('shop_1', 'fdafdaf', 'shop.jepg', 'fdafdafdsaf', 0.8, 'fdaf', 'fdaf', 'fdafdas', 'fdafd', 'fdafda','fdafd', []);
+    var s = new Shop('shop_1', 'fdafdaf', 'shop.jepg', 'fdafdafdsaf', 0.8, 'fdaf', 'fdaf', 'fdafdas', 'fdafd', 'fdafda', 'fdafd', []);
 
     var shops = document.getElementsByClassName('shops')[0];
-    console.log(s.domInstance);
-    shops.appendChild(s.domInstance);
+    console.log(shops);
+    s.show(shops);
 })(window.document);
 
 
@@ -415,12 +420,12 @@ var shops = document.getElementsByClassName('shops')[0];
 
 
 
-show(shop);
+// show(shop);
 
 
-规范一下参数
-测试商铺的代码
-写分类的代码
-写商铺显示区域的代码
-写链接代码
-ok
+// 规范一下参数
+// 测试商铺的代码
+// 写分类的代码
+// 写商铺显示区域的代码
+// 写链接代码
+// ok
