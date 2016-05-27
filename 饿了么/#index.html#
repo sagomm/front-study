@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>一个特别远的地方</title>
+    <link rel="stylesheet" href="./css/icon.css">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-wrap scope clearfix">
+                <div class="logo"><span class="icon icon-logo"></span></div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item item-active"><a href="#">首页</a></li>
+                        <li class="nav-item">
+                            <!-- 小的hot标签 -->
+                            <a href="#"><i class="sprite hot"></i>品牌商家</a>
+                        </li>
+                        <li class="nav-item"><a href="#">我的订单</a></li>
+                        <li class="nav-item"><a href="#">加盟合作</a></li>
+                    </ul>
+                </nav>
+                <div class="toolBar">
+                    <ul class="toolBar-list">
+                        <li class="toolBar-item"><a href="#"><i class="icon icon-gift"></i>积分商城</a></li>
+                        <li class="toolBar-item"><a href="#"><i class="icon icon-service"></i>服务中心</a></li>
+                        <li class="toolBar-item">
+                            <!--触发图片的hover标签-->
+                            <a href="#" class="weixin-hover"><i class="icon icon-mobile"></i>手机应用</a>
+                            <!-- 手机应用二维码 -->
+                            <div class="weixin">
+                                <span>扫一扫手机订餐更方便</span>
+                                <img src="./images/weixin.png" alt="图片">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="login">
+                    <a href=""><i class="icon icon-profile"></i>登陆/注册</a>
+                </div>
+            </div>
+        </header>
+        <!-- 顶部下面的位置信息与搜索框 -->
+        <div class="search-wrap scope justify">
+            <div class="location">
+                <span>当前位置</span>
+                <span class="current-location" id="current-location">{{地址信息}}</span>
+                <a href="#" class="change-location">[切换地址]</a>
+            </div>
+            <div class="search">
+                <label for="search" style="display:none">搜索</label>
+                <div class="search-border">
+                    <input class="search-text" type="search" name="search" placeholder="搜索商家,美食...">
+                    <a class="icon icon-search"></a>
+                </div>
+            </div>
+        </div>
+        <!-- 图片轮播区域 -->
+        <div id="picBanner" class="picBanner scope">
+            <!-- 图片 -->
+            <div class="pictures"></div>
+            <!-- 触发按钮 -->
+            <ul class="toggles"></ul>
+        </div>
+        <!-- 外卖的分类区域 -->
+        <div class="take-out-classify scope">
+            <div class="img">
+                <img src="images/wotowaimai.png" alt="谁去拿外卖">
+            </div>
+            <div class="wrap">
+                <ul class="classify">
+                    <li class="label">商家分类:</li>
+                    <li class="active">全部商家</li>
+                    <li class="hot">品牌商家</li>
+                    <li>快餐便当</li>
+                    <li>特色菜系</li>
+                    <li>异国料理</li>
+                    <li>小吃夜宵</li>
+                    <li>甜品饮品</li>
+                    <li>果蔬生鲜</li>
+                    <li>鲜花蛋糕</li>
+                    <li>商店超市</li>
+                </ul>
+                <div class="sort justify">
+                    <ul class="value-sort">
+                        <li class="active sort_0">默认排序</li>
+                        <li class="sort_0">销量高</li>
+                        <li class="sort_0">评价好</li>
+                        <li class="drop-down">
+                            <span class="drop-down-header">其他排序</span>
+                            <ul class="drop-down-body">
+                                <li class="sort_0">距离最近</li>
+                                <li class="sort_0">配送速度</li>
+                                <li class="sort_0">起送金额</li>
+                            </ul>
+                            <i class="icon icon-arrow-down"></i>
+                            <i class="icon icon-arrow-up"></i>
+                        </li>
+                        <li class="drop-down-price">
+                            <span class="drop-down-header" id="showClassify">起送价格: 不限</span>
+                            <i class="icon icon-arrow-down"></i>
+                            <i class="icon icon-arrow-up"></i>
+                            <ul class="drop-down-body"> 
+                                <li class="active sort_1">不限</li>
+                                <li class="sort_1">15元以下</li>
+                                <li class="sort_1">20元以下</li>
+                                <li class="sort_1">30元以下</li>
+                                <li class="sort_1">40元以下</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="type-sort">
+                        <li class="sort_2"><input type="checkbox" name="sort-type"><span>新开商家</span></li>
+                        <li class="sort_2"><input type="checkbox" name="sort-type"><span>免费派送</span></li>
+                        <li class="sort_2"><input type="checkbox" name="sort-type"><span>蜂鸟快送</span></li>
+                        <li class="sort_2"><input type="checkbox" name="sort-type"><span>可开发票</span></li>
+                        <li class="sort_2"><input type="checkbox" name="sort-type"><span>在线支付</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="shops" class="shops scope">
+            <div class="shop">
+                <div class="left">
+                    <img class="logo" src="./images/shop.jpeg" alt="">
+                    <span class="timeinfo">24 分钟</span>
+                </div>
+                <div class="right">
+                    <div class="title">没人吃的店铺(dddddddddddda)</div>
+                    <div class="star-sales">
+                        <span class="star-base icon icon-star">
+                            <i class="icon icon-star"></i>
+                        </span>
+                        <span class="sales">月售1单</span>
+                    </div>
+                    <div class="take-out-info">3元起送 / 配送费5元</div>
+                    <div class="icons">
+                        <i style="background:#f07373;">减</i>
+                        <i style="background:#70bc46;">首</i>
+                        <i style="background:#f1884f;">特</i>
+                        <i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">付</i>
+                        <i style="background:#fff;color:#9071CB;border:1px solid;padding:0;">票</i>
+                        <i style="background:#fff;color:#4B9A18;border:1px solid;padding:0;">保</i>
+                        <i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">赔</i>
+                    </div>
+                </div>
+                <div class="shopInfo">
+                    <div class="shopTitle">xxxx店面</div>
+                    <div class="shopIcon">
+                        <i style="background:#f07373;">减</i><span class="state">fdalfkdslajfdlafjkldaf</span>
+                    </div>
+                    <div class="shopIcon">
+                        <i style="background:#f07373;">减</i><span class="state">fdalfkdslajfdlafjkldaf</span>
+                    </div>
+                    <div class="shopIcon">
+                        <i style="background:#f07373;">减</i><span class="state">fdalfkdslajfdlafjkldaf</span>
+                    </div>
+                    <div class="takeaway-sale">
+                        <span><em>１５</em>元起送</span>
+                        <span>配送费用<em>２</em>元</span>
+                        <span>平均<em>２８</em>分钟送达</span>
+                    </div>
+                    <div class="shopIntro">
+                        这是一家坑死人的店面
+                    </div>
+                </div>
+            </div><div class="shop">
+                <div class="left">
+                    <img class="logo" src="./images/shop.jpeg" alt="">
+                    <span class="timeinfo">24 分钟</span>
+                </div>
+                <div class="right">
+                    <div class="title">没人吃的店铺(dddddddddddda)</div>
+                    <div class="star-sales">
+                        <span class="star-base icon icon-star">
+                            <i class="icon icon-star"></i>
+                        </span>
+                        <span class="sales">月售1单</span>
+                    </div>
+                    <div class="take-out-info">3元起送 / 配送费5元</div>
+                    <div class="icons">
+                        <i style="background:#f07373;">减</i>
+                        <i style="background:#70bc46;">首</i>
+                        <i style="background:#f1884f;">特</i>
+                        <i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">付</i>
+                        <i style="background:#fff;color:#9071CB;border:1px solid;padding:0;">票</i>
+                        <i style="background:#fff;color:#4B9A18;border:1px solid;padding:0;">保</i>
+                        <i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">赔</i>
+                    </div>
+                </div>
+                <div class="shopInfo">
+                    <div class="shopTitle">xxxx店面</div>
+                    <div class="shopIcon">
+                        <i style="background:#f07373;">减</i><span class="state">fdalfkdslajfdlafjkldaf</span>
+                    </div>
+                    <div class="shopIcon">
+                        <i style="background:#f07373;">减</i><span class="state">fdalfkdslajfdlafjkldaf</span>
+                    </div>
+                    <div class="shopIcon">
+                        <i style="background:#f07373;">减</i><span class="state">fdalfkdslajfdlafjkldaf</span>
+                    </div>
+                    <div class="takeaway-sale">
+                        <span><em>１５</em>元起送</span>
+                        <span>配送费用<em>２</em>元</span>
+                        <span>平均<em>２８</em>分钟送达</span>
+                    </div>
+                    <div class="shopIntro">
+                        这是一家坑死人的店面
+                    </div>
+                </div>
+            </div><div class="shop">
+                <div class="left">
+                    <img class="logo" src="./images/shop.jpeg" alt="">
+                    <span class="timeinfo">24 分钟</span>
+                </div>
+                <div class="right">
+                    <div class="title">没人吃的店铺(dddddddddddda)</div>
+                    <div class="star-sales">
+                        <span class="star-base icon icon-star">
+                            <i class="icon icon-star"></i>
+                        </span>
+                        <span class="sales">月售1单</span>
+                    </div>
+                    <div class="take-out-info">3元起送 / 配送费5元</div>
+                    <div class="icons">
+                        <i style="background:#f07373;">减</i>
+                        <i style="background:#70bc46;">首</i>
+                        <i style="background:#f1884f;">特</i>
+                        <i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">付</i>
+                        <i style="background:#fff;color:#9071CB;border:1px solid;padding:0;">票</i>
+                        <i style="background:#fff;color:#4B9A18;border:1px solid;padding:0;">保</i>
+                        <i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">赔</i>
+                    </div>
+                </div>
+                <div class="shopInfo">
+                    <div class="shopTitle">xxxx店面</div>
+                    <div class="shopIcon">
+                        <i style="background:#f07373;">减</i><span class="state">fdalfkdslajfdlafjkldaf</span>
+                    </div>
+                    <div class="shopIcon">
+                        <i style="background:#f07373;">减</i><span class="state">fdalfkdslajfdlafjkldaf</span>
+                    </div>
+                    <div class="shopIcon">
+                        <i style="background:#f07373;">减</i><span class="state">fdalfkdslajfdlafjkldaf</span>
+                    </div>
+                    <div class="takeaway-sale">
+                        <span><em>１５</em>元起送</span>
+                        <span>配送费用<em>２</em>元</span>
+                        <span>平均<em>２８</em>分钟送达</span>
+                    </div>
+                    <div class="shopIntro">
+                        这是一家坑死人的店面
+                    </div>
+                </div>
+            </div><div class="shop">
+                <div class="left">
+                    <img class="logo" src="./images/shop.jpeg" alt="">
+                    <span class="timeinfo">24 分钟</span>
+                </div>
+                <div class="right">
+                    <div class="title">没人吃的店铺(dddddddddddda)</div>
+                    <div class="star-sales">
+                        <span class="star-base icon icon-star">
+                            <i class="icon icon-star"></i>
+                        </span>
+                        <span class="sales">月售1单</span>
+                    </div>
+                    <div class="take-out-info">3元起送 / 配送费5元</div>
+                    <div class="icons">
+                        <i style="background:#f07373;">减</i>
+                        <i style="background:#70bc46;">首</i>
+                        <i style="background:#f1884f;">特</i>
+                        <i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">付</i>
+                        <i style="background:#fff;color:#9071CB;border:1px solid;padding:0;">票</i>
+                        <i style="background:#fff;color:#4B9A18;border:1px solid;padding:0;">保</i>
+                        <i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">赔</i>
+                    </div>
+                </div>
+                <div class="shopInfo">
+                    <div class="shopTitle">xxxx店面</div>
+                    <div class="shopIcon">
+                        <i style="background:#f07373;">减</i><span class="state">fdalfkdslajfdlafjkldaf</span>
+                    </div>
+                    <div class="shopIcon">
+                        <i style="background:#f07373;">减</i><span class="state">fdalfkdslajfdlafjkldaf</span>
+                    </div>
+                    <div class="shopIcon">
+                        <i style="background:#f07373;">减</i><span class="state">fdalfkdslajfdlafjkldaf</span>
+                    </div>
+                    <div class="takeaway-sale">
+                        <span><em>１５</em>元起送</span>
+                        <span>配送费用<em>２</em>元</span>
+                        <span>平均<em>２８</em>分钟送达</span>
+                    </div>
+                    <div class="shopIntro">
+                        这是一家坑死人的店面
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 页脚 -->
+        <div class="footer scope">
+            <div class="footer-link">
+                <h3>用户帮助</h3>
+                <ul>
+                    <li>服务中心</li>
+                    <li>常见问题</li>
+                    <li>在线客服</li>
+                </ul>
+            </div>
+            <div class="footer-link">
+                <h3>商务合作</h3>
+                <ul>
+                    <li>我要开店</li>
+                    <li>加盟指南</li>
+                    <li>市场合作</li>
+                    <li>开放平台</li>
+                </ul>
+            </div>
+            <div class="footer-link">
+                <h3>关于我们</h3>
+                <ul>
+                    <li>饿了么介绍</li>
+                    <li>加入我们</li>
+                    <li>联系我们</li>
+                    <li>服务协议</li>
+                </ul>
+            </div>
+            <div class="footer-connect">
+                <ul>
+                    <li class="footer-connect-item">24小时客服热线 : 10105757</li>
+                    <li class="footer-connect-item">意见反馈 : feedback@ele.me</li>
+                    <li class="footer-connect-item">
+                        关注我们 :
+                        <i class="icon icon-wechat"></i>
+                        <i class="icon icon-weibo"></i>
+                        <i class="icon icon-renren"></i>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-mobile">
+                <img src="./images/weixin.png" alt="微信">
+                <div class="footer-mobile-info">
+                    <h3>下载手机版</h3>
+                    <p>扫一扫，手机订餐更方便</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 页面侧边栏目 -->
+    <div class="slideBar">
+        <ul class="slideList">
+            <li class="order icon icon-order"></li>
+            <li class="seprator"></li>
+            <li class="cart icon icon-cart">购物车</li>
+            <li class="seprator"></li>
+            <li class="notice icon icon-notice"></li>
+            <li class="history icon icon-history"></li>
+            <li class="QR-code icon icon-QR-code"></li>
+            <li class="service icon icon-service"></li>
+            <li class="icon icon-top"></li>
+        </ul>
+        <!-- 购物车 -->
+        <div class="cart">
+            <div class="header icon icon-angle-double-right">
+                购物车
+            </div>
+            <div class="body">
+                <span class="icon icon-history"></span>
+                <h3>购物车空空如也</h3>
+                <p>快去订餐吧，总有你心仪的美食</p>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
