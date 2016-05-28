@@ -263,7 +263,7 @@ app.shop = (function (document) {
     Shop.prototype.setSpecial = function (specialArr) {
         for (var i in specialArr) {
             //为商铺类添加新的属性，表示这样的属性，默认值为true,表示存在这样的标志
-            this['isHas'+specialArr[i].name] = true;
+            this['isHas' + specialArr[i].name] = true;
         }
     }
     /**
@@ -279,42 +279,72 @@ app.shop = (function (document) {
      * 商铺的显示区域
      * 填充商铺数据到页面中
      * 根据页面的按钮配置商铺的显示方式
+     * 注册模式
      */
     function ShopArea(dom) {
         this.domInstance = dom;
         //现在正在页面中展示的商铺
         this.currentShops = [];
-        this.currentShopsHtml = '';
         //所有添加的商铺
         this.shops = [];
-        //所有的注册方法
+        //注册的所有显示方法
         this.shopFilter = [];
     }
+    /**添加一个Shop类的实例 */
     ShopArea.prototype.addShop = function (shop) {
         this.shops.push(shop);
+        return this;
     }
-    ShopArea.prototype.addShopFilter = function (name,callback) {
+    /**添加一个商铺的分类方法 */
+    ShopArea.prototype.addShopFilter = function (name, callback) {
         this.shopFilter.push({
-            name : name,
-            callback : callback             
+            name: name,
+            callback: callback
         });
+        return this;
     }
-    ShopArea.prototype.show = function(filter){
-        for(var i in this.shopFilter){
-            if(this.shopFilter[i].name == filter){
-                this.shopFilter[i].callback();
+    /**
+     * 根据一个分类方法显示出商铺 
+     * currentShops表示在会出现在页面上的商铺
+     * shops则是全部的商铺 
+     */
+    ShopArea.prototype.show = function (filterName) {
+        for (var i in this.shopFilter) {
+            if (this.shopFilter[i].name == filterName) {
+                this.shopFilter[i].callback(this.currentShops, this.shops);
+                this.updatePage();        
+                break;
             };
+        }
+        return this;
+    }
+    /**从当前的商铺中更新到显示的页面中 */
+    ShopArea.prototype.updatePage = function() {
+        for(var i in this.currentShops){
+            this.currentShops[i].show(this.domInstance);
         }
     }
     /**
      * 管理商铺分类的类
+     * 同一个分类中，只有一个能被active出来
      */
     function Classify() {
-        //储存这个分类的所有可触发按钮
         this.doms = [];
+        this.current = undefined;
+        this.last = undefined;
     }
     Classify.prototype.addClassify = function (dom) {
         this.doms.push(dom);
+    }
+    Classify.prototype.setCurrent = function (dom){
+        if(this.doms.indexOf(dom)){
+            this.current = dom;
+            this.currenOn();    
+        }
+    }
+    /**定义被active的样式 */
+    Classify.prototype.currenOn = function(callback) {
+        callback(this.current,this.doms);
     }
     return {
         SpecialIcon: SpecialIcon,
@@ -328,63 +358,62 @@ app.shop = (function (document) {
 /**
  * 简单发布订阅模式
  */
-app.Event = function(obj){
+app.Event = function (obj) {
     this.obj = obj;
-    this.events = [];                
+    this.events = [];
 }
-app.Event.prototype.send = function(name,arg){
-    for(var i in events){
-        if(events[i].name === name) {
-            events[i].callback(this.obj,arg);
+app.Event.prototype.send = function (name, arg) {
+    for (var i in events) {
+        if (events[i].name === name && event[i].callback) {
+            events[i].callback(this.obj, arg);
             break;
         }
-    }          
+    }
 }
-app.Event.prototype.addEventListener = function (name,callback) {
-    this,observer.push({
+app.Event.prototype.addEventListener = function (name, callback) {
+    this, observer.push({
         name: name,
-        callback: callback    
-    })                  
+        callback: callback
+    })
 }
 
-
-
-/*******************************
- * 模拟数据填充，
- * 先是图片部分，再是商铺部分
- * 因为没有后台，这些数据相当于后台准备给前端ajax发送的数据
- * 这些数据会放入缓存区域
- * 缓存区域用于模拟页面瀑布流
- ********************************/
-
-// 初始化图片轮播部分
+/**
+ * 初始化图片轮播
+ */
 app.picBanner.init(document.getElementById('picBanner'), ['1.png', '2.png', '3.png']);
 
-// 初始化页面商铺们
-/**定义商铺中显示的图标 
-*　图标的类型，图标的样式，图标的说明 
-*/
-
-
-/**添加商铺 
- * 商铺信息　object 
- */
-
-
-/**显示出商铺 */
-// app.shop.show();
-var shop = document.getElementsByClassName('shop')[3];
-var info = document.getElementsByClassName('shopInfo')[1];
-var shops = document.getElementsByClassName('shops')[0];
-
+/***************************
+ *　初始化商铺的分类以及商铺
+ ***************************/
+//得到几个基础类
 var Classify = app.shop.Classify;
 var Shop = app.shop.Shop;
 var SpecialIcon = app.shop.SpecialIcon;
 var ShopArea = app.shop.ShopArea;
+/*
+ * 下面的代码开始初始化几个分类:
+ * 0.默认排序到起送金额这类，在页面中用classify_0标注
+ * 1.起送价格这个分类，在页面中用classify_1标注
+ * 2.蜂鸟快松到在线支付这个类，在页面中用classify_2标注
+ */
+var classify_0 = new Classify();
+var classify_1 = new Classify();
+var classify_2 = new Classify();
+//按类别获取页面中的分类元素
+var sort_0_dom = Array.prototype.slice.call(document.getElementsByClassName('classify_0'));
+var sort_1_dom = Array.prototype.slice.call(document.getElementsByClassName('classify_1'));
+var sort_2_dom = Array.prototype.slice.call(document.getElementsByClassName('classify_2'));
+/**classify_0部分**************************/
+classify_0.currenOn(function(current,doms){
+    current.addClass('active');
+    
+});
+//默认排序，显示出所有的商铺
+classify_0.addClassify(sort_0_dom[0]);
 
 
 
-// domId, title, logo, intro, evaluation, spendTime, lessMoney, takeMoney, location, distance, saleInMonth, specialArr
+
 
 
 
@@ -399,38 +428,72 @@ icons.push(new SpecialIcon('fu', '<i style="background:#fff;color:#FF4E00;border
 icons.push(new SpecialIcon('piao', '<i style="background:#fff;color:#9071CB;border:1px solid;padding:1px;">票</i>', '该商家支持发票请在下单时候填好发票开头'));
 icons.push(new SpecialIcon('bao', '<i style="background:#fff;color:#4B9A18;border:1px solid;padding:1px;">保</i>', '已经加入国家外卖宝计划，食品安全有保证'));
 
+
+
+// var classify_0_clickEvent = new app.Event({
+//     lastNode: undefined,
+//     dropClickList: document.getElementsByClassName('')
+// });
+// clickEvent_0.addEventListener('click', function (obj, arg) {
+    
+// });
+// clickEvent_0.addEventListener('dropDownclick', function (obj, arg) {
+// });
+
+
+
+
+
+
+
+
+
+// for (var i in sort_0_dom) { sort_0.addClassify(sort_0_dom[i]); }
+// for (var i in sort_1_dom) { sort_0.addClassify(sort_0_dom[i]); }
+// for (var i in sort_2_dom) { sort_0.addClassify(sort_0_dom[i]); }
+
+// function fd(doms) {
+
+// }
+// var sort_1 = new Classify(function (doms) {
+//     var showClassify = document.getElementById('showClassify');
+//     var last = doms[0];
+//     //防止闭包的临时函数
+//     function _onclick() {
+//         if (!isHasClass(this, 'active')) {
+//             removeClass(last, 'active');
+//             addClass(this, 'active');
+//             last = this;
+//             showClassify.innerHTML = '起送价格: ' + this.innerHTML;
+//         }
+//     }
+//     for (i in doms) {
+//         doms[i].onclick = _onclick;
+//     }
+// });
+// var sort_3 = new Classify(function (doms) {
+//     function _onclick() {
+//         var ev = document.createEvent('MouseEvents');
+//         ev.initEvent('click', true, true);
+//         this.children[0].dispatchEvent(ev);
+//     }
+//     for (i in doms) {
+//         doms[i].onclick = _onclick;
+//     }
+// });
+
+
+// var shoparea = new ShopArea(document.getElementById('shops'));
 // var s = new Shop('shop_1', 'fdafdaf', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
-// var shops = document.getElementsByClassName('shops')[0];
-// s.show(shops);
+// var h = new Shop('shop_2', 'wwww', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
+// var c = new Shop('shop_3', 'fdafdaf', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
+// shoparea.addShop(s).addShop(h).addShop(c);
 
+// shoparea.addShopFilter('show',function(current,all){
+//     current[1] = all[1];
+// });
 
-
-/***********************************************
- * 下面的代码开始初始化几个分类:
- * 0.默认排序到起送金额这类，在页面中用classify_0标注
- * 1.起送价格这个分类，在页面中用classify_1标注
- * 2.蜂鸟快松到在线支付这个类，在页面中用classify_2标注
- ************************************************/
-var classify_0 = new Classify();
-var classify_1 = new Classify();
-var classify_2 = new Classify();
-//为分类添加元素
-var sort_0_dom = Array.prototype.slice.call(document.getElementsByClassName('classify_0'));
-var sort_1_dom = Array.prototype.slice.call(document.getElementsByClassName('classify_1'));
-var sort_2_dom = Array.prototype.slice.call(document.getElementsByClassName('classify_2'));
-
-var classify_0_clickEvent = new app.Event({
-    lastNode : undefined,
-    dropClickList : document.getElementsByClassName('')
-});
-clickEvent_0.addEventListener('click',function(obj,arg) {
-    arg.addClass('active');      
-    shops.show(arg);                  
-});
-clickEvent_0.addEventListener('dropDownclick',function(obj,arg) {
-    arg.addClass('active');  
-    shops.show(arg);                      
-});
+// shoparea.show('show');
 
 
 
@@ -439,52 +502,3 @@ clickEvent_0.addEventListener('dropDownclick',function(obj,arg) {
 
 
 
-
-for(var i in sort_0_dom){sort_0.addClassify(sort_0_dom[i]);}
-for(var i in sort_1_dom){sort_0.addClassify(sort_0_dom[i]);}
-for(var i in sort_2_dom){sort_0.addClassify(sort_0_dom[i]);}
-
-function fd(doms) {
-    var last = doms[0];
-    //防止闭包的临时函数
-    function _onclick() {
-        if (!isHasClass(this, 'active')) {
-            removeClass(last, 'active');
-            addClass(this, 'active');
-            last = this;
-        }
-    }
-    for (i in doms) {
-        doms[i].onclick = _onclick;
-    }
-}
-var sort_1 = new Classify(function (doms) {
-    var showClassify = document.getElementById('showClassify');
-    var last = doms[0];
-    //防止闭包的临时函数
-    function _onclick() {
-        if (!isHasClass(this, 'active')) {
-            removeClass(last, 'active');
-            addClass(this, 'active');
-            last = this;
-            showClassify.innerHTML = '起送价格: ' + this.innerHTML;
-        }
-    }
-    for (i in doms) {
-        doms[i].onclick = _onclick;
-    }
-});
-var sort_3 = new Classify(function (doms) {
-    function _onclick() {
-        var ev = document.createEvent('MouseEvents');
-        ev.initEvent('click', true, true);
-        this.children[0].dispatchEvent(ev);
-    }
-    for (i in doms) {
-        doms[i].onclick = _onclick;
-    }
-});
-
-
-
-// 把商铺的显示类做好，给它添加事件监听，显示商铺样式
