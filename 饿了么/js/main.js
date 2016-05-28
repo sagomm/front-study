@@ -280,34 +280,41 @@ app.shop = (function (document) {
      * 填充商铺数据到页面中
      * 根据页面的按钮配置商铺的显示方式
      */
-    function ShopArea() {
+    function ShopArea(dom) {
+        this.domInstance = dom;
         //现在正在页面中展示的商铺
         this.currentShops = [];
+        this.currentShopsHtml = '';
         //所有添加的商铺
         this.shops = [];
+        //所有的注册方法
+        this.shopFilter = [];
     }
     ShopArea.prototype.addShop = function (shop) {
-        this.currentShops.push(shop);
+        this.shops.push(shop);
     }
-    ShopArea.prototype.showAllShop = function () {
-
+    ShopArea.prototype.addShopFilter = function (name,callback) {
+        this.shopFilter.push({
+            name : name,
+            callback : callback             
+        });
     }
-    ShopArea.prototype.changeCurrentShops = function () {
-
+    ShopArea.prototype.show = function(filter){
+        for(var i in this.shopFilter){
+            if(this.shopFilter[i].name == filter){
+                this.shopFilter[i].callback();
+            };
+        }
     }
     /**
      * 管理商铺分类的类
-     * _start[function(dom)]用与配置整个classify参与的dom
      */
     function Classify() {
         //储存这个分类的所有可触发按钮
         this.doms = [];
-        //这个回调是为了对这些按钮进行基本的样式设置，比如只1个按钮能focus
-        this.actives = [];
     }
-    Classify.prototype.addClassify = function (dom, _active) {
+    Classify.prototype.addClassify = function (dom) {
         this.doms.push(dom);
-        this.actives.push(_active);
     }
     return {
         SpecialIcon: SpecialIcon,
@@ -317,6 +324,28 @@ app.shop = (function (document) {
     }
 
 })(window.document);
+
+/**
+ * 简单发布订阅模式
+ */
+app.Event = function(obj){
+    this.obj = obj;
+    this.events = [];                
+}
+app.Event.prototype.send = function(name,arg){
+    for(var i in events){
+        if(events[i].name === name) {
+            events[i].callback(this.obj,arg);
+            break;
+        }
+    }          
+}
+app.Event.prototype.addEventListener = function (name,callback) {
+    this,observer.push({
+        name: name,
+        callback: callback    
+    })                  
+}
 
 
 
@@ -376,32 +405,44 @@ icons.push(new SpecialIcon('bao', '<i style="background:#fff;color:#4B9A18;borde
 
 
 
-/**
- * 下面的代码开始初始化几个分类
- * 0.默认排序到起送金额这类，在页面中用sort_0标注
- * 1.起送价格这个分类，在页面中用sort_1标注
- * 2.蜂鸟快松到在线支付这个类，在页面中用sort_2标注
- */
-var sort_0 = new Classify();
-var sort_1 = new Classify();
-var sort_2 = new Classify();
-
+/***********************************************
+ * 下面的代码开始初始化几个分类:
+ * 0.默认排序到起送金额这类，在页面中用classify_0标注
+ * 1.起送价格这个分类，在页面中用classify_1标注
+ * 2.蜂鸟快松到在线支付这个类，在页面中用classify_2标注
+ ************************************************/
+var classify_0 = new Classify();
+var classify_1 = new Classify();
+var classify_2 = new Classify();
 //为分类添加元素
-var sort_0_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_0'));
-var sort_1_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_1'));
-var sort_2_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_2'));
+var sort_0_dom = Array.prototype.slice.call(document.getElementsByClassName('classify_0'));
+var sort_1_dom = Array.prototype.slice.call(document.getElementsByClassName('classify_1'));
+var sort_2_dom = Array.prototype.slice.call(document.getElementsByClassName('classify_2'));
 
-for(var i in sort_0_dom){
-    sort_0.addClassify(sort_0_dom[i]);    
-}
-for(var i in sort_1_dom){
-    sort_0.addClassify(sort_0_dom[i]);    
-}
-for(var i in sort_2_dom){
-    sort_0.addClassify(sort_0_dom[i]);    
-}
+var classify_0_clickEvent = new app.Event({
+    lastNode : undefined,
+    dropClickList : document.getElementsByClassName('')
+});
+clickEvent_0.addEventListener('click',function(obj,arg) {
+    arg.addClass('active');      
+    shops.show(arg);                  
+});
+clickEvent_0.addEventListener('dropDownclick',function(obj,arg) {
+    arg.addClass('active');  
+    shops.show(arg);                      
+});
 
 
+
+
+
+
+
+
+
+for(var i in sort_0_dom){sort_0.addClassify(sort_0_dom[i]);}
+for(var i in sort_1_dom){sort_0.addClassify(sort_0_dom[i]);}
+for(var i in sort_2_dom){sort_0.addClassify(sort_0_dom[i]);}
 
 function fd(doms) {
     var last = doms[0];
@@ -443,3 +484,7 @@ var sort_3 = new Classify(function (doms) {
         doms[i].onclick = _onclick;
     }
 });
+
+
+
+// 把商铺的显示类做好，给它添加事件监听，显示商铺样式
