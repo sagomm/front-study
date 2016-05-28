@@ -55,20 +55,16 @@ app.template = {
             return '<div class="title">' + shopTitle + '(' + location + ')</div>';
         },
         shopSales: function (saleInMonth) {
-            return '<div class="sales">月售' + saleInMonth + '单</div>';
+            return '<span class="sales"> 月售' + saleInMonth + '单</span>';
         },
         shopTake: function (lessMoney, takeMoney) {
             return '<div class="take-out-info">' + lessMoney + '起送 / 配送费' + takeMoney + '元</div>';
         },
-        // 注册商店下面的小图标
-        shopIconArr: [],
-        shopAddIcon: function (iconName, iconTemplate) {
-            this.shopIconArr[iconName] = iconTemplate;
-        },
-        shopInfo: function (shopTitle, lessMoney, takeMoney, sendTime, shopIntro, iconArr) {
+        shopInfo: function (shopTitle, lessMoney, takeMoney, spendTime, shopIntro, iconArr) {
             var _title = '<div class="shopTitle">' + shopTitle + '</div>';
-            var _takeSale = '<div class="takeaway-sale"><span><em>' + lessMoney + '</em>元起送</span><span>配送费用<em>' + takeMoney + '</em>元</span><span>平均<em>' + sendTime + '</em>分钟送达</span></div>';
-            var _shopIcon;
+            var _takeSale = '<div class="takeaway-sale"><span><em>' + lessMoney + '</em>元起送</span><span class="sperator">|</span><span>配送费用<em>' + takeMoney +
+                '</em>元</span><span class="sperator">|</span><span>平均<em>' + spendTime + '</em>分钟送达</span></div>';
+            var _shopIcon = '';
             for (var i in iconArr) {
                 _shopIcon += '<div class="shopIcon">' + iconArr[i].html + iconArr[i].info + '</div>';
             }
@@ -76,17 +72,17 @@ app.template = {
             return '<div class="shopInfo">' + _title + _shopIcon + _takeSale + _shopIntro + '</div>';
         },
         // 得到整个商店模板
-        getShop: function (domId, title, logo, intro, evaluation, spendTime, lessMoney, takeMoney,location, distance, saleInMonth, specialArr) {
-            var _left = '<div class="shop" id= "' + domId +'"><div class="left">' + this.shopImg(logo) + this.shopTime(spendTime) + '</div>';
-            var _icons;
+        getShop: function (domId, title, logo, intro, evaluation, spendTime, lessMoney, takeMoney, location, saleInMonth, specialArr) {
+            var _left = '<div class="shop" id= "' + domId + '"><div class="left">' + this.shopImg(logo) + this.shopTime(spendTime) + '</div>';
+            var _icons = '';
             for (var i in specialArr) {
-                _icons += specialArr[i].html;
+                _icons += specialArr[i].html + ' ';
             }
-            var _right = '<div class="right">' + this.shopTitle(title, location) + '<div class="star-sales"><span class="star-base icon icon-star"><i class="icon icon-star"></i></span>' + 
-                        this.shopSales(saleInMonth) + '</div>' + 
-                        this.shopTake(lessMoney, takeMoney) + '<div class="icons">' + 
-                        _icons + '</div></div>';
-            var _shopInfo = this.shopInfo(title, saleInMonth);
+            var _right = '<div class="right">' + this.shopTitle(title, location) + '<div class="star-sales"><span class="star-base icon icon-star"><i class="icon icon-star"></i></span>' +
+                this.shopSales(saleInMonth) + '</div>' +
+                this.shopTake(lessMoney, takeMoney) +
+                '<div class="icons">' + _icons + '</div></div>';
+            var _shopInfo = this.shopInfo(title, lessMoney, takeMoney, spendTime, intro, specialArr);
             var shop = _left + _right + _shopInfo;
             return shop;
         }
@@ -188,7 +184,7 @@ app.shop = (function (document) {
         this.location = location;
         this.saleInMonth = saleInMonth;
         this.distance = distance;
-        this.html = app.template.shop.getShop(domId, title, logo, intro, evaluation, spendTime, lessMoney, takeMoney,location, distance, saleInMonth, specialArr);
+        this.html = app.template.shop.getShop(domId, title, logo, intro, evaluation, spendTime, lessMoney, takeMoney, location, saleInMonth, specialArr);
         this.domId = domId;
         //将Special属性放入类中
         this.setSpecial(specialArr);
@@ -206,7 +202,7 @@ app.shop = (function (document) {
         } else {
             app.common.addClass(dom, 'shopInfo-right');
         };
-        if (document.documentElement.clientHeight - shop.getBoundingClientRect().y  > 2 * shop.offsetHeight) {
+        if (document.documentElement.clientHeight - shop.getBoundingClientRect().y > 2 * shop.offsetHeight) {
             //从底部向上显示
             app.common.addClass(dom, 'shopInfo-top');
         } else {
@@ -233,10 +229,8 @@ app.shop = (function (document) {
      * 将商铺加载到显示区域中，在页面中显示
      */
     Shop.prototype.show = function (shopArea) {
-        shopArea.innerHTML += this.html; 
-        console.log(this.domId);
+        shopArea.innerHTML += this.html;
         var domInstance = document.getElementById(this.domId);
-        console.log(domInstance);
         //设置该商铺的评分样式
         this.setEvaluation(domInstance, this.evaluation);
         //延迟控制hover出来的商铺信息
@@ -257,12 +251,6 @@ app.shop = (function (document) {
         }.bind(this), false);
     }
     /**
-     * 得到商铺的dom
-     */
-    Shop.prototype.getDom = function () {
-        return this.domInstance;
-    }
-    /**
      * 将商铺从显示区域中删除
      */
     Shop.prototype.hidden = function (shopArea) {
@@ -275,14 +263,14 @@ app.shop = (function (document) {
     Shop.prototype.setSpecial = function (specialArr) {
         for (var i in specialArr) {
             //为商铺类添加新的属性，表示这样的属性，默认值为true,表示存在这样的标志
-            this[specialArr[i].title] = true;
+            this['isHas'+specialArr[i].name] = true;
         }
     }
     /**
      * 商铺下面的小标icon类，
      * 商铺类最后一个参数数组中定义对象
      */
-    function SpecialIcon() {
+    function SpecialIcon(name, html, info) {
         this.html = html;
         this.info = info;
         this.name = name;
@@ -309,77 +297,25 @@ app.shop = (function (document) {
     }
     /**
      * 管理商铺分类的类
+     * _start[function(dom)]用与配置整个classify参与的dom
      */
-    function Classify(_start) {
+    function Classify() {
         //储存这个分类的所有可触发按钮
         this.doms = [];
         //这个回调是为了对这些按钮进行基本的样式设置，比如只1个按钮能focus
-        this.start = _start.bind(this, this.doms);
-        //储存这个分类所有的可触发按钮触发的回调函数，通知页面显示相应的商铺商铺元素
         this.actives = [];
     }
     Classify.prototype.addClassify = function (dom, _active) {
         this.doms.push(dom);
         this.actives.push(_active);
     }
-    /**
-     * 下面的代码开始初始化几个分类
-     * 0.默认排序到起送金额这类，在页面中用sort_0标注
-     * 1.起送价格这个分类，在页面中用sort_1标注
-     * 2.蜂鸟快松到在线支付这个类，在页面中用sort_2标注
-     */
-    var sort_0 = new Classify(function (doms) {
-        var last = doms[0];
-        //防止闭包的临时函数
-        function _onclick() {
-            if (!isHasClass(this, 'active')) {
-                removeClass(last, 'active');
-                addClass(this, 'active');
-                last = this;
-            }
-        }
-        for (i in doms) {
-            doms[i].onclick = _onclick;
-        }
-    });
-    var sort_1 = new Classify(function (doms) {
-        var showClassify = document.getElementById('showClassify');
-        var last = doms[0];
-        //防止闭包的临时函数
-        function _onclick() {
-            if (!isHasClass(this, 'active')) {
-                removeClass(last, 'active');
-                addClass(this, 'active');
-                last = this;
-                showClassify.innerHTML = '起送价格: ' + this.innerHTML;
-            }
-        }
-        for (i in doms) {
-            doms[i].onclick = _onclick;
-        }
-    });
-    var sort_3 = new Classify(function (doms) {
-        function _onclick() {
-            var ev = document.createEvent('MouseEvents');
-            ev.initEvent('click', true, true);
-            this.children[0].dispatchEvent(ev);
-        }
-        for (i in doms) {
-            doms[i].onclick = _onclick;
-        }
-    });
+    return {
+        SpecialIcon: SpecialIcon,
+        Shop: Shop,
+        Classify: Classify,
+        ShopArea: ShopArea
+    }
 
-    var sort_0_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_0'));
-    var sort_1_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_1'));
-    var sort_2_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_2'));
-
-    // domId, title, logo, intro, evaluation, spendTime, lessMoney, location, distance, saleInMonth, specialArr`
-
-    var s = new Shop('shop_1', 'fdafdaf', 'shop.jepg', 'fdafdafdsaf', 0.8, 'fdaf', 'fdaf', 'fdafdas', 'fdafd', 'fdafda', 'fdafd', []);
-
-    var shops = document.getElementsByClassName('shops')[0];
-    console.log(shops);
-    s.show(shops);
 })(window.document);
 
 
@@ -399,13 +335,7 @@ app.picBanner.init(document.getElementById('picBanner'), ['1.png', '2.png', '3.p
 /**定义商铺中显示的图标 
 *　图标的类型，图标的样式，图标的说明 
 */
-app.template.shop.shopAddIcon('减', '<i style="background:#f07373;">减</i>', '在线支付满２８减８，满６０减１６(<span style="color:red;">手机客户端专享</span>)');
-app.template.shop.shopAddIcon('首', '<i style="background:#70bc46;">首</i>', '(不与其他活动同享)新用户下单首减１３元(<span style="color:red;">手机客户端专享</span>)');
-app.template.shop.shopAddIcon('特', '<i style="background:#f1884f;">特</i>', '');
-app.template.shop.shopAddIcon('付', '<i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">付</i>');
-app.template.shop.shopAddIcon('票', '<i style="background:#fff;color:#9071CB;border:1px solid;padding:0;">票</i>');
-app.template.shop.shopAddIcon('保', '<i style="background:#fff;color:#4B9A18;border:1px solid;padding:0;">保</i>');
-app.template.shop.shopAddIcon('赔', '<i style="background:#fff;color:#FF4E00;border:1px solid;padding:0;">赔</i>');
+
 
 /**添加商铺 
  * 商铺信息　object 
@@ -418,14 +348,98 @@ var shop = document.getElementsByClassName('shop')[3];
 var info = document.getElementsByClassName('shopInfo')[1];
 var shops = document.getElementsByClassName('shops')[0];
 
+var Classify = app.shop.Classify;
+var Shop = app.shop.Shop;
+var SpecialIcon = app.shop.SpecialIcon;
+var ShopArea = app.shop.ShopArea;
 
 
-// show(shop);
+
+// domId, title, logo, intro, evaluation, spendTime, lessMoney, takeMoney, location, distance, saleInMonth, specialArr
 
 
-// 规范一下参数
-// 测试商铺的代码
-// 写分类的代码
-// 写商铺显示区域的代码
-// 写链接代码
-// ok
+
+/**
+ * 初始化一个数组，储存shop中出现的小标
+ */
+var icons = [];
+icons.push(new SpecialIcon('jian', '<i style="background:#f07373;">减</i>', '在线支付满28减8,满60减16<span style="color:red;">(手机客户端专享)</span>'));
+icons.push(new SpecialIcon('shou', '<i style="background:#70bc46;">首</i>', '(不与其他活动同享)新用户下单首减13元<span style="color:red;">(手机客户端专享)</span>'));
+icons.push(new SpecialIcon('te', '<i style="background:#f1884f;">特</i>', '东西买一送一了，速来抢购'));
+icons.push(new SpecialIcon('fu', '<i style="background:#fff;color:#FF4E00;border:1px solid;padding:1px;">付</i>', '可使用支付宝微信手机QQ在线支付'));
+icons.push(new SpecialIcon('piao', '<i style="background:#fff;color:#9071CB;border:1px solid;padding:1px;">票</i>', '该商家支持发票请在下单时候填好发票开头'));
+icons.push(new SpecialIcon('bao', '<i style="background:#fff;color:#4B9A18;border:1px solid;padding:1px;">保</i>', '已经加入国家外卖宝计划，食品安全有保证'));
+
+// var s = new Shop('shop_1', 'fdafdaf', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
+// var shops = document.getElementsByClassName('shops')[0];
+// s.show(shops);
+
+
+
+/**
+ * 下面的代码开始初始化几个分类
+ * 0.默认排序到起送金额这类，在页面中用sort_0标注
+ * 1.起送价格这个分类，在页面中用sort_1标注
+ * 2.蜂鸟快松到在线支付这个类，在页面中用sort_2标注
+ */
+var sort_0 = new Classify();
+var sort_1 = new Classify();
+var sort_2 = new Classify();
+
+//为分类添加元素
+var sort_0_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_0'));
+var sort_1_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_1'));
+var sort_2_dom = Array.prototype.slice.call(document.getElementsByClassName('sort_2'));
+
+for(var i in sort_0_dom){
+    sort_0.addClassify(sort_0_dom[i]);    
+}
+for(var i in sort_1_dom){
+    sort_0.addClassify(sort_0_dom[i]);    
+}
+for(var i in sort_2_dom){
+    sort_0.addClassify(sort_0_dom[i]);    
+}
+
+
+
+function fd(doms) {
+    var last = doms[0];
+    //防止闭包的临时函数
+    function _onclick() {
+        if (!isHasClass(this, 'active')) {
+            removeClass(last, 'active');
+            addClass(this, 'active');
+            last = this;
+        }
+    }
+    for (i in doms) {
+        doms[i].onclick = _onclick;
+    }
+}
+var sort_1 = new Classify(function (doms) {
+    var showClassify = document.getElementById('showClassify');
+    var last = doms[0];
+    //防止闭包的临时函数
+    function _onclick() {
+        if (!isHasClass(this, 'active')) {
+            removeClass(last, 'active');
+            addClass(this, 'active');
+            last = this;
+            showClassify.innerHTML = '起送价格: ' + this.innerHTML;
+        }
+    }
+    for (i in doms) {
+        doms[i].onclick = _onclick;
+    }
+});
+var sort_3 = new Classify(function (doms) {
+    function _onclick() {
+        var ev = document.createEvent('MouseEvents');
+        ev.initEvent('click', true, true);
+        this.children[0].dispatchEvent(ev);
+    }
+    for (i in doms) {
+        doms[i].onclick = _onclick;
+    }
+});

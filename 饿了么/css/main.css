@@ -506,8 +506,11 @@ div {
     margin-top: 7px;
 }
 .shop .icons i {
-    padding : 1px;
+    padding : 2px;
     border-radius: 2px;
+    font-size:12px;
+    line-height: 16px;
+    width: 18px;
 }
 .shop + .shopInfo:hover {
     display: block;
@@ -525,6 +528,7 @@ div {
     padding: 20px;
     padding-bottom: 30px;    
     display: none;
+    white-space: normal;
 }
 .shopInfo-top {
     top: 20px;
@@ -569,6 +573,10 @@ div {
     left: -5px;
 }
 /*shopInfo内部元素的样式*/
+.shopInfo .sperator {
+    vertical-align: top;
+    color: #999;    
+}
 .shopInfo .shopTitle {
     font-size: 25px;    
     font-weight: 200;
@@ -582,9 +590,12 @@ div {
 }
 .shopInfo .shopIcon i{
     color: white;
-    padding :1px;
+    border-radius: 2px;
+    padding :2px;
+    line-height: 16px;
     margin-right: 10px;
     vertical-align: middle;
+    float: left;
 }
 .shopInfo .shopIcon span {
     color: #999;
@@ -593,7 +604,7 @@ div {
     background: #E6E6E6;
     margin-top:20px;
     margin-bottom: 10px;
-    padding: 2px;
+    padding: 5px;
 }
 .shopInfo .takeaway-sale span{
     margin-right: 3px;
