@@ -405,7 +405,6 @@ var sort_1_dom = Array.prototype.slice.call(document.getElementsByClassName('cla
 var sort_2_dom = Array.prototype.slice.call(document.getElementsByClassName('classify_2'));
 /**classify_0部分**************************/
 classify_0.currenOn(function(current,doms){
-    current.addClass('active');
     
 });
 //默认排序，显示出所有的商铺
