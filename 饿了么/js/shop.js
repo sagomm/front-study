@@ -3,10 +3,10 @@ app.customShop = (function (params) {
     *　初始化商铺的分类以及商铺
     ***************************/
     //得到几个基础类
-    var Classify = app.shop.Classify;
-    var Shop = app.shop.Shop;
-    var SpecialIcon = app.shop.SpecialIcon;
-    var ShopArea = app.shop.ShopArea;
+    var Classify = app.Shop.Classify;
+    var Shop = app.Shop.Shop;
+    var SpecialIcon = app.Shop.SpecialIcon;
+    var ShopArea = app.Shop.ShopArea;
     var isHasClass = app.Common.isHasClass;
     var removeClass = app.Common.removeClass;
     var addClass = app.Common.addClass;
@@ -149,3 +149,4 @@ app.customShop = (function (params) {
 
 })(window.document);
 
+//做好商铺的显示方式，以及注册好响应的fitlter函数，再去做每个按钮的点击事件，用他们发送响应的shop事件

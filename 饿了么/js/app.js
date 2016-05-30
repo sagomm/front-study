@@ -160,18 +160,18 @@ app.shop = (function (document) {
      * 商铺的显示,商铺，商铺的图标，商铺显示的区域
      */
     /**商铺类
-     * dimId[String]：商铺的编号，在html中为id属性的值
-     * titel[String]:商铺的名称
-     * logo[String]:商铺的logo地址
-     * intro[String]:商铺的介绍
-     * evaluation[Float]:商铺的星级评价(小数)
-     * spendTime[Int]:商铺配送时间
-     * lessMoney[Int]:商铺的起送金额
-     * takeMoney[Int]:商铺的配送金额
-     * location[String]:商铺的地点
-     * distance[Int]:商铺离用户的距离
-     * saleInMonth[Int]：商铺一个月的营销额度
-     * Special [Array]: 商铺的其他信息以及属性，非必要 --> [{属性名字name，属性说明info，属性样式html}] 
+     * @param  {string} domId 商铺的编号，在html中为id属性的值
+     * @param  {string} title 商铺的名称
+     * @param  {string} logo 商铺的logo地址
+     * @param  {string} intro 商铺的介绍
+     * @param  {float} evaluation 商铺的星级评价(小数)
+     * @param  {int} spendTime 商铺配送时间
+     * @param  {int} lessMoney 商铺的起送金额
+     * @param  {int} takeMoney 商铺的配送金额
+     * @param  {string} location 商铺的地点
+     * @param  {int} distance 商铺离用户的距离
+     * @param  {int} saleInMonth 商铺一个月的营销额度
+     * @param  {array} specialArr 商铺的其他信息以及属性，非必要 --> [{属性名字name，属性说明info，属性样式html}] 
      */
     function Shop(domId, title, logo, intro, evaluation, spendTime, lessMoney, takeMoney, location, distance, saleInMonth, specialArr) {
         this.title = title;
@@ -213,8 +213,8 @@ app.shop = (function (document) {
     /**
      * 隐藏hover出来的商铺信息
      */
-    Shop.prototype.hiddenInfo = function (dom) {
-        var _info = dom.getElementsByClassName('shopInfo')[0];
+    Shop.prototype.hiddenInfo = function (shop) {
+        var _info = shop.getElementsByClassName('shopInfo')[0];
         _info.className = 'shopInfo';
         _info.style.display = 'none';
     }
@@ -253,7 +253,7 @@ app.shop = (function (document) {
     /**
      * 将商铺从显示区域中删除
      */
-    Shop.prototype.hidden = function (shopArea) {
+    Shop.prototype.deleteShop = function (shopArea) {
         var dom = document.getElementById(this.id);
         if (dom) {
             shopArea.removeChild(dom);
