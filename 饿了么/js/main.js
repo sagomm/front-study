@@ -5,9 +5,7 @@ app.picBanner.init(document.getElementById('picBanner'), ['1.png', '2.png', '3.p
 /**
  * 初始化商铺信息，添加商铺
  */
-// app.custonShop.init({
-        
-// });
+
 
 
 

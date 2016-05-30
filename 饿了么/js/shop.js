@@ -12,13 +12,13 @@ app.customShop = (function (params) {
     var addClass = app.Common.addClass;
 
 
-    /*
+    /************** 
     * 下面的代码开始初始化几个分类:
     * 分成三个部分的依据是，每一个部分只能有一个按钮被触发
     * 0.默认排序到起送金额这类，在页面中用classify_0标注
     * 1.起送价格这个分类，在页面中用classify_1标注
     * 2.蜂鸟快松到在线支付这个类，在页面中用classify_2-6标注
-    */
+    *****************/
 
 
     //页面中所有带classify_[x]的节点，它们表示一个分类部分的按钮
@@ -28,18 +28,21 @@ app.customShop = (function (params) {
     //根据上面的_classify_array中的数组，初始化app.Classify类
     var classifyClass_array = [];
     for (var i in _doms_array) {
-        var _index = parseInt(_doms_array[i].className.match('classify_'));
+        var _index = _doms_array[i].className.match(/classify_\d+/g)[0].match(/\d+/g);
         if (!Array.isArray(_classify_array[index])) {
             _classify_array[_index] = [];
         }
         _classify_array[_index].push(_doms_array[i]);
     }
     for (var i in _classify_array) {
-        classifyClass_array.push(_classify_array[i]);                    
+        classifyClass_array.push(new Classify(_classify_array[i]));
     }
-    /******************classifyClass_array[0]部分**************************/
-    /*默认排序到起送金额这类，在页面中用classify_0标注*/
-    classify_0.onCurrent = function (current, last, doms) {
+
+
+    /**
+    * 对页面中的各个分类模块定义onCurrent函数,该函数表示在按钮触发时，应该展现出来的页面唯一样式 
+    */
+    function _active(current, last, doms) {
         if (!isHasClass(current, 'active')) {
             removeClass(last, 'active');
             addClass(current, 'acitive');
@@ -47,7 +50,22 @@ app.customShop = (function (params) {
             last = current;
         }
     };
-    
+    classifyClass_array[0].onCurrent = _active;
+    classifyClass_array[1].onCurrent = _active;
+    function _active_2_6(current, last, doms) {
+        //为li标签下面的input分发click事件
+        var ev = document.createEvent('MouseEvents');
+        ev.initEvent('click', true, true);
+        toggle.children[0].dispatchEvent(ev);
+    }
+    for (var i = 2; i < classifyClass_array.length; i++) {
+        classifyClass_array[i].onCurrent = _active_0_6;
+    }
+    /***
+     * 下面开始初始化商铺部分
+     * 初始化商铺中会出现的小标
+     * 初始化商铺中的
+     */
 
     /**
      * 初始化一个数组，储存shop中出现的小标
