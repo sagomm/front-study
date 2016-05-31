@@ -155,7 +155,7 @@ app.picBanner = (function (document) {
  * 包括商店导航栏，对商店进行分类的一些按钮
  * 包括商店的显示部分，对根据导航条的状态显示商店
  */
-app.shop = (function (document) {
+app.Shop = (function (document) {
     /**
      * 商铺的显示,商铺，商铺的图标，商铺显示的区域
      */
@@ -292,31 +292,38 @@ app.shop = (function (document) {
     }
     /**添加一个Shop类的实例 */
     ShopArea.prototype.addShop = function (shop) {
-        this.shops.push(shop);
-        return this;
+        if (typeof shop === 'object' && shop.constructor.name === 'Shop') {
+            this.shops.push(shop);
+        } else {
+            throw new TypeError('shop type error');
+        }
     }
     /**添加一个商铺的分类方法 */
     ShopArea.prototype.addShopFilter = function (name, callback) {
-        this.shopFilter.push({
-            name: name,
-            callback: callback
-        });
-        return this;
+        if (typeof callback === 'function' && typeof name ==='string') {
+            this.shopFilter.push({
+                name: name,
+                callback: callback
+            });
+        } else {
+            throw new TypeError('name && callback must be defined');
+        }
+
     }
     /**
      * 根据一个分类方法显示出商铺 
      * currentShops表示在会出现在页面上的商铺
-     * shops则是全部的商铺 
+     * shops则是全部的商铺
      */
     ShopArea.prototype.show = function (filterName) {
+        if (this.shops.length === 0 || this.shop.shopFilter.length === 0) { return; }
         for (var i in this.shopFilter) {
-            if (this.shopFilter[i].name == filterName) {
+            if (this.shopFilter[i].name === filterName) {
                 this.shopFilter[i].callback(this.currentShops, this.shops);
                 this.updatePage();
                 break;
             };
         }
-        return this;
     }
     /**从当前的商铺中更新到显示的页面中 */
     ShopArea.prototype.updatePage = function () {
@@ -328,30 +335,24 @@ app.shop = (function (document) {
      * 管理商铺分类的类
      * 同一个分类中，只有一个能被active出来
      */
-    function Classify() {
-        this.doms = [];
-        //目前active的dom
-        this.current = undefined;
-        //上一个acitve的dom
-        this.last = undefined;
-        //定义函数表示在active的回调函数
-        this.onCurrent = undefined;
-    }
-    Classify.prototype.addClassify = function (doms) {
-        if(Array.isArray(doms) && doms.length){
+    function Classify(doms) {
+        if (Array.isArray(doms) && doms.length 　!== 0) {
             this.doms = doms;
+            //上一个acitve的dom
             this.last = this.doms[0];
             this.curren = this.doms[0];
-        }else{
+            //定义函数表示在active的回调函数
+            this.onCurrent = undefined;
+        } else {
             throw new TypeError('arg is not dom Array or arg is empty');
         }
     }
     Classify.prototype.setCurrent = function (dom) {
         if (this.doms.indexOf(dom) !== -1) {
             this.current = dom;
-            if(this.currenOn == 'undefined'){
-                throw new TypeError('currenOn function must be defined');
-            }else{
+            if (this.currenOn == 'undefined') {
+                throw new referenceError('currenOn function must be defined');
+            } else {
                 this.currenOn(this.current, this.last, this.doms);
             }
         }
@@ -369,8 +370,13 @@ app.shop = (function (document) {
  * 简单发布订阅模式
  */
 app.Event = function (obj) {
-    this.obj = obj;
-    this.events = [];
+    if(typeof obj !== 'object'){
+        this.obj = obj;
+        this.events = [];        
+    }else{
+        throw new TypeError('arg is not object');
+    }
+
 }
 app.Event.prototype.send = function (name, arg) {
     for (var i in events) {
@@ -381,8 +387,12 @@ app.Event.prototype.send = function (name, arg) {
     }
 }
 app.Event.prototype.addEventListener = function (name, callback) {
-    this, observer.push({
-        name: name,
-        callback: callback
-    })
+    if (typeof callback === 'function' && typeof name === 'string') {
+        this, observer.push({
+            name: name,
+            callback: callback
+        })
+    } else {
+        throw new TypeError('arg type error');
+    }
 }

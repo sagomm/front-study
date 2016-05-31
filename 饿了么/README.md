@@ -35,4 +35,30 @@
             //..私有样式的改变(比如下拉菜单要改变顶部的文本值)
             //..调用shop的一个方法，改变现在显示的商铺
         }
-　　后来又想想,更好的方法可能是,抽象出更多的小分类，用事件通知方式来做.          
+　　后来又想想,更好的方法可能是,抽象出更多的小分类，用消息通知方式来做.          
+
+* 在做shopArea类的时候，想用注册的方式，向express的路由一样，
+    
+    shopArea.addShopFilter('name',function(){
+        //name表示这种商铺显示方式的名字
+        //这个名字的回调函数
+    })        
+  
+    shopArea.update('name');变化这种方式
+    
+  后来看到这样做的话，同一个分类模块的按钮怎么办呢？比如默认排序跟销量高不能共存，这个逻辑写不出来啊．
+  后来改成不用注册的方式了：
+  
+    shopArea.update(function(current,shop){
+        //对current跟shop的操作直接更新到页面
+    })    
+    
+    采用发布订阅模式，当一个分类触发的时候发布信号给shop类，使用update改变,有种状态机的感觉
+                
+###　英语方面
+* biggest_selling 销量高
+* good_condition 评价高
+* nearest 距离最近
+* take_speed 配送速度
+* start_money 起送金额
+

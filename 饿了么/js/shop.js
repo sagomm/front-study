@@ -1,4 +1,4 @@
-app.customShop = (function (params) {
+app.customShop = (function (document) {
     /***************************
     *　初始化商铺的分类以及商铺
     ***************************/
@@ -7,6 +7,7 @@ app.customShop = (function (params) {
     var Shop = app.Shop.Shop;
     var SpecialIcon = app.Shop.SpecialIcon;
     var ShopArea = app.Shop.ShopArea;
+    var changeEvent = app.Event;
     var isHasClass = app.Common.isHasClass;
     var removeClass = app.Common.removeClass;
     var addClass = app.Common.addClass;
@@ -22,23 +23,22 @@ app.customShop = (function (params) {
 
 
     //页面中所有带classify_[x]的节点，它们表示一个分类部分的按钮
-    var _doms_array = Array.prototype.slice.call(document.querySelectorAll('[class^=classify_]'));
+    var _doms_array = Array.prototype.slice.call(document.querySelectorAll('[class*=classify_]'));
     //将上面的节点分开，classify_1放入一个数组，classify_2放入另一个，以此类推,储存在_classify_array这个二维数组中
     var _classify_array = [];
     //根据上面的_classify_array中的数组，初始化app.Classify类
     var classifyClass_array = [];
     for (var i in _doms_array) {
-        var _index = _doms_array[i].className.match(/classify_\d+/g)[0].match(/\d+/g);
-        if (!Array.isArray(_classify_array[index])) {
+        var _index = parseInt(_doms_array[i].className.match(/classify_\d+/g)[0].match(/\d+/g)[0]);
+        if (!Array.isArray(_classify_array[_index])) {
             _classify_array[_index] = [];
         }
         _classify_array[_index].push(_doms_array[i]);
     }
     for (var i in _classify_array) {
+        console.log(_classify_array[i]);
         classifyClass_array.push(new Classify(_classify_array[i]));
     }
-
-
     /**
     * 对页面中的各个分类模块定义onCurrent函数,该函数表示在按钮触发时，应该展现出来的页面唯一样式 
     */
@@ -59,13 +59,16 @@ app.customShop = (function (params) {
         toggle.children[0].dispatchEvent(ev);
     }
     for (var i = 2; i < classifyClass_array.length; i++) {
-        classifyClass_array[i].onCurrent = _active_0_6;
+        classifyClass_array[i].onCurrent = _active_2_6;
     }
-    /***
-     * 下面开始初始化商铺部分
-     * 初始化商铺中会出现的小标
-     * 初始化商铺中的
+
+
+
+    /**
+     * 对商铺部分的初始化
      */
+
+
 
     /**
      * 初始化一个数组，储存shop中出现的小标
@@ -78,31 +81,39 @@ app.customShop = (function (params) {
     icons.push(new SpecialIcon('piao', '<i style="background:#fff;color:#9071CB;border:1px solid;padding:1px;">票</i>', '该商家支持发票请在下单时候填好发票开头'));
     icons.push(new SpecialIcon('bao', '<i style="background:#fff;color:#4B9A18;border:1px solid;padding:1px;">保</i>', '已经加入国家外卖宝计划，食品安全有保证'));
 
+    var shops = new ShopArea(document.getElementById('shops'));
+    shops.addShopFilter('all', function (current, last, all) {
+        //默认排序
+        current = all;
+    });
+    shops.addShopFilter('biggest_selling', function (current, last, all) {
+        //月销售最高
+        
+    });
+    shops.addShopFilter('all', function (current, all) {
 
+    });
+    shops.addShopFilter('all', function (current, all) {
 
-    // var classify_0_clickEvent = new app.Event({
-    //     lastNode: undefined,
-    //     dropClickList: document.getElementsByClassName('')
+    });
+    shops.addShopFilter('all', function (current, all) {
+
+    });
+    
+    
+    
+    // var shoparea = new ShopArea(document.getElementById('shops'));
+    var s = new Shop('shop_1', 'fdafdaf', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
+    var h = new Shop('shop_2', 'wwww', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
+    var c = new Shop('shop_3', 'fdafdaf', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
+    // shoparea.addShop(s).addShop(h).addShop(c);
+
+    // shoparea.addShopFilter('show',function(current,all){
+    //     current[1] = all[1];
     // });
-    // clickEvent_0.addEventListener('click', function (obj, arg) {
 
-    // });
-    // clickEvent_0.addEventListener('dropDownclick', function (obj, arg) {
-    // });
+    // shoparea.show('show');    
 
-
-
-
-
-
-
-
-
-    // for (var i in sort_0_dom) { sort_0.addClassify(sort_0_dom[i]); }
-    // for (var i in sort_1_dom) { sort_0.addClassify(sort_0_dom[i]); }
-    // for (var i in sort_2_dom) { sort_0.addClassify(sort_0_dom[i]); }
-
-    // function fd(doms) {
 
     // }
     // var sort_1 = new Classify(function (doms) {
@@ -132,18 +143,6 @@ app.customShop = (function (params) {
     //     }
     // });
 
-
-    // var shoparea = new ShopArea(document.getElementById('shops'));
-    // var s = new Shop('shop_1', 'fdafdaf', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
-    // var h = new Shop('shop_2', 'wwww', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
-    // var c = new Shop('shop_3', 'fdafdaf', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
-    // shoparea.addShop(s).addShop(h).addShop(c);
-
-    // shoparea.addShopFilter('show',function(current,all){
-    //     current[1] = all[1];
-    // });
-
-    // shoparea.show('show');    
 
 
 
