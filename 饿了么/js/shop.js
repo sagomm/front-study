@@ -61,7 +61,7 @@ app.customShop = (function (document) {
     for (var i = 2; i < classifyClass_array.length; i++) {
         classifyClass_array[i].onCurrent = _active_2_6;
     }
-    
+
 
 
     /**
@@ -80,28 +80,51 @@ app.customShop = (function (document) {
     icons.push(new SpecialIcon('fu', '<i style="background:#fff;color:#FF4E00;border:1px solid;padding:1px;">付</i>', '可使用支付宝微信手机QQ在线支付'));
     icons.push(new SpecialIcon('piao', '<i style="background:#fff;color:#9071CB;border:1px solid;padding:1px;">票</i>', '该商家支持发票请在下单时候填好发票开头'));
     icons.push(new SpecialIcon('bao', '<i style="background:#fff;color:#4B9A18;border:1px solid;padding:1px;">保</i>', '已经加入国家外卖宝计划，食品安全有保证'));
+    
+    /**
+     * 初始化商铺区域
+     * 定义商铺区域的分类方法
+     */
 
     var shops = new ShopArea(document.getElementById('shops'));
+
+    /**
+     * 插入排序,小到大
+     * @param  {shops} arr
+     * @param  {shop Object property} property
+     */
+    function _sort(arr, property) {
+        var _temp = [];
+        for (var i in arr) {
+            for (var j = 0; j < i; i++) {
+                                    
+            }
+        }
+        arr = _temp;
+    }
     shops.addShopFilter('all', function (current, all) {
-        //默认排序
+        //默认排序,显示全部
         current = all;
     });
     shops.addShopFilter('biggest_selling', function (current, all) {
-        //月销售最高
-                        
+        //月销售排序
+        _sort(current,'');
     });
-    shops.addShopFilter('all', function (current, all) {
-        
+    shops.addShopFilter('good_condition', function (current, all) {
+        //评价系数排序
+        _sort(current,'');
     });
-    shops.addShopFilter('all', function (current, all) {
+    shops.addShopFilter('nearest', function (current, all) {
+        //距离排序
+        _sort(current,'');
+    });
+    shops.addShopFilter('take_speed', function (current, all) {
+        //配送速度排序
+        _sort(current,'');
+    });
 
-    });
-    shops.addShopFilter('all', function (current, all) {
 
-    });
-    
-    
-    
+
     // var shoparea = new ShopArea(document.getElementById('shops'));
     var s = new Shop('shop_1', 'fdafdaf', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
     var h = new Shop('shop_2', 'wwww', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
