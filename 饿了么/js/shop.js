@@ -61,7 +61,7 @@ app.customShop = (function (document) {
     for (var i = 2; i < classifyClass_array.length; i++) {
         classifyClass_array[i].onCurrent = _active_2_6;
     }
-
+    
 
 
     /**
@@ -82,16 +82,16 @@ app.customShop = (function (document) {
     icons.push(new SpecialIcon('bao', '<i style="background:#fff;color:#4B9A18;border:1px solid;padding:1px;">保</i>', '已经加入国家外卖宝计划，食品安全有保证'));
 
     var shops = new ShopArea(document.getElementById('shops'));
-    shops.addShopFilter('all', function (current, last, all) {
+    shops.addShopFilter('all', function (current, all) {
         //默认排序
         current = all;
     });
-    shops.addShopFilter('biggest_selling', function (current, last, all) {
+    shops.addShopFilter('biggest_selling', function (current, all) {
         //月销售最高
-        
+                        
     });
     shops.addShopFilter('all', function (current, all) {
-
+        
     });
     shops.addShopFilter('all', function (current, all) {
 

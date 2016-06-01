@@ -289,6 +289,8 @@ app.Shop = (function (document) {
         this.shops = [];
         //注册的所有显示方法
         this.shopFilter = [];
+        //作用在当前页面的Filter方法
+        this.currentFilter = [];
     }
     /**添加一个Shop类的实例 */
     ShopArea.prototype.addShop = function (shop) {
@@ -320,6 +322,7 @@ app.Shop = (function (document) {
         for (var i in this.shopFilter) {
             if (this.shopFilter[i].name === filterName) {
                 this.shopFilter[i].callback(this.currentShops, this.shops);
+                this.currentFilter.push(shopFilter[i].name);
                 this.updatePage();
                 break;
             };
