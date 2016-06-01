@@ -4,7 +4,7 @@
 
 html canvas + p5.js
 
-写到一半才发现火狐不支持class关键字，加入了babel转化.
+写到一半才发现火狐不支持class关键字- -!，引入babel.js.结果人家babel6.0之后就不支持浏览器端了
 
 ## 算法
 
