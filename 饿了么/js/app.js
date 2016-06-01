@@ -287,10 +287,10 @@ app.Shop = (function (document) {
         this.currentShops = [];
         //所有添加的商铺
         this.shops = [];
-        //注册的所有显示方法
+        //注册的所有显示方法[object{string,callback},...]
         this.shopFilter = [];
-        //作用在当前页面的Filter方法
-        this.currentFilter = [];
+        //作用在当前页面的Filter方法[string,string,..]
+        this.currentFilterState = [];
     }
     /**添加一个Shop类的实例 */
     ShopArea.prototype.addShop = function (shop) {
@@ -300,9 +300,9 @@ app.Shop = (function (document) {
             throw new TypeError('shop type error');
         }
     }
-    /**添加一个商铺的分类方法 */
+    /**添加一个商铺的分类状态 */
     ShopArea.prototype.addShopFilter = function (name, callback) {
-        if (typeof callback === 'function' && typeof name ==='string') {
+        if (typeof callback === 'function' && typeof name === 'string') {
             this.shopFilter.push({
                 name: name,
                 callback: callback
@@ -312,26 +312,40 @@ app.Shop = (function (document) {
         }
 
     }
-    /**
-     * 根据一个分类方法显示出商铺 
-     * currentShops表示在会出现在页面上的商铺
-     * shops则是全部的商铺
-     */
-    ShopArea.prototype.show = function (filterName) {
+    /** 删除一个商铺的分类状态*/
+    ShopArea.prototype.removeShopFilterState = function (filterName) {
+        for (var i in this.currentFilterState) {
+            if (this.currentFilterState[i] === filterName) {
+                this.currentFilterState.splice(i, 1);
+                this.updatePage();
+                break;
+            }
+        }
+    }
+    /**添加一个商铺区域的分类状态*/
+    ShopArea.prototype.addShopFilterState = function (filterName) {
         if (this.shops.length === 0 || this.shop.shopFilter.length === 0) { return; }
         for (var i in this.shopFilter) {
             if (this.shopFilter[i].name === filterName) {
-                this.shopFilter[i].callback(this.currentShops, this.shops);
-                this.currentFilter.push(shopFilter[i].name);
+                this.currentFilterState.push(shopFilter[i].name);
                 this.updatePage();
                 break;
             };
         }
     }
-    /**从当前的商铺中更新到显示的页面中 */
+    /**更新商铺在页面中的显示区域 */
     ShopArea.prototype.updatePage = function () {
+        //清空当前显示的商铺
+        this.currentShops.length = 0;
+        for (var i in this.currentFilterState) {
+            for (var j in this.shopFilter) {
+                if (this.shopFilter[i].name === this.currentFilterState[i]) {
+                    this.shooFilter[i].callback(this.currentShops, this.shops);
+                }
+            }
+        }
         for (var i in this.currentShops) {
-            this.currentShops[i].show(this.domInstance);
+            currentShops[i].show(this.domInstance);
         }
     }
     /**
@@ -339,7 +353,7 @@ app.Shop = (function (document) {
      * 同一个分类中，只有一个能被active出来
      */
     function Classify(doms) {
-        if (Array.isArray(doms) && doms.length 　!== 0) {
+        if (Array.isArray(doms) && doms.length !== 0) {
             this.doms = doms;
             //上一个acitve的dom
             this.last = this.doms[0];
@@ -373,10 +387,10 @@ app.Shop = (function (document) {
  * 简单发布订阅模式
  */
 app.Event = function (obj) {
-    if(typeof obj !== 'object'){
+    if (typeof obj !== 'object') {
         this.obj = obj;
-        this.events = [];        
-    }else{
+        this.events = [];
+    } else {
         throw new TypeError('arg is not object');
     }
 
