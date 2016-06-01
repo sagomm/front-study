@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+em {
+    font-style: normal;
+}
+a {
+    text-decoration: none; 
+}
+.g-scope {
+    width: 1230px;
+    margin:auto;
+}
+.g-clearfix::after {
+    content: '';
+    display: table;
+    clear: both;
+}   
