@@ -8,9 +8,10 @@
 
 ### css部分:
 
+* 该看看一些css规范了,这方面做的很乱
 * 要注意一下css自动继承的属性，写class的时候记得加前缀，代码多的时候很麻烦.
 * text-align:justify要换行才有效果
-* inline-block与空白字符
+* inline-block与空白字符,包括在text-align:center都会受到空白字符影响
 * 页面的商铺用的inline-block，官网做的用float,后来琢磨了一下，确实float好
 
 ### js部分:

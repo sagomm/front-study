@@ -89,17 +89,13 @@ app.customShop = (function (document) {
     var shops = new ShopArea(document.getElementById('shops'));
 
     /**
-     * 插入排序,小到大
+     * shop对象的简单排序,小到大
      * @param  {shops} arr
      * @param  {shop Object property} property
      */
     function _sort(arr, property) {
         var _temp = [];
-        for (var i in arr) {
-            for (var j = 0; j < i; i++) {
-                                    
-            }
-        }
+         
         arr = _temp;
     }
     shops.addShopFilter('all', function (current, all) {
