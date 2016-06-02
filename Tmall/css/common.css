@@ -8,6 +8,9 @@ em {
 a {
     text-decoration: none; 
 }
+li {
+    list-style: none;
+}
 .g-scope {
     width: 1230px;
     margin:auto;
@@ -16,4 +19,4 @@ a {
     content: '';
     display: table;
     clear: both;
-}   
+}

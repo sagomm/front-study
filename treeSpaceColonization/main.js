@@ -17,17 +17,20 @@ function Branch(pos, parent) {
 /**
  * 定义树对象
  */
-function Tree(num,) {
-    this.leaves = [];
-    for(var i =)
-}
+// function Tree(num,) {
+//     this.leaves = [];
+//     // for(var i =)
+// }
+
+
 
 
 
 function setup() {
-    createCanvas(400, 400);
+    // createCanvas(400, 400);
 }    
 
 function draw() {
-    background(51);
+    // background(51);
+    ellipse(50, 50, 80, 80);
 }

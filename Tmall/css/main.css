@@ -17,10 +17,20 @@
     border-bottom: 1px solid #E5E5E5;
     position: relative;
 }
+.site-nav a:visited {
+   color: #999; 
+}
+.site-nav a:hover {
+    color: #C40000;
+}
+
 .site-nav .quick-menu {
     position: absolute;
     right: 0;
     top:0;
-    
+}
+.site-nav .quick-menu > li {
+    float: left;
+    position: relative;
 }
 

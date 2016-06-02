@@ -6,7 +6,7 @@ html canvas + p5.js
 
 写到一半才发现火狐不支持class关键字- -!，引入babel.js.结果人家babel6.0之后就不支持浏览器端了
 
-## 算法
+## 生成算法
 
-(Modeling Tree with a Space Colonization Algorithm)[http://algorithmicbotany.org/papers/colonization.egwnp2007.pdf]
+[Modeling Tree with a Space Colonization Algorithm](http://algorithmicbotany.org/papers/colonization.egwnp2007.pdf)
 
