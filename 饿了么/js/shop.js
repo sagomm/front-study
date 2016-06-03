@@ -80,7 +80,7 @@ app.customShop = (function (document) {
     icons.push(new SpecialIcon('fu', '<i style="background:#fff;color:#FF4E00;border:1px solid;padding:1px;">付</i>', '可使用支付宝微信手机QQ在线支付'));
     icons.push(new SpecialIcon('piao', '<i style="background:#fff;color:#9071CB;border:1px solid;padding:1px;">票</i>', '该商家支持发票请在下单时候填好发票开头'));
     icons.push(new SpecialIcon('bao', '<i style="background:#fff;color:#4B9A18;border:1px solid;padding:1px;">保</i>', '已经加入国家外卖宝计划，食品安全有保证'));
-    
+
     /**
      * 初始化商铺区域
      * 定义商铺区域的分类方法
@@ -91,11 +91,24 @@ app.customShop = (function (document) {
     /**
      * shop对象的简单排序,小到大
      * @param  {shops} arr
-     * @param  {shop Object property} property
+     * @param  {shop Object property string} property
      */
     function _sort(arr, property) {
         var _temp = [];
-         
+        var _temp_max = 0;
+        var _temp_index = 0;
+        do {
+            for (var i in arr) {
+                if (_temp_max < arr[i][property]) {
+                    _temp[i] = _temp_max;
+                    _temp_index = i;
+                }
+            }
+            _temp.psuh(arr[_temp_index]);
+            arr.splice(_temp_index, 1);
+            _temp_max = 0;
+            _temp_index = 0;
+        } while (arr.length !== 0);
         arr = _temp;
     }
     shops.addShopFilter('all', function (current, all) {
@@ -104,24 +117,71 @@ app.customShop = (function (document) {
     });
     shops.addShopFilter('biggest_selling', function (current, all) {
         //月销售排序
-        _sort(current,'');
+        _sort(current, 'saleInMonth');
     });
     shops.addShopFilter('good_condition', function (current, all) {
         //评价系数排序
-        _sort(current,'');
+        _sort(current, 'evaluation');
     });
     shops.addShopFilter('nearest', function (current, all) {
         //距离排序
-        _sort(current,'');
+        _sort(current, 'distance');
     });
     shops.addShopFilter('take_speed', function (current, all) {
-        //配送速度排序
-        _sort(current,'');
+        //配送时间排序
+        _sort(current, 'spendTime');
     });
-
-
-
-    // var shoparea = new ShopArea(document.getElementById('shops'));
+    //起送价格系列
+    function _filter_price(current, all, limit) {
+        //起送价格的排序
+        for (var i in current) {
+            if (current[i] > 15) {
+                current.splice(i, 1);
+            }
+        }
+    }
+    shop.addShopFilter('limit_15', function (current, all) {
+        _filter_price(current, all, 15);
+    })
+    shop.addShopFilter('limit_20', function (current, all) {
+        _filter_price(current, all, 20);
+    })
+    shop.addShopFilter('limit_30', function (current, all) {
+        _filter_price(current, all, 30);
+    })
+    shop.addShopFilter('limit_40', function (current, all) {
+        _filter_price(current, all, 40);
+    })
+    function _filter(current,all,filter) {
+        for(var i in current){
+            if(current[i].hasOwnporperty(filter)){
+                if(current[i][filter]){
+                    current.splice(i,1);
+                }
+            }
+        }
+    }
+    shop.addShopFilter('isHasXinKai', function (current, all) {
+        //新开商家
+        _filter(current,all,'isHasXinKai');
+    })
+    shop.addShopFilter('isHasMianSong', function (current, all) {
+        //免费派送
+         _filter(current,all,'isHasMianSong');
+    })
+    shop.addShopFilter('isHasFengNiao', function (current, all) {
+        //蜂鸟快送
+         _filter(current,all,'isHasFengNiao');
+    })
+    shop.addShopFilter('isHasFaPiao', function (current, all) {
+        //可开发票
+         _filter(current,all,'isHasFaPiao');
+    })
+    shop.addShopFilter('isHasZhiFu', function (current, all) {
+        //在线支付
+         _filter(current,all,'isHasZhiFu');
+    })
+        
     var s = new Shop('shop_1', 'fdafdaf', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
     var h = new Shop('shop_2', 'wwww', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
     var c = new Shop('shop_3', 'fdafdaf', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
