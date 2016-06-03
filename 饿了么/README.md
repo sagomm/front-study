@@ -41,6 +41,7 @@
 * 注册的方法来做商铺区域的显示          
    
 
+
 ###　英语方面
 * biggest_selling 销量高
 * good_condition 评价高

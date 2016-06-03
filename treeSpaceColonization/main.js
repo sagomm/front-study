@@ -27,10 +27,9 @@ function Branch(pos, parent) {
 
 
 function setup() {
-    // createCanvas(400, 400);
+    createCanvas(400, 400);
 }    
 
 function draw() {
-    // background(51);
-    ellipse(50, 50, 80, 80);
+    background(51);
 }

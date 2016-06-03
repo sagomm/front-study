@@ -33,4 +33,46 @@
     float: left;
     position: relative;
 }
-
+.site-nav .site-login,
+.site-nav .site-register {
+    padding-left: 20px;
+    padding-right: 10px;
+}
+.quick-menu .item {
+    padding:  0 10px;
+}
+.quick-menu .item-mytaobao {
+    padding-right: 14px;
+}
+.quick-menu .dropdown-icon {
+	position: absolute;
+	right: 5px;
+	top: 15px;
+	width: 0px;
+	height: 0px;
+	border-width: 3px;
+	border-style: solid dashed dashed;
+	border-color: #BBB transparent transparent;
+	font-size: 0px;
+	line-height: 0;
+}
+.quick-menu .tiny-menu:hover {
+    background: white;
+}
+.quick-menu .tiny-menu:hover > .menu-body{
+    background: white;
+    display: block;
+}
+.quick-menu .menu-body {
+    color: #666;
+    position: absolute;
+    margin-top: 0px;
+    margin-left: -11px;
+    width: 92px;   
+    display: none;
+    border-color: #eee;
+    border-style: solid;
+    border-width: 0px 1px 1px;
+    line-height: 1.4;   
+    padding: 8px 10px; 
+}
