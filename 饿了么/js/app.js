@@ -148,13 +148,14 @@ app.picBanner = (function (document) {
             animation(pictures, toggles, 3000 || timeDelay);
         }
     }
-})(window.document)
+})(window.document);
 
 /**
  * 页面商店部分
  * 包括商店导航栏，对商店进行分类的一些按钮
  * 包括商店的显示部分，对根据导航条的状态显示商店
  */
+
 app.Shop = (function (document) {
     /**
      * 商铺的显示,商铺，商铺的图标，商铺显示的区域
@@ -171,7 +172,7 @@ app.Shop = (function (document) {
      * @param  {string} location 商铺的地点
      * @param  {int} distance 商铺离用户的距离
      * @param  {int} saleInMonth 商铺一个月的营销额度
-     * @param  {array} specialArr 商铺的其他信息以及属性，非必要 --> [{属性名字name，属性说明info，属性样式html}] 
+     * @param  {array} specialArr 商铺的非必要信息 --> [{属性名字name，属性说明info，属性样式html}] 
      */
     function Shop(domId, title, logo, intro, evaluation, spendTime, lessMoney, takeMoney, location, distance, saleInMonth, specialArr) {
         this.title = title;
@@ -198,15 +199,15 @@ app.Shop = (function (document) {
         /**计算出距离，一个是视窗的Y距离，一个是距离视窗的X距离 */
         if (offsetRight < dom.offsetWidth) {
             //在shop左边显示
-            app.common.addClass(dom, 'shopInfo-left');
+            app.Common.addClass(dom, 'shopInfo-left');
         } else {
-            app.common.addClass(dom, 'shopInfo-right');
+            app.Common.addClass(dom, 'shopInfo-right');
         };
         if (document.documentElement.clientHeight - shop.getBoundingClientRect().y > 2 * shop.offsetHeight) {
             //从底部向上显示
-            app.common.addClass(dom, 'shopInfo-top');
+            app.Common.addClass(dom, 'shopInfo-top');
         } else {
-            app.common.addClass(dom, 'shopInfo-bottom');
+            app.Common.addClass(dom, 'shopInfo-bottom');
         };
         dom.style.display = 'block';
     }
@@ -234,11 +235,19 @@ app.Shop = (function (document) {
         //设置该商铺的评分样式
         this.setEvaluation(domInstance, this.evaluation);
         //延迟控制hover出来的商铺信息
+        this.delayShow();
+    }
+    //设置shopInfo延迟显示
+    Shop.prototype.delayShow = function () {
+        var domInstance = document.getElementById(this.domId);
+        console.log(this.domId);
         var _id = undefined;
+        console.log(domInstance);
         domInstance.addEventListener('mouseleave', function (e) {
             clearTimeout(_id);
             _id = undefined;
             this.hiddenInfo(domInstance);
+            console.log('on');
         }.bind(this), false);
         domInstance.addEventListener('mouseover', function (e) {
             if (_id) {
@@ -267,10 +276,10 @@ app.Shop = (function (document) {
         }
     }
     /**
-     * 商铺下面的小标icon类，
-     * 商铺类最后一个参数数组中定义对象
+     * 商铺的非重要信息类，包括下面的小标
+     * 如果有html则直接显示到小标那里；如果没的话，则作为商铺的一个特殊属性
      */
-    function SpecialIcon(name, html, info) {
+    function Special(name, html, info) {
         this.html = html;
         this.info = info;
         this.name = name;
@@ -295,7 +304,11 @@ app.Shop = (function (document) {
     /**添加一个Shop类的实例 */
     ShopArea.prototype.addShop = function (shop) {
         if (typeof shop === 'object' && shop.constructor.name === 'Shop') {
-            this.shops.push(shop);
+            if (this.shops.indexOf(shop) === -1) {
+                this.shops.push(shop);
+            } else {
+                throw new TypeError('shop is exist');
+            }
         } else {
             throw new TypeError('shop type error');
         }
@@ -324,10 +337,10 @@ app.Shop = (function (document) {
     }
     /**添加一个商铺区域的分类状态*/
     ShopArea.prototype.addShopFilterState = function (filterName) {
-        if (this.shops.length === 0 || this.shop.shopFilter.length === 0) { return; }
+        if (this.shops.length === 0 || this.shopFilter.length === 0) { return; }
         for (var i in this.shopFilter) {
             if (this.shopFilter[i].name === filterName) {
-                this.currentFilterState.push(shopFilter[i].name);
+                this.currentFilterState.push(this.shopFilter[i].name);
                 this.updatePage();
                 break;
             };
@@ -340,12 +353,24 @@ app.Shop = (function (document) {
         for (var i in this.currentFilterState) {
             for (var j in this.shopFilter) {
                 if (this.shopFilter[i].name === this.currentFilterState[i]) {
-                    this.shooFilter[i].callback(this.currentShops, this.shops);
+                    this.shopFilter[i].callback(this.currentShops, this.shops);
+                    console.log(1);
+                    console.log(this.currentShops);
+                    console.log(this.shops);
+                    break;
                 }
             }
         }
+        this.clear();
         for (var i in this.currentShops) {
-            currentShops[i].show(this.domInstance);
+            this.currentShops[i].show(this.domInstance);
+        }
+    }
+    /** 清楚页面中所有商铺 */
+    ShopArea.prototype.clear = function () {
+        var child = Array.prototype.slice.call(this.domInstance.children);
+        for (var i in child) {
+            this.domInstance.removeChild(child[i]);
         }
     }
     /**
@@ -375,7 +400,7 @@ app.Shop = (function (document) {
         }
     }
     return {
-        SpecialIcon: SpecialIcon,
+        Special: Special,
         Shop: Shop,
         Classify: Classify,
         ShopArea: ShopArea

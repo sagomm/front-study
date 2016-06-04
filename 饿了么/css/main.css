@@ -485,6 +485,7 @@
     padding-bottom: 30px;    
     display: none;
     white-space: normal;
+    z-index: 999;
 }
 .shopInfo-top {
     top: 20px;

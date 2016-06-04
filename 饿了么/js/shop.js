@@ -5,13 +5,13 @@ app.customShop = (function (document) {
     //得到几个基础类
     var Classify = app.Shop.Classify;
     var Shop = app.Shop.Shop;
-    var SpecialIcon = app.Shop.SpecialIcon;
+    var Special = app.Shop.Special;
     var ShopArea = app.Shop.ShopArea;
     var changeEvent = app.Event;
     var isHasClass = app.Common.isHasClass;
     var removeClass = app.Common.removeClass;
     var addClass = app.Common.addClass;
-
+    
 
     /************** 
     * 下面的代码开始初始化几个分类:
@@ -36,7 +36,6 @@ app.customShop = (function (document) {
         _classify_array[_index].push(_doms_array[i]);
     }
     for (var i in _classify_array) {
-        console.log(_classify_array[i]);
         classifyClass_array.push(new Classify(_classify_array[i]));
     }
     /**
@@ -67,20 +66,6 @@ app.customShop = (function (document) {
     /**
      * 对商铺部分的初始化
      */
-
-
-
-    /**
-     * 初始化一个数组，储存shop中出现的小标
-     */
-    var icons = [];
-    icons.push(new SpecialIcon('jian', '<i style="background:#f07373;">减</i>', '在线支付满28减8,满60减16<span style="color:red;">(手机客户端专享)</span>'));
-    icons.push(new SpecialIcon('shou', '<i style="background:#70bc46;">首</i>', '(不与其他活动同享)新用户下单首减13元<span style="color:red;">(手机客户端专享)</span>'));
-    icons.push(new SpecialIcon('te', '<i style="background:#f1884f;">特</i>', '东西买一送一了，速来抢购'));
-    icons.push(new SpecialIcon('fu', '<i style="background:#fff;color:#FF4E00;border:1px solid;padding:1px;">付</i>', '可使用支付宝微信手机QQ在线支付'));
-    icons.push(new SpecialIcon('piao', '<i style="background:#fff;color:#9071CB;border:1px solid;padding:1px;">票</i>', '该商家支持发票请在下单时候填好发票开头'));
-    icons.push(new SpecialIcon('bao', '<i style="background:#fff;color:#4B9A18;border:1px solid;padding:1px;">保</i>', '已经加入国家外卖宝计划，食品安全有保证'));
-
     /**
      * 初始化商铺区域
      * 定义商铺区域的分类方法
@@ -113,7 +98,9 @@ app.customShop = (function (document) {
     }
     shops.addShopFilter('all', function (current, all) {
         //默认排序,显示全部
-        current = all;
+        for(var i in all){
+            current.push(all[i]);
+        }
     });
     shops.addShopFilter('biggest_selling', function (current, all) {
         //月销售排序
@@ -135,21 +122,24 @@ app.customShop = (function (document) {
     function _filter_price(current, all, limit) {
         //起送价格的排序
         for (var i in current) {
-            if (current[i] > 15) {
+            if (current[i].lessMoney > limit) {
+                console.log(current[i]);
+                console.log(current[i].lessMoney);
                 current.splice(i, 1);
             }
         }
     }
-    shop.addShopFilter('limit_15', function (current, all) {
+    shops.addShopFilter('limit_15', function (current, all) {
         _filter_price(current, all, 15);
     })
-    shop.addShopFilter('limit_20', function (current, all) {
+    shops.addShopFilter('limit_20', function (current, all) {
+        console.log(1);
         _filter_price(current, all, 20);
     })
-    shop.addShopFilter('limit_30', function (current, all) {
+    shops.addShopFilter('limit_30', function (current, all) {
         _filter_price(current, all, 30);
     })
-    shop.addShopFilter('limit_40', function (current, all) {
+    shops.addShopFilter('limit_40', function (current, all) {
         _filter_price(current, all, 40);
     })
     function _filter(current,all,filter) {
@@ -161,70 +151,46 @@ app.customShop = (function (document) {
             }
         }
     }
-    shop.addShopFilter('isHasXinKai', function (current, all) {
+    shops.addShopFilter('isHasXinKai', function (current, all) {
         //新开商家
         _filter(current,all,'isHasXinKai');
     })
-    shop.addShopFilter('isHasMianSong', function (current, all) {
+    shops.addShopFilter('isHasMianSong', function (current, all) {
         //免费派送
          _filter(current,all,'isHasMianSong');
     })
-    shop.addShopFilter('isHasFengNiao', function (current, all) {
+    shops.addShopFilter('isHasFengNiao', function (current, all) {
         //蜂鸟快送
          _filter(current,all,'isHasFengNiao');
     })
-    shop.addShopFilter('isHasFaPiao', function (current, all) {
+    shops.addShopFilter('isHasFaPiao', function (current, all) {
         //可开发票
          _filter(current,all,'isHasFaPiao');
     })
-    shop.addShopFilter('isHasZhiFu', function (current, all) {
+    shops.addShopFilter('isHasZhiFu', function (current, all) {
         //在线支付
          _filter(current,all,'isHasZhiFu');
     })
-        
-    var s = new Shop('shop_1', 'fdafdaf', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
-    var h = new Shop('shop_2', 'wwww', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
-    var c = new Shop('shop_3', 'fdafdaf', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
-    // shoparea.addShop(s).addShop(h).addShop(c);
-
-    // shoparea.addShopFilter('show',function(current,all){
-    //     current[1] = all[1];
-    // });
-
-    // shoparea.show('show');    
-
-
-    // }
-    // var sort_1 = new Classify(function (doms) {
-    //     var showClassify = document.getElementById('showClassify');
-    //     var last = doms[0];
-    //     //防止闭包的临时函数
-    //     function _onclick() {
-    //         if (!isHasClass(this, 'active')) {
-    //             removeClass(last, 'active');
-    //             addClass(this, 'active');
-    //             last = this;
-    //             showClassify.innerHTML = '起送价格: ' + this.innerHTML;
-    //         }
-    //     }
-    //     for (i in doms) {
-    //         doms[i].onclick = _onclick;
-    //     }
-    // });
-    // var sort_3 = new Classify(function (doms) {
-    //     function _onclick() {
-    //         var ev = document.createEvent('MouseEvents');
-    //         ev.initEvent('click', true, true);
-    //         this.children[0].dispatchEvent(ev);
-    //     }
-    //     for (i in doms) {
-    //         doms[i].onclick = _onclick;
-    //     }
-    // });
-
-
-
-
+    /**
+     * 初始化一个数组，储存shop中出现的小标
+     */
+    var icons = [];
+    icons.push(new Special('Jian', '<i style="background:#f07373;">减</i>', '在线支付满28减8,满60减16<span style="color:red;">(手机客户端专享)</span>'));
+    icons.push(new Special('Shou', '<i style="background:#70bc46;">首</i>', '(不与其他活动同享)新用户下单首减13元<span style="color:red;">(手机客户端专享)</span>'));
+    icons.push(new Special('Te', '<i style="background:#f1884f;">特</i>', '东西买一送一了，速来抢购'));
+    icons.push(new Special('Fu', '<i style="background:#fff;color:#FF4E00;border:1px solid;padding:1px;">付</i>', '可使用支付宝微信手机QQ在线支付'));
+    icons.push(new Special('Piao', '<i style="background:#fff;color:#9071CB;border:1px solid;padding:1px;">票</i>', '该商家支持发票请在下单时候填好发票开头'));
+    icons.push(new Special('Bao', '<i style="background:#fff;color:#4B9A18;border:1px solid;padding:1px;">保</i>', '已经加入国家外卖宝计划，食品安全有保证'));
+    
+    var s = new Shop('shop_1', '1111', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 21, 'fdafd', 70, 2, [icons[1], icons[3], icons[4]]);
+    var h = new Shop('shop_2', '2222', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
+    var c = new Shop('shop_3', '3333', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
+    var d = new Shop('shop_3', '3333', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
+    shops.addShop(c);
+    shops.addShop(h);
+    shops.addShop(s);
+    shops.addShop(d);
+    shops.addShopFilterState('all');    
 })(window.document);
 
 //做好商铺的显示方式，以及注册好响应的fitlter函数，再去做每个按钮的点击事件，用他们发送响应的shop事件
