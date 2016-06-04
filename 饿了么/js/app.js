@@ -15,12 +15,12 @@ app.Common = {
         }
     },
     addClass: function (element, className) {
-        if (!this.isHasClass(element, className)) {
+        if (app.Common.isHasClass(element, className)) {
             element.className += " " + className;
         }
     },
     removeClass: function (element, className) {
-        if (this.isHasClass(element, className)) {
+        if (app.Common.isHasClass(element, className)) {
             console.log(element);
             var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
             element.className = element.className.replace(reg, ' ');
@@ -193,11 +193,14 @@ app.Shop = (function (document) {
     /**
      * 显示hover出来的商铺信息
      */
-    Shop.prototype.showInfo = function (shop) {
+    Shop.prototype.showInfo = function () {
+        var shop = document.getElementById(this.domId);
         var dom = shop.getElementsByClassName('shopInfo')[0];
-        var offsetRight = dom.parentNode.offsetWidth + dom.parentNode.offsetLeft - dom.offsetLeft - dom.offsetWidth;
+        var offsetRight = shop.parentNode.offsetWidth + shop.parentNode.offsetLeft - shop.offsetLeft - shop.offsetWidth;
+        console.log(offsetRight);
+        console.log(dom.parentNode) ;
         /**计算出距离，一个是视窗的Y距离，一个是距离视窗的X距离 */
-        if (offsetRight < dom.offsetWidth) {
+        if (offsetRight < shop.offsetWidth) {
             //在shop左边显示
             app.Common.addClass(dom, 'shopInfo-left');
         } else {
@@ -224,6 +227,7 @@ app.Shop = (function (document) {
      */
     Shop.prototype.setEvaluation = function (dom, evaluation) {
         var eva_star = dom.getElementsByClassName('star-sales')[0];
+        console.log(eva_star.offsetWidth * evaluation);
         eva_star.style.width = evaluation * eva_star.offsetWidth;
     }
     /**
@@ -231,11 +235,14 @@ app.Shop = (function (document) {
      */
     Shop.prototype.show = function (shopArea) {
         shopArea.innerHTML += this.html;
-        var domInstance = document.getElementById(this.domId);
-        //设置该商铺的评分样式
-        this.setEvaluation(domInstance, this.evaluation);
-        //延迟控制hover出来的商铺信息
-        this.delayShow();
+        //加上setTimeout,要不下面的代码运行不了，浏览器还在消化上面的代码
+        setTimeout(function () {
+            var domInstance = document.getElementById(this.domId);
+            // 设置该商铺的评分样式
+            this.setEvaluation(domInstance, this.evaluation);
+            // 延迟控制hover出来的商铺信息
+            this.delayShow();
+        }.bind(this));
     }
     //设置shopInfo延迟显示
     Shop.prototype.delayShow = function () {
@@ -247,14 +254,13 @@ app.Shop = (function (document) {
             clearTimeout(_id);
             _id = undefined;
             this.hiddenInfo(domInstance);
-            console.log('on');
         }.bind(this), false);
         domInstance.addEventListener('mouseover', function (e) {
             if (_id) {
                 return;
             } else {
                 _id = setTimeout(function () {
-                    this.showInfo(domInstance);
+                    this.showInfo();
                 }.bind(this), 300);
             }
         }.bind(this), false);
@@ -392,10 +398,10 @@ app.Shop = (function (document) {
     Classify.prototype.setCurrent = function (dom) {
         if (this.doms.indexOf(dom) !== -1) {
             this.current = dom;
-            if (this.currenOn == 'undefined') {
+            if (this.onCurrent == 'undefined') {
                 throw new referenceError('currenOn function must be defined');
             } else {
-                this.currenOn(this.current, this.last, this.doms);
+                this.onCurrent(this.current, this.last, this.doms);
             }
         }
     }

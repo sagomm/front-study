@@ -11,7 +11,7 @@ app.customShop = (function (document) {
     var isHasClass = app.Common.isHasClass;
     var removeClass = app.Common.removeClass;
     var addClass = app.Common.addClass;
-    
+
 
     /************** 
     * 下面的代码开始初始化几个分类:
@@ -45,7 +45,12 @@ app.customShop = (function (document) {
         if (!isHasClass(current, 'active')) {
             removeClass(last, 'active');
             addClass(current, 'acitive');
-        } else {
+            
+            console.log(current);
+            console.log(last);
+            console.log(1);
+            
+    } else {
             last = current;
         }
     };
@@ -57,11 +62,10 @@ app.customShop = (function (document) {
         ev.initEvent('click', true, true);
         toggle.children[0].dispatchEvent(ev);
     }
-    for (var i = 2; i < classifyClass_array.length; i++) {
+    for (var i = 2; i !== 6; i++) {
         classifyClass_array[i].onCurrent = _active_2_6;
     }
-
-
+    classifyClass_array[0].setCurrent(_classify_array[0][2]);    
 
     /**
      * 对商铺部分的初始化
@@ -98,7 +102,7 @@ app.customShop = (function (document) {
     }
     shops.addShopFilter('all', function (current, all) {
         //默认排序,显示全部
-        for(var i in all){
+        for (var i in all) {
             current.push(all[i]);
         }
     });
@@ -142,34 +146,34 @@ app.customShop = (function (document) {
     shops.addShopFilter('limit_40', function (current, all) {
         _filter_price(current, all, 40);
     })
-    function _filter(current,all,filter) {
-        for(var i in current){
-            if(current[i].hasOwnporperty(filter)){
-                if(current[i][filter]){
-                    current.splice(i,1);
+    function _filter(current, all, filter) {
+        for (var i in current) {
+            if (current[i].hasOwnporperty(filter)) {
+                if (current[i][filter]) {
+                    current.splice(i, 1);
                 }
             }
         }
     }
     shops.addShopFilter('isHasXinKai', function (current, all) {
         //新开商家
-        _filter(current,all,'isHasXinKai');
+        _filter(current, all, 'isHasXinKai');
     })
     shops.addShopFilter('isHasMianSong', function (current, all) {
         //免费派送
-         _filter(current,all,'isHasMianSong');
+        _filter(current, all, 'isHasMianSong');
     })
     shops.addShopFilter('isHasFengNiao', function (current, all) {
         //蜂鸟快送
-         _filter(current,all,'isHasFengNiao');
+        _filter(current, all, 'isHasFengNiao');
     })
     shops.addShopFilter('isHasFaPiao', function (current, all) {
         //可开发票
-         _filter(current,all,'isHasFaPiao');
+        _filter(current, all, 'isHasFaPiao');
     })
     shops.addShopFilter('isHasZhiFu', function (current, all) {
         //在线支付
-         _filter(current,all,'isHasZhiFu');
+        _filter(current, all, 'isHasZhiFu');
     })
     /**
      * 初始化一个数组，储存shop中出现的小标
@@ -181,16 +185,33 @@ app.customShop = (function (document) {
     icons.push(new Special('Fu', '<i style="background:#fff;color:#FF4E00;border:1px solid;padding:1px;">付</i>', '可使用支付宝微信手机QQ在线支付'));
     icons.push(new Special('Piao', '<i style="background:#fff;color:#9071CB;border:1px solid;padding:1px;">票</i>', '该商家支持发票请在下单时候填好发票开头'));
     icons.push(new Special('Bao', '<i style="background:#fff;color:#4B9A18;border:1px solid;padding:1px;">保</i>', '已经加入国家外卖宝计划，食品安全有保证'));
-    
-    var s = new Shop('shop_1', '1111', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 21, 'fdafd', 70, 2, [icons[1], icons[3], icons[4]]);
-    var h = new Shop('shop_2', '2222', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
-    var c = new Shop('shop_3', '3333', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
-    var d = new Shop('shop_3', '3333', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
+
+    var yieldShopId = (function () {
+        var id = 0;
+        return function () {
+            id++;
+            return 'shop_' + id;
+        }
+    })()
+    var s = new Shop(yieldShopId(), '1111', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 21, 'fdafd', 70, 2, [icons[1], icons[3], icons[4]]);
+    var h = new Shop(yieldShopId(), '2222', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
+    var c = new Shop(yieldShopId(), '3333', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
+    var d = new Shop(yieldShopId(), '4444', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
     shops.addShop(c);
     shops.addShop(h);
     shops.addShop(s);
     shops.addShop(d);
-    shops.addShopFilterState('all');    
+    shops.addShopFilterState('all');
+
+    /**
+     * 设置页面按钮的click事件
+     * 当click触发的时候，首先调用的是classify类的onCurrent函数，其次是调用shop的addShopFilterState，再者是调用自己的私有动画
+     */
+            
+
+
+
+
 })(window.document);
 
 //做好商铺的显示方式，以及注册好响应的fitlter函数，再去做每个按钮的点击事件，用他们发送响应的shop事件
