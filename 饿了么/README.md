@@ -71,9 +71,10 @@
 
 ###　英语方面
 * biggest_selling 销量高
-* good_condition 评价高
+* highest_rate 评价高
 * nearest 距离最近
-* take_speed 配送速度
+* shipping_time 配送速度
+* shipping_rate 配送费用
 * start_money 起送金额
 
 todoList :

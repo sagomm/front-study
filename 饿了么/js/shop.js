@@ -40,12 +40,11 @@ app.customShop = (function (document) {
         classifyClass_array.push(new Classify(_classify_array[i]));
     }
     // 对页面中的各个分类模块定义onCurrent函数,该函数表示在按钮触发时，应该展现出来的页面唯一样式 
-    function _active(current, doms) {
-        if (!isHasClass(current, 'active')) {
-            // 首先是改变唯一样式
-            removeClass(last, 'active');
-            addClass(current, 'active');
-        };
+    function _active(newEle,current, doms) {
+        if (!isHasClass(newEle, 'active')) {
+            addClass(newEle, 'active');
+            removeClass(current,'active');
+        }
     }
     classifyClass_array[0].onCurrent = _active;
     classifyClass_array[1].onCurrent = _active;
@@ -66,46 +65,43 @@ app.customShop = (function (document) {
     // 对商铺的排序
 
     function _sort(arr, property) {
-        var _temp = [];
-        var _temp_max = 0;
-        var _temp_index = 0;
-        do {
-            for (var i in arr) {
-                if (_temp_max < arr[i][property]) {
-                    _temp[i] = _temp_max;
-                    _temp_index = i;
-                }
-            }
-            _temp.psuh(arr[_temp_index]);
-            arr.splice(_temp_index, 1);
-            _temp_max = 0;
-            _temp_index = 0;
-        } while (arr.length !== 0);
-        arr = _temp;
+        debugger;
+       arr.sort(function (a ,b) {
+           return a[property] - b[property];
+       });
+      
+       console.log(arr);
     }
+    debugger;
     shops.addShopFilter('all', function (current, all) {
         // 默认排序,显示全部
+        debugger;
         for (var i in all) {
             current.push(all[i]);
         }
     });
-    shops.addShopFilter('biggest_selling', function (current, all) {
+    shops.addShopFilter('sale', function (current, all) {
         // 月销售排序
-        _sort(current, 'saleInMonth');
+        console.info(current);
+        _sort(current, 'salePerMonth');
     });
-    shops.addShopFilter('good_condition', function (current, all) {
+    shops.addShopFilter('rate', function (current, all) {
         // 评价系数排序
-        _sort(current, 'evaluation');
+        _sort(current, 'shopRate');
     });
-    shops.addShopFilter('nearest', function (current, all) {
+    shops.addShopFilter('distance', function (current, all) {
         // 距离排序
         _sort(current, 'distance');
     });
-    shops.addShopFilter('take_speed', function (current, all) {
+    shops.addShopFilter('lessShippingMoney', function (current, all) {
         // 配送时间排序
-        _sort(current, 'spendTime');
+        _sort(current, 'shippingTime');
     });
-
+    shops.addShopFilter('lessShippingMoney',function (current,all) {
+        // 起送金额排序
+        _sort(current,'lessShippingMoney');
+    })
+    
     // 起送价格系列
 
     function _filter_price(current, all, limit) {
@@ -181,15 +177,6 @@ app.customShop = (function (document) {
             return 'shop_' + id;
         }
     })()
-    var s = new Shop(yieldShopId(), '1111', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 21, 'fdafd', 70, 2, [icons[1], icons[3], icons[4]]);
-    var h = new Shop(yieldShopId(), '2222', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
-    var c = new Shop(yieldShopId(), '3333', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
-    var d = new Shop(yieldShopId(), '4444', 'shop.jpeg', 'fdafdafdsaf', 0.8, 23, 25, 6, 'fdafd', 30, 2, [icons[1], icons[3], icons[4]]);
-    shops.addShop(c);
-    shops.addShop(h);
-    shops.addShop(s);
-    shops.addShop(d);
-    shops.addShopFilterState('all');
 
 
     /**
@@ -201,12 +188,14 @@ app.customShop = (function (document) {
     //　保证不能共存的排序规则水火不容
     var shopsState_0 = new Classify([
         'all',
-        'biggest_selling',
-        'good_condition',
-        'nearest',
-        'take_speed',
+        'sale',
+        'rate',
+        'distance',
+        'shippingTime',
+        'lessShippingMoney'
     ]);
     shopsState_0.onCurrent = function (newEle,current,elements) {
+        console.info(newEle);
         shops.removeShopFilterState(current);
         shops.addShopFilterState(newEle);
     }
@@ -218,25 +207,28 @@ app.customShop = (function (document) {
     // 销量高
     _classify_array[0][1].onclick = function () {
         classifyClass_array[0].setCurrent(this);
-        shopsState_0.setCurrent('biggest_selling');
+        shopsState_0.setCurrent('sale');
     }
     // 评价好
     _classify_array[0][2].onclick = function () {
         classifyClass_array[0].setCurrent(this);
-        shopsState_0.setCurrent('good_condition');
+        shopsState_0.setCurrent('rate');
     }
     // 距离最近
     _classify_array[0][3].onclick = function () {
         classifyClass_array[0].setCurrent(this);
-        shopsState_0.setCurrent('nearest');
+        shopsState_0.setCurrent('distance');
     }
     // 配送速度
     _classify_array[0][4].onclick = function () {
         classifyClass_array[0].setCurrent(this);
-        shopsState_0.setCurrent('take_speed');
+        shopsState_0.setCurrent('shippingTime');
     }
-    
     // 起送金额
+    _classify_array[0][5].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shopsState_0.setCurrent('lessShippingMoney');
+    }
     
     //保证不能共存的排序规则水火不容
     var shopsState_1 = new Classify([
@@ -302,12 +294,37 @@ app.customShop = (function (document) {
         shops.addShopFilterState('');
     }
     
-    return {
-        // 输入一个shops
-        init:function () {
-            
-        }
-    }
+       //   1      2       3           4       5           6           7                   8          9        10          11          12
+    // shopId,shopName,shopLogo,shopIntro,shopRate,shippingTime,lessShippingMoney,shippingMoney,location,distance,salePerMonth,specialArr
+    
+    var s1 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,30,[icons[1], icons[3], icons[4]]);
+    var s2 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,29,[icons[1], icons[3], icons[4]]);
+    var s3 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,31,[icons[1], icons[3], icons[4]]);
+    var s4 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,33,[icons[1], icons[3], icons[4]]);
+    var s5 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,33,[icons[1], icons[3], icons[4]]);
+    var s6 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,10,[icons[1], icons[3], icons[4]]);
+    var s7 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,100,[icons[1], icons[3], icons[4]]);
+    var s8 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,36,[icons[1], icons[3], icons[4]]);
+    var s9 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,37,[icons[1], icons[3], icons[4]]);
+    shops.addShop(s1);
+    shops.addShop(s2);
+    shops.addShop(s3);
+    shops.addShop(s4);
+    shops.addShop(s5);
+    shops.addShop(s6);
+    shops.addShop(s7);
+    shops.addShop(s8);
+    shops.addShop(s9);    
+    
+    shops.addShopFilterState('all');
+    
+    
+        // return {
+        //     // 输入一个shops
+        //     init:function () {
+                
+        //     }
+        // }
 
 })(window.document);
 // todoList : 
@@ -315,4 +332,4 @@ app.customShop = (function (document) {
 // ２．测试onclick是否能用
 // 4.测试输出的商铺是否正常
 // ３．测试显示区域是否正常
-// 5.完成其他样式
+// 5.完成其他样式--样式添加，优化商铺，优化正则
