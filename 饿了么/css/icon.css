@@ -361,7 +361,7 @@
 */
 
 .sprite {
-    background: url(../images/icon.png) no-repeat;  
+    background: url('../images/icon.png') no-repeat;  
 }
 
 .hot {

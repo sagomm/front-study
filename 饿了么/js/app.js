@@ -365,28 +365,26 @@ app.Shop = (function (document) {
         }
     }
     /**
-     * 管理商铺分类的类
-     * 同一个分类中，只有一个能被active出来
+     * 管理分类的类
+     * 同一个分类中，只有一个有active状态
      */
-    function Classify(doms) {
-        if (Array.isArray(doms) && doms.length !== 0) {
-            this.doms = doms;
-            // 上一个acitve的dom
-            this.last = this.doms[0];
-            this.current = this.doms[0];
-            // 定义函数表示在active的回调函数
+    function Classify(elements) {
+        if (Array.isArray(elements) && elements.length !== 0) {
+            this.elements = elements;
+            this.current = this.elements[0];
+            // 定义被设置为active状态的回调函数
             this.onCurrent = undefined;
         } else {
-            throw new TypeError('arg is not dom Array or arg is empty');
+            throw new TypeError('arg is not dom Array or empty');
         }
     }
-    Classify.prototype.setCurrent = function (dom) {
-        if (this.doms.indexOf(dom) !== -1) {
-            this.current = dom;
+    Classify.prototype.setCurrent = function (element) {
+        if (this.elements.indexOf(element) !== -1) {
             if (this.onCurrent == 'undefined') {
                 throw new referenceError('currenOn function must be defined');
             } else {
-                this.onCurrent(this.current, this.last, this.doms);
+                this.onCurrent(element,this.current, this.elements);
+                this.current = element;
             }
         }
     }
