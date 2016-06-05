@@ -15,7 +15,7 @@ app.Common = {
         }
     },
     addClass: function (element, className) {
-        if (app.Common.isHasClass(element, className)) {
+        if (!app.Common.isHasClass(element, className)) {
             element.className += " " + className;
         }
     },
@@ -94,7 +94,7 @@ app.template = {
 * 图片轮播
 */
 app.picBanner = (function (document) {
-    //定义当前被点击按钮的索引,因为已开是第一个张图片就显示了，所以从一开始
+    // 定义当前被点击按钮的索引,因为已开是第一个张图片就显示了，所以从一开始
     var currentIndex = 1;
     // 拿到模板代码，填充数据到页面中
     function create(pictures, toggles, picarr) {
@@ -155,24 +155,22 @@ app.picBanner = (function (document) {
  * 包括商店导航栏，对商店进行分类的一些按钮
  * 包括商店的显示部分，对根据导航条的状态显示商店
  */
-
 app.Shop = (function (document) {
     /**
-     * 商铺的显示,商铺，商铺的图标，商铺显示的区域
-     */
-    /**商铺类
-     * @param  {string} domId 商铺的编号，在html中为id属性的值
-     * @param  {string} title 商铺的名称
-     * @param  {string} logo 商铺的logo地址
-     * @param  {string} intro 商铺的介绍
-     * @param  {float} evaluation 商铺的星级评价(小数)
-     * @param  {int} spendTime 商铺配送时间
-     * @param  {int} lessMoney 商铺的起送金额
-     * @param  {int} takeMoney 商铺的配送金额
-     * @param  {string} location 商铺的地点
-     * @param  {int} distance 商铺离用户的距离
-     * @param  {int} saleInMonth 商铺一个月的营销额度
-     * @param  {array} specialArr 商铺的非必要信息 --> [{属性名字name，属性说明info，属性样式html}] 
+     * @class
+     * @classdesc 商铺类
+     * @param  {string} domId - 商铺的编号，在html中为id属性的值
+     * @param  {string} title - 商铺的名称
+     * @param  {string} logo - 商铺的logo地址
+     * @param  {string} intro - 商铺的介绍
+     * @param  {float} evaluation - 商铺的星级评价(小数)
+     * @param  {int} spendTime - 商铺配送时间
+     * @param  {int} lessMoney - 商铺的起送金额
+     * @param  {int} takeMoney - 商铺的配送金额
+     * @param  {string} location - 商铺的地点
+     * @param  {int} distance - 商铺离用户的距离
+     * @param  {int} saleInMonth - 商铺一个月的营销额度
+     * @param  {array} specialArr - 商铺的非必要信息 --> [{属性名字name，属性说明info，属性样式html}] 
      */
     function Shop(domId, title, logo, intro, evaluation, spendTime, lessMoney, takeMoney, location, distance, saleInMonth, specialArr) {
         this.title = title;
@@ -190,16 +188,12 @@ app.Shop = (function (document) {
         //将Special属性放入类中
         this.setSpecial(specialArr);
     }
-    /**
-     * 显示hover出来的商铺信息
-     */
+    // 显示hover出来的商铺信息
     Shop.prototype.showInfo = function () {
         var shop = document.getElementById(this.domId);
         var dom = shop.getElementsByClassName('shopInfo')[0];
         var offsetRight = shop.parentNode.offsetWidth + shop.parentNode.offsetLeft - shop.offsetLeft - shop.offsetWidth;
-        console.log(offsetRight);
-        console.log(dom.parentNode) ;
-        /**计算出距离，一个是视窗的Y距离，一个是距离视窗的X距离 */
+        // 计算出距离，一个是视窗的Y距离，一个是距离视窗的X距离 
         if (offsetRight < shop.offsetWidth) {
             //在shop左边显示
             app.Common.addClass(dom, 'shopInfo-left');
@@ -207,35 +201,29 @@ app.Shop = (function (document) {
             app.Common.addClass(dom, 'shopInfo-right');
         };
         if (document.documentElement.clientHeight - shop.getBoundingClientRect().y > 2 * shop.offsetHeight) {
-            //从底部向上显示
+            // 从底部向上显示
             app.Common.addClass(dom, 'shopInfo-top');
         } else {
             app.Common.addClass(dom, 'shopInfo-bottom');
         };
         dom.style.display = 'block';
     }
-    /**
-     * 隐藏hover出来的商铺信息
-     */
-    Shop.prototype.hiddenInfo = function (shop) {
-        var _info = shop.getElementsByClassName('shopInfo')[0];
+    // 隐藏hover出来的商铺信息
+    Shop.prototype.hiddenInfo = function () {
+        var _info = document.getElementById(this.domId).getElementsByClassName('shopInfo')[0];
         _info.className = 'shopInfo';
         _info.style.display = 'none';
     }
-    /**
-     * 为商铺设置评分,必须在加载后才能调用
-     */
+    // 为商铺设置评分,必须在加载后才能调用
     Shop.prototype.setEvaluation = function (dom, evaluation) {
         var eva_star = dom.getElementsByClassName('star-sales')[0];
         console.log(eva_star.offsetWidth * evaluation);
         eva_star.style.width = evaluation * eva_star.offsetWidth;
     }
-    /**
-     * 将商铺加载到显示区域中，在页面中显示
-     */
+    // 将商铺加载到显示区域中，在页面中显示
     Shop.prototype.show = function (shopArea) {
         shopArea.innerHTML += this.html;
-        //加上setTimeout,要不下面的代码运行不了，浏览器还在消化上面的代码
+        // 加上setTimeout,要不下面的代码运行不了，浏览器还在消化上面的代码
         setTimeout(function () {
             var domInstance = document.getElementById(this.domId);
             // 设置该商铺的评分样式
@@ -244,10 +232,9 @@ app.Shop = (function (document) {
             this.delayShow();
         }.bind(this));
     }
-    //设置shopInfo延迟显示
+    // 设置shopInfo延迟显示
     Shop.prototype.delayShow = function () {
         var domInstance = document.getElementById(this.domId);
-        console.log(this.domId);
         var _id = undefined;
         console.log(domInstance);
         domInstance.addEventListener('mouseleave', function (e) {
@@ -260,24 +247,22 @@ app.Shop = (function (document) {
                 return;
             } else {
                 _id = setTimeout(function () {
-                    this.showInfo();
+                    this.showInfo(domInstance);
                 }.bind(this), 300);
             }
         }.bind(this), false);
     }
-    /**
-     * 将商铺从显示区域中删除
-     */
+    // 将商铺从显示区域中删除
     Shop.prototype.deleteShop = function (shopArea) {
         var dom = document.getElementById(this.id);
         if (dom) {
             shopArea.removeChild(dom);
         }
     }
-    //商铺特殊小标的显示，在商铺的info页面上也有，在这里定义相关的属性到类中
+    // 商铺特殊小标的显示，在商铺的info页面上也有，在这里定义相关的属性到类中
     Shop.prototype.setSpecial = function (specialArr) {
         for (var i in specialArr) {
-            //为商铺类添加新的属性，表示这样的属性，默认值为true,表示存在这样的标志
+            // 为商铺类添加新的属性，表示这样的属性，默认值为true,表示存在这样的标志
             this['isHas' + specialArr[i].name] = true;
         }
     }
@@ -298,16 +283,16 @@ app.Shop = (function (document) {
      */
     function ShopArea(dom) {
         this.domInstance = dom;
-        //现在正在页面中展示的商铺
+        // 现在正在页面中展示的商铺
         this.currentShops = [];
-        //所有添加的商铺
+        // 所有添加的商铺
         this.shops = [];
-        //注册的所有显示方法[object{string,callback},...]
+        // 注册的所有显示方法[object{string,callback},...]
         this.shopFilter = [];
-        //作用在当前页面的Filter方法[string,string,..]
+        // 作用在当前页面的Filter方法[string,string,..]
         this.currentFilterState = [];
     }
-    /**添加一个Shop类的实例 */
+    // 添加一个Shop类的实例
     ShopArea.prototype.addShop = function (shop) {
         if (typeof shop === 'object' && shop.constructor.name === 'Shop') {
             if (this.shops.indexOf(shop) === -1) {
@@ -319,7 +304,7 @@ app.Shop = (function (document) {
             throw new TypeError('shop type error');
         }
     }
-    /**添加一个商铺的分类状态 */
+    // 添加一个商铺的分类状态
     ShopArea.prototype.addShopFilter = function (name, callback) {
         if (typeof callback === 'function' && typeof name === 'string') {
             this.shopFilter.push({
@@ -331,7 +316,7 @@ app.Shop = (function (document) {
         }
 
     }
-    /** 删除一个商铺的分类状态*/
+    // 删除一个商铺的分类状态
     ShopArea.prototype.removeShopFilterState = function (filterName) {
         for (var i in this.currentFilterState) {
             if (this.currentFilterState[i] === filterName) {
@@ -341,7 +326,7 @@ app.Shop = (function (document) {
             }
         }
     }
-    /**添加一个商铺区域的分类状态*/
+    // 添加一个商铺区域的分类状态
     ShopArea.prototype.addShopFilterState = function (filterName) {
         if (this.shops.length === 0 || this.shopFilter.length === 0) { return; }
         for (var i in this.shopFilter) {
@@ -352,9 +337,9 @@ app.Shop = (function (document) {
             };
         }
     }
-    /**更新商铺在页面中的显示区域 */
+    // 更新商铺在页面中的显示区域 
     ShopArea.prototype.updatePage = function () {
-        //清空当前显示的商铺
+        // 清空当前显示的商铺
         this.currentShops.length = 0;
         for (var i in this.currentFilterState) {
             for (var j in this.shopFilter) {
@@ -372,7 +357,7 @@ app.Shop = (function (document) {
             this.currentShops[i].show(this.domInstance);
         }
     }
-    /** 清楚页面中所有商铺 */
+    // 清除页面中所有商铺
     ShopArea.prototype.clear = function () {
         var child = Array.prototype.slice.call(this.domInstance.children);
         for (var i in child) {
@@ -386,10 +371,10 @@ app.Shop = (function (document) {
     function Classify(doms) {
         if (Array.isArray(doms) && doms.length !== 0) {
             this.doms = doms;
-            //上一个acitve的dom
+            // 上一个acitve的dom
             this.last = this.doms[0];
-            this.curren = this.doms[0];
-            //定义函数表示在active的回调函数
+            this.current = this.doms[0];
+            // 定义函数表示在active的回调函数
             this.onCurrent = undefined;
         } else {
             throw new TypeError('arg is not dom Array or arg is empty');

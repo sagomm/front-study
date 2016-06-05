@@ -1,14 +1,16 @@
 /*
 * 一些样式的重置,以及一些公共样式
 */
-
 a {
     text-decoration: none;
 }
 a:visited {
     color: white;
 }
-* {
+*{
+    margin: 0;
+    padding: 0;
+    font-family: PingFang SC,Lantinghei SC,Helvetica Neue,Microsoft Yahei,Hiragino Sans GB,Microsoft Sans Serif,WenQuanYi Micro Hei,sans;
     box-sizing: border-box;
 }
 li {
@@ -22,12 +24,7 @@ i {
     width: 1190px;  
     min-width: 1190px;  
 }
-*{
-    margin: 0;
-    padding: 0;
-    font-family: PingFang SC,Lantinghei SC,Helvetica Neue,Microsoft Yahei,Hiragino Sans GB,Microsoft Sans Serif,WenQuanYi Micro Hei,sans;
-    box-sizing: border-box;
-}
+
 .clearfix::after{
     content: "";
     display: table;
@@ -39,7 +36,4 @@ i {
     display: inline-block;
     width: 100%;
     overflow: hidden;
-}
-div {
-    box-sizing: border-box;
 }

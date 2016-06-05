@@ -43,14 +43,12 @@ app.customShop = (function (document) {
     */
     function _active(current, last, doms) {
         if (!isHasClass(current, 'active')) {
+            // 首先是改变唯一样式
             removeClass(last, 'active');
-            addClass(current, 'acitive');
+            addClass(current, 'active');
+            //其次是改变页面商铺显示区域
             
-            console.log(current);
-            console.log(last);
-            console.log(1);
-            
-    } else {
+        } else {
             last = current;
         }
     };
@@ -59,13 +57,12 @@ app.customShop = (function (document) {
     function _active_2_6(current, last, doms) {
         //为li标签下面的input分发click事件
         var ev = document.createEvent('MouseEvents');
-        ev.initEvent('click', true, true);
-        toggle.children[0].dispatchEvent(ev);
+        ev.initEvent('click', true, false);
+        current.children[0].dispatchEvent(ev);
     }
     for (var i = 2; i !== 6; i++) {
         classifyClass_array[i].onCurrent = _active_2_6;
     }
-    classifyClass_array[0].setCurrent(_classify_array[0][2]);    
 
     /**
      * 对商铺部分的初始化
@@ -203,11 +200,91 @@ app.customShop = (function (document) {
     shops.addShop(d);
     shops.addShopFilterState('all');
 
+
     /**
      * 设置页面按钮的click事件
      * 当click触发的时候，首先调用的是classify类的onCurrent函数，其次是调用shop的addShopFilterState，再者是调用自己的私有动画
      */
-            
+    //默认排序
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('all');
+    }
+    //销量高
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('biggest_selling');
+    }
+    //评价好
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('good_condition');
+    }
+    //距离最近
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('nearest');
+    }
+    //配送速度
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('take_speed');
+    }
+    //起送金额
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('');
+    }
+    //起送价格:不限
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('');
+    }
+    //起送价格:15元以下
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('');
+    }
+    //起送价格:20元以下
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('');
+    }
+    //起送价格:30元以下
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('');
+    }
+    //起送价格:40元一下
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('');
+    }
+    //新开商家
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('');
+    }
+    //免费派送
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('');
+    }
+    //蜂鸟快送
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('');
+    }
+    //可开发票
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('');
+    }
+    //在线支付
+    _classify_array[0][0].onclick = function () {
+        classifyClass_array[0].setCurrent(this);
+        shops.addShopFilterState('');
+    }
 
 
 
