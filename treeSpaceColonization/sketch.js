@@ -37,6 +37,7 @@ function Tree(total) {
     for (var i = 0; i < total; i++) {
         this.leaves.push(new Leaf());
     }
+
 }
 Tree.prototype.show = function () {
     for (var i in this.leaves) {

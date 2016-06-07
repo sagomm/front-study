@@ -331,7 +331,7 @@
 .take-out-classify .value-sort > li {
     padding: 0 7px;
 }
-.take-out-classify .drop-down,
+.take-out-classify .drop-down-sort,
 .take-out-classify .drop-down-price {
     position: relative;  
 }
@@ -344,27 +344,27 @@
     z-index: 999;
 }
 .take-out-classify .drop-down-price > .icon-arrow-up,
-.take-out-classify .drop-down > .icon-arrow-up{
+.take-out-classify .drop-down-sort > .icon-arrow-up{
     display: none;
 }
 /*下拉菜单hover之后的样式*/
 .take-out-classify .drop-down-price:hover,
-.take-out-classify .drop-down:hover {
+.take-out-classify .drop-down-sort:hover {
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);    
     background: white; 
 }
 .take-out-classify .drop-down-price:hover > .drop-down-body,
-.take-out-classify .drop-down:hover > .drop-down-body {
+.take-out-classify .drop-down-sort:hover > .drop-down-body {
     display: block;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);    
     background: white;
 }
 .take-out-classify .drop-down-price:hover > .icon-arrow-down,
-.take-out-classify .drop-down:hover > .icon-arrow-down{
+.take-out-classify .drop-down-sort:hover > .icon-arrow-down{
     display: none;
 }
 .take-out-classify .drop-down-price:hover > .icon-arrow-up,
-.take-out-classify .drop-down:hover > .icon-arrow-up{
+.take-out-classify .drop-down-sort:hover > .icon-arrow-up{
     display: inline;
 }
 

@@ -62,21 +62,27 @@ app.template = {
         },
         shopInfo: function (shopName, lessShippingMoney, shippingMoney, shippingTime, shopIntro, iconArr) {
             var _title = '<div class="shopTitle">' + shopName + '</div>';
-            var _takeSale = '<div class="takeaway-sale"><span><em>' + lessShippingMoney + '</em>元起送</span><span class="sperator">|</span><span>配送费用<em>' + 
-                            shippingMoney + '</em>元</span><span class="sperator">|</span><span>平均<em>' + shippingTime + '</em>分钟送达</span></div>';
+            var _takeSale = '<div class="takeaway-sale"><span><em>' + lessShippingMoney + '</em>元起送</span><span class="sperator">|</span><span>配送费用<em>' +
+                shippingMoney + '</em>元</span><span class="sperator">|</span><span>平均<em>' + shippingTime + '</em>分钟送达</span></div>';
             var _shopIcon = '';
             for (var i in iconArr) {
-                _shopIcon += '<div class="shopIcon">' + iconArr[i].html + iconArr[i].info + '</div>';
+                if (iconArr[i].html) {
+                    _shopIcon += '<div class="shopIcon">' + iconArr[i].html + iconArr[i].info + '</div>';
+                }
+
             }
             var _shopIntro = '<div class="shopIntro">' + shopIntro + '</div>';
             return '<div class="shopInfo">' + _title + _shopIcon + _takeSale + _shopIntro + '</div>';
         },
         // 得到整个商店模板
-        getShop: function (shopId,shopName,shopLogo,shopIntro,shopRate,shippingTime,lessShippingMoney,shippingMoney,location,distance,salePerMonth,specialArr) {
+        getShop: function (shopId, shopName, shopLogo, shopIntro, shopRate, shippingTime, lessShippingMoney, shippingMoney, location, distance, salePerMonth, specialArr) {
             var _left = '<div class="shop" id= "' + shopId + '"><div class="left">' + this.shopImg(shopLogo) + this.shippingTime(shippingTime) + '</div>';
             var _icons = '';
+
             for (var i in specialArr) {
-                _icons += specialArr[i].html + ' ';
+                if (specialArr[i].html) {
+                    _icons += specialArr[i].html + ' ';
+                }
             }
             var _right = '<div class="right">' + this.shopTitle(shopName, location) + '<div class="star-sales"><span class="star-base icon icon-star"><i class="icon icon-star"></i></span>' +
                 this.salePerMonth(salePerMonth) + '</div>' +
@@ -172,7 +178,7 @@ app.Shop = (function (document) {
      * @param  {int} salePerMonth - 商铺一个月的营销笔数
      * @param  {array} specialArr - 商铺的非必要信息 --> [{属性名字name，属性说明info，属性样式html}] 
      */
-    function Shop(shopId,shopName,shopLogo,shopIntro,shopRate,shippingTime,lessShippingMoney,shippingMoney,location,distance,salePerMonth,specialArr) {
+    function Shop(shopId, shopName, shopLogo, shopIntro, shopRate, shippingTime, lessShippingMoney, shippingMoney, location, distance, salePerMonth, specialArr) {
         this.shopId = shopId;
         this.shopName = shopName;
         this.shopLogo = shopLogo;
@@ -184,8 +190,8 @@ app.Shop = (function (document) {
         this.location = location;
         this.salePerMonth = salePerMonth;
         this.distance = distance;
-        this.html = app.template.shop.getShop(shopId,shopName,shopLogo,shopIntro,shopRate,shippingTime,lessShippingMoney,shippingMoney,location,distance,salePerMonth,specialArr);
-        //将Special属性放入类中
+        this.html = app.template.shop.getShop(shopId, shopName, shopLogo, shopIntro, shopRate, shippingTime, lessShippingMoney, shippingMoney, location, distance, salePerMonth, specialArr);
+        // 将Special属性放入类中
         this.setSpecial(specialArr);
     }
     // 显示hover出来的商铺信息
@@ -195,7 +201,7 @@ app.Shop = (function (document) {
         var offsetRight = shop.parentNode.offsetWidth + shop.parentNode.offsetLeft - shop.offsetLeft - shop.offsetWidth;
         // 计算出距离，一个是视窗的Y距离，一个是距离视窗的X距离 
         if (offsetRight < shop.offsetWidth) {
-            //在shop左边显示
+            // 在shop左边显示
             app.Common.addClass(dom, 'shopInfo-left');
         } else {
             app.Common.addClass(dom, 'shopInfo-right');
@@ -222,14 +228,6 @@ app.Shop = (function (document) {
     // 将商铺加载到显示区域中，在页面中显示
     Shop.prototype.show = function (shopArea) {
         shopArea.innerHTML += this.html;
-        // 加上setTimeout,要不下面的代码运行不了，浏览器还在消化上面的代码
-        setTimeout(function () {
-            var domInstance = document.getElementById(this.shopId);
-            // 设置该商铺的评分样式
-            this.setEvaluation(domInstance, this.shopRate);
-            // 延迟控制hover出来的商铺信息
-            this.delayShow();
-        }.bind(this));
     }
     // 设置shopInfo延迟显示
     Shop.prototype.delayShow = function () {
@@ -263,6 +261,14 @@ app.Shop = (function (document) {
             // 为商铺类添加新的属性，表示这样的属性，默认值为true,表示存在这样的标志
             this['isHas' + specialArr[i].name] = true;
         }
+    }
+    // 添加商铺在页面中显示之后的一些样式设置
+    Shop.prototype.addStyle = function () {
+            var domInstance = document.getElementById(this.shopId);
+            // 设置该商铺的评分样式
+            this.setEvaluation(domInstance, this.shopRate);
+            // 延迟控制hover出来的商铺信息
+            this.delayShow();
     }
     /**
      * 商铺的非重要信息类，包括下面的小标
@@ -314,6 +320,11 @@ app.Shop = (function (document) {
         }
 
     }
+    // 判断是否存在一个分类状态
+    ShopArea.prototype.isHasState = function (state) {
+        return this.currentFilterState.indexOf(state) !== -1;
+    }
+    
     // 删除一个商铺的分类状态
     ShopArea.prototype.removeShopFilterState = function (filterName) {
         for (var i in this.currentFilterState) {
@@ -339,21 +350,23 @@ app.Shop = (function (document) {
     ShopArea.prototype.updatePage = function () {
         // 清空当前显示的商铺
         this.currentShops.length = 0;
+        this.clear();
         for (var i in this.currentFilterState) {
             for (var j in this.shopFilter) {
-                if (this.shopFilter[i].name === this.currentFilterState[i]) {
-                    this.shopFilter[i].callback(this.currentShops, this.shops);
-                    console.log(1);
-                    console.log(this.currentShops);
-                    console.log(this.shops);
-                    break;
+                if (this.shopFilter[j].name === this.currentFilterState[i]) {
+                    this.shopFilter[j].callback(this.currentShops, this.shops);
                 }
             }
         }
-        this.clear();
+        // 向页面添加html
         for (var i in this.currentShops) {
             this.currentShops[i].show(this.domInstance);
         }
+        // 向页面加入显示的样式
+        for(var i in this.currentShops) {
+            this.currentShops[i].addStyle();
+        }
+
     }
     // 清除页面中所有商铺
     ShopArea.prototype.clear = function () {
@@ -372,20 +385,25 @@ app.Shop = (function (document) {
             this.current = this.elements[0];
             // 定义被设置为active状态的回调函数
             this.onCurrent = undefined;
+            // 不是这个分类的输入的回调函数
+            this.onOther = undefined;
         } else {
             throw new TypeError('arg is not dom Array or empty');
         }
     }
     Classify.prototype.setCurrent = function (element) {
         if (this.elements.indexOf(element) !== -1) {
-            if (this.onCurrent == 'undefined') {
-                throw new referenceError('currenOn function must be defined');
+            if (typeof this.onCurrent === 'undefined') {
+                throw new ResferenceError('currenOn function must be defined');
             } else {
-                this.onCurrent(element,this.current, this.elements);
+                this.onCurrent(element, this.current, this.elements);
                 this.current = element;
-                console.info(element);
-                console.info(this.current);
-                console.info(this.elements);
+            }
+        } else {
+            if (typeof this.onOther === 'undefined') {
+                throw new ReferenceError('onOther function must be defined');
+            } else {
+                this.onOther(element, this.current, this.elements);
             }
         }
     }
@@ -399,32 +417,18 @@ app.Shop = (function (document) {
 })(window.document);
 
 /**
- * 简单发布订阅模式
+ * 对滚动事件进行监听，改变页面的html结构
  */
-app.Event = function (obj) {
-    if (typeof obj !== 'object') {
-        this.obj = obj;
-        this.events = [];
-    } else {
-        throw new TypeError('arg is not object');
+app.Scroll = (function () {
+    window.onscroll = function () {
+        
     }
 
-}
-app.Event.prototype.send = function (name, arg) {
-    for (var i in events) {
-        if (events[i].name === name && event[i].callback) {
-            events[i].callback(this.obj, arg);
-            break;
-        }
-    }
-}
-app.Event.prototype.addEventListener = function (name, callback) {
-    if (typeof callback === 'function' && typeof name === 'string') {
-        this, observer.push({
-            name: name,
-            callback: callback
-        })
-    } else {
-        throw new TypeError('arg type error');
-    }
-}
+})(window.document);
+
+/**
+ * 对侧边栏添加动画
+ */
+app.SlideBar = (function () {
+
+})(window.document);

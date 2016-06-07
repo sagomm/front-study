@@ -19,7 +19,6 @@ app.customShop = (function (document) {
      * 分成三个部分的依据是，每一个部分只能有一个按钮被触发
      * 0.默认排序到起送金额这类，在页面中用classify_0标注
      * 1.起送价格这个分类，在页面中用classify_1标注
-     * 2.蜂鸟快松到在线支付这个类，在页面中用classify_2-6标注
      */
 
 
@@ -40,23 +39,40 @@ app.customShop = (function (document) {
         classifyClass_array.push(new Classify(_classify_array[i]));
     }
     // 对页面中的各个分类模块定义onCurrent函数,该函数表示在按钮触发时，应该展现出来的页面唯一样式 
-    function _active(newEle,current, doms) {
+
+    // 为下拉菜单部分再设置一个分类，保证只有一个会显示出来
+
+    var dropDownSortClassify = new Classify([
+        _classify_array[0][3],
+        _classify_array[0][4],
+        _classify_array[0][5]
+    ]);
+    dropDownSortClassify.header = document.getElementById('drop-down-sort-header');
+
+    dropDownSortClassify.onCurrent = function (newEle, current, elements) {
+        console.info(newEle);
+        dropDownSortClassify.header.innerHTML = newEle.innerHTML;
+        addClass(dropDownSortClassify.header, 'active');
+    }
+    dropDownSortClassify.onOther = function (newEle, current, elements) {
+        removeClass(dropDownSortClassify.header, 'active');
+        dropDownSortClassify.header.innerHTML = '其他排序';
+    }
+
+    classifyClass_array[0].onCurrent = function (newEle, current, doms) {
         if (!isHasClass(newEle, 'active')) {
             addClass(newEle, 'active');
-            removeClass(current,'active');
+            removeClass(current, 'active');
         }
+        dropDownSortClassify.setCurrent(newEle);
     }
-    classifyClass_array[0].onCurrent = _active;
-    classifyClass_array[1].onCurrent = _active;
-    function _active_2_6(current, doms) {
-        // 为li标签下面的input分发click事件
-        var ev = document.createEvent('MouseEvents');
-        ev.initEvent('click', true, false);
-        current.children[0].dispatchEvent(ev);
-    }
-    for (var i = 2; i !== 6; i++) {
-        classifyClass_array[i].onCurrent = _active_2_6;
-    }
+
+    classifyClass_array[1].onCurrent = function (newEle, current, doms) {
+        if (!isHasClass(newEle, 'active')) {
+            addClass(newEle, 'active');
+            removeClass(current, 'active');
+        }
+    };
 
     // 对商铺部分的初始化
 
@@ -65,24 +81,31 @@ app.customShop = (function (document) {
     // 对商铺的排序
 
     function _sort(arr, property) {
-        debugger;
-       arr.sort(function (a ,b) {
-           return a[property] - b[property];
-       });
-      
-       console.log(arr);
+        arr.sort(function (a, b) {
+            return b[property] - a[property];
+        });
     }
-    debugger;
-    shops.addShopFilter('all', function (current, all) {
-        // 默认排序,显示全部
-        debugger;
+    shops.addShopFilter('start', function (current, all) {
         for (var i in all) {
             current.push(all[i]);
         }
+    })
+    shops.addShopFilter('normal', function (current, all) {
+        // 默认排序,按照加入顺序显示全部
+        var _temp = [];
+        for(var i in all){
+            if(current.indexOf(all[i]) !== -1){
+                _temp.push(all[i]);
+            }
+        }
+        current.length = 0;
+        for(var i in _temp){
+            current.push(_temp[i]);
+        }
+
     });
     shops.addShopFilter('sale', function (current, all) {
         // 月销售排序
-        console.info(current);
         _sort(current, 'salePerMonth');
     });
     shops.addShopFilter('rate', function (current, all) {
@@ -97,31 +120,33 @@ app.customShop = (function (document) {
         // 配送时间排序
         _sort(current, 'shippingTime');
     });
-    shops.addShopFilter('lessShippingMoney',function (current,all) {
+    shops.addShopFilter('lessShippingMoney', function (current, all) {
         // 起送金额排序
-        _sort(current,'lessShippingMoney');
+        _sort(current, 'lessShippingMoney');
     })
-    
+
     // 起送价格系列
 
     function _filter_price(current, all, limit) {
         // 起送价格的排序
+        var temp = [];
         for (var i in current) {
-            if (current[i].lessMoney > limit) {
-                console.log(current[i]);
-                console.log(current[i].lessMoney);
-                current.splice(i, 1);
+            if (current[i].shippingMoney < limit) {
+                temp.push(current[i]);
             }
         }
+        current.length = 0;
+        for (var i in temp) {
+            current.push(temp[i]);
+        }
     }
-    shops.addShopFilterState('no_limit', function (current, all) {
-        //　什么都不用做的          
+    shops.addShopFilter('no_limit', function (current, all) {
+        //　什么都不用做的 :)         
     })
     shops.addShopFilter('limit_15', function (current, all) {
         _filter_price(current, all, 15);
     })
     shops.addShopFilter('limit_20', function (current, all) {
-        console.log(1);
         _filter_price(current, all, 20);
     })
     shops.addShopFilter('limit_30', function (current, all) {
@@ -130,13 +155,19 @@ app.customShop = (function (document) {
     shops.addShopFilter('limit_40', function (current, all) {
         _filter_price(current, all, 40);
     })
+
+    // 属性过滤系列
+
     function _filter(current, all, filter) {
+        var temp = [];
         for (var i in current) {
-            if (current[i].hasOwnporperty(filter)) {
-                if (current[i][filter]) {
-                    current.splice(i, 1);
-                }
+            if (current[i].hasOwnProperty(filter) && current[i][filter]) {
+                temp.push(current[i]);
             }
+        }
+        current.length = 0;
+        for (var i in temp) {
+            current.push(temp[i]);
         }
     }
     shops.addShopFilter('isHasXinKai', function (current, all) {
@@ -167,8 +198,9 @@ app.customShop = (function (document) {
     icons.push(new Special('Shou', '<i style="background:#70bc46;">首</i>', '(不与其他活动同享)新用户下单首减13元<span style="color:red;">(手机客户端专享)</span>'));
     icons.push(new Special('Te', '<i style="background:#f1884f;">特</i>', '东西买一送一了，速来抢购'));
     icons.push(new Special('Fu', '<i style="background:#fff;color:#FF4E00;border:1px solid;padding:1px;">付</i>', '可使用支付宝微信手机QQ在线支付'));
-    icons.push(new Special('Piao', '<i style="background:#fff;color:#9071CB;border:1px solid;padding:1px;">票</i>', '该商家支持发票请在下单时候填好发票开头'));
+    icons.push(new Special('FaPiao', '<i style="background:#fff;color:#9071CB;border:1px solid;padding:1px;">票</i>', '该商家支持发票请在下单时候填好发票开头'));
     icons.push(new Special('Bao', '<i style="background:#fff;color:#4B9A18;border:1px solid;padding:1px;">保</i>', '已经加入国家外卖宝计划，食品安全有保证'));
+    icons.push(new Special('FengNiao'));
 
     var yieldShopId = (function () {
         var id = 0;
@@ -181,28 +213,31 @@ app.customShop = (function (document) {
 
     /**
      * 设置页面按钮的click事件
-     * 当click触发的时候，首先调用的是classify类的onCurrent函数，其次是调用shop的addShopFilterState，再者是调用自己的私有动画
+     * 当click触发的时候，首先调用的是classify类的onCurrent函数，用于改变公共的样式
+     *                  其次是调用shop的addShopFilterState，用于改变页面的商铺显示
+     *                  再者是呈现自己的私有样式
      */
 
 
-    //　保证不能共存的排序规则水火不容
+    //　为排序按钮们建立一个分类，保证它们只有一个被激活
     var shopsState_0 = new Classify([
-        'all',
+        'normal',
         'sale',
         'rate',
         'distance',
         'shippingTime',
         'lessShippingMoney'
     ]);
-    shopsState_0.onCurrent = function (newEle,current,elements) {
-        console.info(newEle);
+
+    //　设置排序分类的onCurrent方法
+    shopsState_0.onCurrent = function (newEle, current, elements) {
         shops.removeShopFilterState(current);
         shops.addShopFilterState(newEle);
     }
     // 默认排序
     _classify_array[0][0].onclick = function () {
         classifyClass_array[0].setCurrent(this);
-        shopsState_0.setCurrent('all');
+        shopsState_0.setCurrent('normal');
     }
     // 销量高
     _classify_array[0][1].onclick = function () {
@@ -214,6 +249,7 @@ app.customShop = (function (document) {
         classifyClass_array[0].setCurrent(this);
         shopsState_0.setCurrent('rate');
     }
+
     // 距离最近
     _classify_array[0][3].onclick = function () {
         classifyClass_array[0].setCurrent(this);
@@ -229,83 +265,110 @@ app.customShop = (function (document) {
         classifyClass_array[0].setCurrent(this);
         shopsState_0.setCurrent('lessShippingMoney');
     }
-    
-    //保证不能共存的排序规则水火不容
+
+
+    //  价格过滤部分
+
     var shopsState_1 = new Classify([
-       'no_limit',
-       'limit_15',
-       'limit_20',
-       'limit_30',
-       'limit_40' 
+        'no_limit',
+        'limit_15',
+        'limit_20',
+        'limit_30',
+        'limit_40'
     ]);
-    shopsState_1.onCurrent = function (newEle,current,elements) {
+    shopsState_1.onCurrent = function (newEle, current, elements) {
         shops.removeShopFilterState(current);
         shops.addShopFilterState(newEle);
     };
+    var priceHeader = document.getElementById('drop-down-price-header');
     // 起送价格:不限
-    _classify_array[0][0].onclick = function () {
-        classifyClass_array[0].setCurrent(this);
+    _classify_array[1][0].onclick = function () {
+        classifyClass_array[1].setCurrent(this);
         shopsState_1.setCurrent('no_limit');
+        // 私有样式
+        priceHeader.innerHTML = '起送价格: 不限';
+        removeClass(priceHeader, 'active')
     }
     // 起送价格:15元以下
-    _classify_array[0][0].onclick = function () {
-        classifyClass_array[0].setCurrent(this);
+    _classify_array[1][1].onclick = function () {
+        classifyClass_array[1].setCurrent(this);
         shopsState_1.setCurrent('limit_15');
+        priceHeader.innerHTML = '起送价格: 15元';
+        addClass(priceHeader, 'active');
     }
     // 起送价格:20元以下
-    _classify_array[0][0].onclick = function () {
-        classifyClass_array[0].setCurrent(this);
+    _classify_array[1][2].onclick = function () {
+        classifyClass_array[1].setCurrent(this);
         shopsState_1.setCurrent('limit_20');
+        priceHeader.innerHTML = '起送价格: 20元';
+        addClass(priceHeader, 'active');
     }
     // 起送价格:30元以下
-    _classify_array[0][0].onclick = function () {
-        classifyClass_array[0].setCurrent(this);
+    _classify_array[1][3].onclick = function () {
+        classifyClass_array[1].setCurrent(this);
         shopsState_1.setCurrent('limit_30');
+        priceHeader.innerHTML = '起送价格: 30元';
+        addClass(priceHeader, 'active');
     }
     // 起送价格:40元一下
-    _classify_array[0][0].onclick = function () {
-        classifyClass_array[0].setCurrent(this);
+    _classify_array[1][4].onclick = function () {
+        classifyClass_array[1].setCurrent(this);
         shopsState_1.setCurrent('limit_40');
+        priceHeader.innerHTML = '起送价格: 40元';
+        addClass(priceHeader, 'active');
     }
-    
+
+    // 属性过滤部分
+
+    function _filterShop(filter) {
+        if (shops.isHasState(filter)) {
+            shops.removeShopFilterState(filter);
+        } else {
+            shops.addShopFilterState(filter);
+        }
+    }
+    var ev = new MouseEvent('click',{
+        bubbles : false,
+        cancelable : false,
+    })
     // 新开商家
-    _classify_array[0][0].onclick = function () {
-        classifyClass_array[0].setCurrent(this);
-        shops.addShopFilterState('');
+    document.getElementsByClassName('filter_0')[0].onclick = function () {
+        _filterShop('isHasXinKai');
+         this.children[0].dispatchEvent(ev);
     }
     // 免费派送
-    _classify_array[0][0].onclick = function () {
-        classifyClass_array[0].setCurrent(this);
-        shops.addShopFilterState('');
+    document.getElementsByClassName('filter_1')[0].onclick = function () {
+        _filterShop('isHasMianSong');
+         this.children[0].dispatchEvent(ev);            
     }
     // 蜂鸟快送
-    _classify_array[0][0].onclick = function () {
-        classifyClass_array[0].setCurrent(this);
-        shops.addShopFilterState('');
+    document.getElementsByClassName('filter_2')[0].onclick = function () {
+        _filterShop('isHasFengNiao');
+        this.children[0].dispatchEvent(ev);
     }
     // 可开发票
-    _classify_array[0][0].onclick = function () {
-        classifyClass_array[0].setCurrent(this);
-        shops.addShopFilterState('');
+    document.getElementsByClassName('filter_3')[0].onclick = function () {
+        _filterShop('isHasFaPiao');
+        this.children[0].dispatchEvent(ev);
     }
     // 在线支付
-    _classify_array[0][0].onclick = function () {
-        classifyClass_array[0].setCurrent(this);
-        shops.addShopFilterState('');
+    document.getElementsByClassName('filter_4')[0].onclick = function () {
+        _filterShop('isHasZhiFu');
+        this.children[0].dispatchEvent(ev);
     }
-    
-       //   1      2       3           4       5           6           7                   8          9        10          11          12
+
+    //   1      2       3           4       5           6           7                   8          9        10          11          12
     // shopId,shopName,shopLogo,shopIntro,shopRate,shippingTime,lessShippingMoney,shippingMoney,location,distance,salePerMonth,specialArr
-    
-    var s1 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,30,[icons[1], icons[3], icons[4]]);
-    var s2 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,29,[icons[1], icons[3], icons[4]]);
-    var s3 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,31,[icons[1], icons[3], icons[4]]);
-    var s4 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,33,[icons[1], icons[3], icons[4]]);
-    var s5 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,33,[icons[1], icons[3], icons[4]]);
-    var s6 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,10,[icons[1], icons[3], icons[4]]);
-    var s7 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,100,[icons[1], icons[3], icons[4]]);
-    var s8 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,36,[icons[1], icons[3], icons[4]]);
-    var s9 = new Shop(yieldShopId(), '第一家商铺','shop.jpeg','好好吃的',0.8,30,40,20,'北京',100,37,[icons[1], icons[3], icons[4]]);
+
+    var s1 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 10, '北京', 100, 30, [icons[1], icons[3], icons[4]]);
+    var s2 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 20, '北京', 100, 29, [icons[1], icons[3], icons[4]]);
+    var s3 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 30, '北京', 100, 31, [icons[1], icons[3], icons[4]]);
+    var s4 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 40, '北京', 100, 33, [icons[1], icons[3], icons[4]]);
+    var s5 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 50, '北京', 100, 33, [icons[1], icons[3], icons[4]]);
+    var s6 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 20, '北京', 100, 10, [icons[1], icons[3], icons[4]]);
+    var s7 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 20, '北京', 100, 100, [icons[1], icons[3], icons[4]]);
+    var s8 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 20, '北京', 100, 36, [icons[1], icons[3], icons[4]]);
+    var s9 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 20, '北京', 100, 37, [icons[1], icons[3], icons[4], icons[6]]);
     shops.addShop(s1);
     shops.addShop(s2);
     shops.addShop(s3);
@@ -314,17 +377,17 @@ app.customShop = (function (document) {
     shops.addShop(s6);
     shops.addShop(s7);
     shops.addShop(s8);
-    shops.addShop(s9);    
-    
-    shops.addShopFilterState('all');
-    
-    
-        // return {
-        //     // 输入一个shops
-        //     init:function () {
-                
-        //     }
-        // }
+    shops.addShop(s9);
+
+    // 初始化状态
+    shops.addShopFilterState('start');
+
+    // return {
+    //     // 输入一个shops
+    //     init:function () {
+
+    //     }
+    // }
 
 })(window.document);
 // todoList : 
