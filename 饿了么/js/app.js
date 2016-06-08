@@ -420,8 +420,18 @@ app.Shop = (function (document) {
  * 对滚动事件进行监听，改变页面的html结构
  */
 app.Scroll = (function () {
+    // 当分类们不在页面中出现的时候就在顶部显示出来
+    var flagDom = document.getElementById('classify');
+    var top = document.getElementById('sort-top');
     window.onscroll = function () {
-        
+        var flag =  flagDom.getBoundingClientRect().y + flagDom.getBoundingClientRect().height;
+        if(flag > 0){
+            app.Common.removeClass(top,'onTop');
+            app.Common.removeClass(top,'scope');
+        } else {
+            app.Common.addClass(top,'onTop');
+            app.Common.addClass(top,'scope');
+        }
     }
 
 })(window.document);
@@ -430,5 +440,6 @@ app.Scroll = (function () {
  * 对侧边栏添加动画
  */
 app.SlideBar = (function () {
-
+    
+    
 })(window.document);

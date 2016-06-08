@@ -74,7 +74,7 @@
                 <img src="images/wotowaimai.png" alt="谁去拿外卖">
             </div>
             <div class="wrap">
-                <ul class="classify">
+                <ul class="classify" id="classify">
                     <li class="label">商家分类:</li>
                     <li class="active">全部商家</li>
                     <li class="hot">品牌商家</li>
@@ -87,7 +87,7 @@
                     <li>鲜花蛋糕</li>
                     <li>商店超市</li>
                 </ul>
-                <div class="sort justify">
+                <div class="sort justify" id="sort-top">
                     <ul class="value-sort">
                         <li class="active classify_0">默认排序</li>
                         <li class="classify_0">销量高</li>
@@ -103,10 +103,10 @@
                             <i class="icon icon-arrow-up"></i>
                         </li>
                         <li class="drop-down-price">
-                            <span id="drop-down-price-header" class="drop-down-header" >起送价格: 不限</span>
+                            <span id="drop-down-price-header" class="drop-down-header">起送价格: 不限</span>
                             <i class="icon icon-arrow-down"></i>
                             <i class="icon icon-arrow-up"></i>
-                            <ul class="drop-down-body"> 
+                            <ul class="drop-down-body">
                                 <li class="active classify_1">不限</li>
                                 <li class="classify_1">15元以下</li>
                                 <li class="classify_1">20元以下</li>
@@ -122,10 +122,16 @@
                         <li class="filter_3"><input type="checkbox" name="sort-type-4"><span>可开发票</span></li>
                         <li class="filter_4"><input type="checkbox" name="sort-type-5"><span>在线支付</span></li>
                     </ul>
+                    <div class="search-top">
+                        <div class="search-border">
+                            <input class="search-text" type="search" name="search" placeholder="搜索商家,美食...">
+                            <a class="icon icon-search"></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="shops scope" id="shops" ></div>
+        <div class="shops scope" id="shops"></div>
         <!-- 页脚 -->
         <div class="footer scope">
             <div class="footer-link">
@@ -204,4 +210,5 @@
     <script src="js/shop.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>

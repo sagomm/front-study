@@ -163,7 +163,7 @@
 .search-wrap .search {
     text-align: right;
 }
-.search-wrap .search-border {
+.search-wrap .search-border{
     display: inline;
     border : 1px solid #ccc;
     padding : 5px;            
@@ -378,6 +378,38 @@
     vertical-align: middle;
     margin-right: 3px;
 }
+/*商铺分类区域的向上显示*/
+.take-out-classify .search-top {
+    display: none;
+}
+
+.onTop {
+    position: fixed;
+    top: 0;
+    text-align: left !important;
+    z-index: 99999;
+    box-shadow: 1px 1px 1px #ccc;               
+}
+
+.onTop .search-top {
+    display: block; 
+    position: absolute;
+    top: 3px;
+    right: 2px;
+}
+.onTop .search-border {
+    width: auto;
+    border : 1px solid #ccc;
+    padding: 5px;
+    line-height: 1;
+}
+.onTop .search-border > input {
+    border-style: none;
+    width: 300px;   
+}
+.onTop .search-border > a::before {
+    font-size: 20px;
+}
 /**
 * 商铺的样式
 */
@@ -587,6 +619,7 @@
     bottom: 0;  
     right: 0;
     transform: translateX(260px);
+    transition: translate 1s ease-in-out;
 }
 .slideBar > .slideList {
     position: absolute;
@@ -634,7 +667,7 @@
     font-size: 14px;
     padding:8px 8px;        
 }
-.   slideList .notice {
+.slideList .notice {
     margin-top: 15px;
     margin-bottom: 20px;
 }
@@ -683,6 +716,10 @@
 .slideBar > .cart > .body > p {
     font-size: 9pt;
     color: #999;    
+}
+/*显示出slideBar*/
+.slideBar-show {
+    transform: translateX(0);
 }
 
 /**
