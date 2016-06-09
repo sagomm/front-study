@@ -264,11 +264,11 @@ app.Shop = (function (document) {
     }
     // 添加商铺在页面中显示之后的一些样式设置
     Shop.prototype.addStyle = function () {
-            var domInstance = document.getElementById(this.shopId);
-            // 设置该商铺的评分样式
-            this.setEvaluation(domInstance, this.shopRate);
-            // 延迟控制hover出来的商铺信息
-            this.delayShow();
+        var domInstance = document.getElementById(this.shopId);
+        // 设置该商铺的评分样式
+        this.setEvaluation(domInstance, this.shopRate);
+        // 延迟控制hover出来的商铺信息
+        this.delayShow();
     }
     /**
      * 商铺的非重要信息类，包括下面的小标
@@ -324,7 +324,7 @@ app.Shop = (function (document) {
     ShopArea.prototype.isHasState = function (state) {
         return this.currentFilterState.indexOf(state) !== -1;
     }
-    
+
     // 删除一个商铺的分类状态
     ShopArea.prototype.removeShopFilterState = function (filterName) {
         for (var i in this.currentFilterState) {
@@ -363,7 +363,7 @@ app.Shop = (function (document) {
             this.currentShops[i].show(this.domInstance);
         }
         // 向页面加入显示的样式
-        for(var i in this.currentShops) {
+        for (var i in this.currentShops) {
             this.currentShops[i].addStyle();
         }
 
@@ -424,13 +424,13 @@ app.Scroll = (function () {
     var flagDom = document.getElementById('classify');
     var top = document.getElementById('sort-top');
     window.onscroll = function () {
-        var flag =  flagDom.getBoundingClientRect().y + flagDom.getBoundingClientRect().height;
-        if(flag > 0){
-            app.Common.removeClass(top,'onTop');
-            app.Common.removeClass(top,'scope');
+        var flag = flagDom.getBoundingClientRect().y + flagDom.getBoundingClientRect().height;
+        if (flag > 0) {
+            app.Common.removeClass(top, 'onTop');
+            app.Common.removeClass(top, 'scope');
         } else {
-            app.Common.addClass(top,'onTop');
-            app.Common.addClass(top,'scope');
+            app.Common.addClass(top, 'onTop');
+            app.Common.addClass(top, 'scope');
         }
     }
 
@@ -440,6 +440,27 @@ app.Scroll = (function () {
  * 对侧边栏添加动画
  */
 app.SlideBar = (function () {
+    var sliderTigger = document.getElementById('sliderTigger');
+    var silder = document.getElementById('sliderBar');
+
+    // 生产0,1
+    var flag = (function () {
+        var queue = [0, 1];
+        var time = 2;
+        return function () {
+            time++;
+            return queue[time % 2];
+        }
+    })()
     
-    
+    sliderTigger.onclick = function (e) {
+        if(flag()) {
+            app.Common.addClass(silder,'sliderBar-active');
+            app.Common.addClass(sliderTigger,'active');
+        }else {
+            app.Common.removeClass(silder,'sliderBar-active');
+            app.Common.removeClass(sliderTigger,'active');    
+        }
+    }
+
 })(window.document);

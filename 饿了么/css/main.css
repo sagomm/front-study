@@ -97,6 +97,7 @@
     line-height: 40px;
 	box-shadow: 0 1px 2px rgba(0,0,0,.5);
     margin-top: -10px;
+    margin-left: 5px;
     display: none;  
 }
 .header .weixin img {
@@ -620,6 +621,10 @@
     right: 0;
     transform: translateX(260px);
     transition: translate 1s ease-in-out;
+    z-index: 10000;
+}
+.sliderBar-active {
+    transform: translateX(0px);
 }
 .slideBar > .slideList {
     position: absolute;
@@ -716,10 +721,6 @@
 .slideBar > .cart > .body > p {
     font-size: 9pt;
     color: #999;    
-}
-/*显示出slideBar*/
-.slideBar-show {
-    transform: translateX(0);
 }
 
 /**
