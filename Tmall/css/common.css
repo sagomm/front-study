@@ -7,10 +7,17 @@ em {
 }
 a {
     text-decoration: none; 
+    outline-style: none;
 }
 li,
 i {
     list-style: none;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "mui-global-iconfont";
+    src: url("../fonts/font.eot") format("embedded-opentype"), url("../fonts/font.woff") format("woff"), url("../fonts/font.woff") format("truetype"), url("./font/font.svg") format("svg");
 }
 .g-scope {
     width: 1230px;
@@ -20,4 +27,13 @@ i {
     content: '';
     display: table;
     clear: both;
+}
+
+.g-icon {
+    font-family: "mui-global-iconfont"; 
+}
+.g-icon-cart,
+.g-icon-mobile,
+.g-icon-mybrand{
+    color: #C40000; 
 }

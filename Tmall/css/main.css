@@ -48,7 +48,6 @@
 	position: absolute;
 	right: 5px;
 	top: 15px;
-	width: 0px;
 	height: 0px;
 	border-width: 3px;
 	border-style: solid dashed dashed;
@@ -63,16 +62,65 @@
     background: white;
     display: block;
 }
+.quick-menu .tiny-item {
+    white-space: nowrap;
+}
+.quick-menu .tiny-item:hover {
+    text-decoration: underline solid #c40000;
+}
 .quick-menu .menu-body {
     color: #666;
     position: absolute;
     margin-top: 0px;
     margin-left: -11px;
-    width: 92px;   
-    display: none;
+    display: none;  
     border-color: #eee;
     border-style: solid;
     border-width: 0px 1px 1px;
     line-height: 1.4;   
     padding: 8px 10px; 
+}
+.quick-menu .item-separator {
+    margin-left: 5px;
+    margin-right: 2px;
+    padding:0;
+    margin-top:9px;
+    height: 14px;
+    width: 0;
+    border-left: 1px solid #ccc;
+}
+.quick-menu .item-mobile .pic-mobile {
+    display: none;
+    position: absolute;
+    margin-top: 0px;
+    margin-left: -53px;
+    box-shadow: #AAA 0px 0px 5px 0px;
+}
+.quick-menu .item-mobile .pic-mobile::after {
+    /*小三角*/
+    content: '';
+    width: 0px;
+    height: 0px;
+    line-height: 0;
+    font-size: 0px;
+    position: absolute;
+    left: 50%;
+    top: -10px;
+    margin-left: -2px;
+    border-width: 5px;
+    border-style: dashed dashed solid;
+    border-color: transparent transparent #FFF;
+} 
+.quick-menu .item-mobile:hover .pic-mobile{
+    display: block;
+}
+.quick-menu menu-body-seller {
+    position: absolute;
+    
+}
+.quick-menu menu-body-seller > li{
+
+}
+.quick-menu menu-body-seller a{
+    
 }
