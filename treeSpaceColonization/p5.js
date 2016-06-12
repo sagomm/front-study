@@ -6938,7 +6938,7 @@ p5.Matrix.prototype.transpose3x3 = function (mat3){
 };
 
 /**
- * converts a 4x4 matrix to its 3x3 inverse tranform
+ * converts a 4x4 matrix to its 3x3 inverse transform
  * commonly used in MVMatrix to NMatrix conversions.
  * @param  {p5.Matrix} mat4 the matrix to be based on to invert
  * @return {p5.Matrix} this with mat3
