@@ -1,3 +1,9 @@
+/*头部的广告*/
+body {
+    width: auto;
+    min-width: 990px;
+    background-color: transparent;
+}
 .site-ad {
     height: 80px; 
     text-align: center;
@@ -23,7 +29,11 @@
 .site-nav a:hover {
     color: #C40000;
 }
-
+.site-nav .site-wrap {
+    position: relative;
+    left: -15px;
+    width: 1230px;  
+}
 .site-nav .quick-menu {
     position: absolute;
     right: 0;
@@ -37,6 +47,10 @@
 .site-nav .site-register {
     padding-left: 20px;
     padding-right: 10px;
+}
+/*快捷导航条*/
+.quick-menu {
+    padding-right: 75px;
 }
 .quick-menu .item {
     padding:  0 10px;
@@ -55,11 +69,19 @@
 	font-size: 0px;
 	line-height: 0;
 }
-.quick-menu .tiny-menu:hover {
-    background: white;
+.quick-menu .tiny-menu {
+    border-width: 0px 1px;
+    border-color: transparent;  
+    border-style: solid;
 }
-.quick-menu .tiny-menu:hover > .menu-body{
+.quick-menu .tiny-menu:hover {
+    border-width: 0px 1px 1px 1px;
     background: white;
+    border-color: #eee;
+    border-bottom-color: white;
+}
+.quick-menu .tiny-menu:hover > .menu-body,  
+.quick-menu .tiny-menu:hover > .menu-body-seller {
     display: block;
 }
 .quick-menu .tiny-item {
@@ -114,13 +136,119 @@
 .quick-menu .item-mobile:hover .pic-mobile{
     display: block;
 }
-.quick-menu menu-body-seller {
-    position: absolute;
-    
-}
-.quick-menu menu-body-seller > li{
 
+.quick-menu .menu-body-seller {
+    position: absolute;
+    right: -1px;
+    border-width: 0px 1px 1px;
+    border-style: solid;
+    border-color: #EEE;
+    line-height: 1.6;
+    width: 144px;
+    padding: 8px 10px;
+    box-sizing: border-box;
+    display: none;
 }
-.quick-menu menu-body-seller a{
-    
+.quick-menu .menu-body-seller > li{
+    padding: 5px 0;  
+    border-bottom: 1px dtted #827777;
+    display: block                    
 }
+.quick-menu .menu-body-seller a{
+    display: inline-block;
+    width: 48px;
+    margin-right: 5px;   
+}
+/*快捷导航条最后一个导航*/
+.quick-menu .menu-body-sitemap {
+    position: absolute;
+    right: 0px;
+    left: auto;
+    border-width: 0px 1px 1px;
+    border-style: solid;
+    border-color: #EEE;
+    width: 1198px;
+    padding: 25px 0px;
+    line-height: 1.4; 
+    display: none;   
+}
+.quick-menu .menu-body-sitemap .site-cont {
+    padding-left: 30px;
+    overflow: hidden;
+    height: 200px;
+    float: left;
+}
+.quick-menu .menu-body-sitemap .site-hot {
+    width: 275px;
+    float: left;
+} 
+.quick-menu .menu-body-sitemap .site-market {
+    width: 375px;
+    border-left: 1px solid #F5F5F5;
+    border-right: 1px solid #F5F5F5;
+}
+.quick-menu .menu-body-sitemap .site-brand {
+    width: 270px;
+    border-right: 1px solid #F5F5F5;
+}
+.quick-menu .menu-body-sitemap .site-help{} 
+
+.quick-menu .site-cont h2 {
+    font-family: "微软雅黑",arial,"宋体";
+    font-size: 16px;
+    padding-bottom: 8px;
+}    
+.quick-menu .site-cont li {
+    width: 95px;
+    float: left;
+    padding: 6px 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.quick-menu .site-cont li > a {
+    white-space: nowrap;
+} 
+.quick-menu .site-list {
+    margin-right: -20px;
+    overflow: hidden;
+}
+.quick-menu .site-hot > h2,
+.quick-menu .site-hot  a:hover {
+    color: #F56A00;
+}
+.quick-menu .site-market > h2,
+.quick-menu .site-market a:hover {
+    color: #2263D4;
+}
+.quick-menu .site-brand > h2,
+.quick-menu .site-brand a:hover {
+    color: #000;
+}
+.quick-menu .site-help > h2 ,
+.quick-menu .site-help a:hover {
+    color: #666;
+}
+.quick-menu .site-hot a:hover {
+    text-decoration: underline solid #F56A00;
+}
+.quick-menu .site-market a:hover {
+    text-decoration: underline solid #2263D4;
+}
+.quick-menu .site-brand a:hover {
+    text-decoration: underline solid #000;
+}
+.quick-menu .site-help a:hover {
+    text-decoration: underline solid #666;
+}
+/*搜索部分*/
+.site-search {
+    background-image: url("./images/header.png");
+    background-repeat: repeat;
+    background-position: center center;
+}
+/*.site-search
+.site-search
+.site-search
+.site-search
+.site-search*/

@@ -9,33 +9,63 @@ Leaf.prototype.show = function () {
     noStroke();
     ellipse(this.pos.x, this.pos.y, 4, 4);
 }
+
+
 /**
- * 定义树枝对象
+ * 添加枝条
+ * 
+ * @param parent (该枝条的父亲枝条)
+ * @param pos (该枝条的位置)
+ * @param dir (方向)
  */
-function Branch( parent,os,dir) {
+function Branch(parent, pos, dir) {
     this.pos = pos;
     this.parent = parent;
     this.dir = dir;
 }
+Branch.prototype.next = function () {
+    let nextPos = p5.Vector.add(this.pos, this.dir);
+    let nextBranch = new Branch(this, nextPos, this.dir.copy());
+    return nextBranch;
+}
+
 /**
  * 定义树对象
  */
 const max_dist = 500;
 const min_dist = 10;
-
+let tree;
 
 function Tree(total) {
     this.leaves = [];
     this.total = total;
-    this.branchs = []
-    
-    var pos = createVector(width/2,height/2);
-    var dir = createVector(0,-1);
-    var root = new Branch(null,pos,dir);
-    this.branchs.push(root);
-    
+    this.branches = [];
+
+    // 添加叶节点
     for (var i = 0; i < total; i++) {
         this.leaves.push(new Leaf());
+    }
+    // 添加枝
+    let pos = createVector(width / 2, height / 2);
+    let dir = createVector(0, -1);
+    let root = new Branch(null, pos, dir);
+    this.branchs.push(root);
+
+    let current = root;
+    let found = false;
+
+    while (!found) {
+        for (let i in leaves) {
+            let d = p5.Vector.dist(root.pos, leaves[i].pos);
+            if (d < max_dist) {
+                found = true;
+            }
+        }
+        if (!found) {
+            let branch = current.next();
+            current = branch;
+            this.branchs.push(current);
+        }
     }
 
 }
@@ -44,7 +74,7 @@ Tree.prototype.show = function () {
         this.leaves[i].show();
     }
 }
-var tree;
+
 
 function setup() {
     createCanvas(400, 400);
