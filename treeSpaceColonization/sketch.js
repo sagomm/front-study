@@ -2,7 +2,7 @@
  * 定义叶子对象
  */
 function Leaf() {
-    this.pos = createVector(random(width), random(height));
+    this.pos = createVector(random(width), random(height-100));
 }
 Leaf.prototype.show = function () {
     fill(255);
@@ -24,17 +24,22 @@ function Branch(parent, pos, dir) {
     this.dir = dir;
 }
 Branch.prototype.next = function () {
-    let nextPos = p5.Vector.add(this.pos, this.dir);
-    let nextBranch = new Branch(this, nextPos, this.dir.copy());
+    var nextPos = p5.Vector.add(this.pos,this.dir);
+    var nextBranch = new Branch(this,this.nextPos,this.dir.copy());
     return nextBranch;
 }
-
+Branch.prototype.show = function () {
+    if(parent != null) {
+        stroke(255);
+        line(this.pos.x,this.pox.y,this.parent.pos.x,this.parent.pos.y);
+    }
+} 
 /**
  * 定义树对象
  */
-const max_dist = 500;
+const max_dist = 10;
 const min_dist = 10;
-let tree;
+var tree;
 
 function Tree(total) {
     this.leaves = [];
@@ -46,32 +51,37 @@ function Tree(total) {
         this.leaves.push(new Leaf());
     }
     // 添加枝
-    let pos = createVector(width / 2, height / 2);
-    let dir = createVector(0, -1);
-    let root = new Branch(null, pos, dir);
-    this.branchs.push(root);
+    var pos = createVector(width / 2, height);
+    var dir = createVector(0, -1);
+    var root = new Branch(null, pos, dir);
+    this.branches.push(root);
 
-    let current = root;
-    let found = false;
+    var current = root;
+    var found = false;
 
     while (!found) {
-        for (let i in leaves) {
-            let d = p5.Vector.dist(root.pos, leaves[i].pos);
+        for (var i in this.leaves) {
+            var d = p5.Vector.dist(root.pos, this.leaves[i].pos);
             if (d < max_dist) {
                 found = true;
             }
         }
         if (!found) {
-            let branch = current.next();
+            var branch = current.next();
             current = branch;
-            this.branchs.push(current);
+            this.branches.push(current);
         }
     }
 
 }
 Tree.prototype.show = function () {
+    // 画叶子
     for (var i in this.leaves) {
         this.leaves[i].show();
+    }
+    // 画枝条
+    for(var i in this.branches) {
+        this.branches[i].show();
     }
 }
 
