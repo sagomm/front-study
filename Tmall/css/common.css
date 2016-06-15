@@ -38,3 +38,13 @@ i {
 .g-icon-sitemap {
     color: #C40000; 
 }
+.content-wrap {
+    width: 1230px;
+    margin: 0 auto;
+}
+a:hover　{
+    color: white;
+}
+a:visited {
+    color: white;
+}

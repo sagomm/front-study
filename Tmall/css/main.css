@@ -49,8 +49,6 @@ body {
     padding-right: 10px;
 }
 .site-nav .nav-wrap {
-    margin: auto;
-    width: 1230px;
     position: relative;
     left: -15px;
 }
@@ -250,14 +248,67 @@ body {
 .quick-menu .site-help a:hover {
     text-decoration: underline solid #666;
 }
+
 /*搜索部分*/
+
 .site-search {
-    background-image: url("./images/header.png");
+    min-width: 990px;
+    height: 130px;
+    background-image: url('../images/header.png');
     background-repeat: repeat;
     background-position: center center;
 }
-/*.site-search
-.site-search
-.site-search
-.site-search
-.site-search*/
+.site-search a:visited {
+    color: blue;
+}
+.site-search .search {
+    width: 625px;
+    margin: auto;
+    padding-top: 38px;
+    overflow: hidden;
+}   
+.site-search .search-content {
+
+}
+.site-search .search-input {
+    width: 491px;
+    height: 36px;
+    font-size: 14px;
+    padding: 5px;
+    border: 2px solid #C40000;
+	box-sizing: border-box;
+	background: transparent none repeat scroll 0px 0px;
+    vertical-align: bottom;
+}
+.site-search .search-button {
+    height: 36px;
+    width: 132px;
+    background: #c40000;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-align: center;
+    border: none;   
+}
+.site-search .search-list {
+    height: 18px;
+    font-size: 14px;    
+    padding: 8px 0 0;
+    margin-left: -13px;
+    overflow: hidden;
+}
+.site-search .search-list .search-highlight {
+    color: #C40000;
+}
+.site-search .search-list li {
+    display: inline-block;
+    padding: 0 12px;
+    line-height: 1.1;
+    border-left: 1px solid #ccc;
+    cursor: pointer;
+}
+/*主导航部分*/
+.main-nav {
+    
+}
