@@ -310,5 +310,20 @@ body {
 }
 /*主导航部分*/
 .main-nav {
+    height: 36px;
+}
+.main-nav .extra-list {
+    width: 200px;
+}
+.main-nav .extra-item {
+
+}
+.main-nav .extra-header {
+    width: 100px;
+}
+.main-nav .extra-body{
+    position: absolute;
     
 }
+/*.main-nav .extra-body*/
+

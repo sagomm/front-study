@@ -10,12 +10,12 @@ TODOLIST:
         ✔ 它没用placeholder，可能是为了兼容？ 
         ✔ 在表单哪里有２个隐藏域，可能是SEO? 
         ✔ 广告部分属于另一个div是为了单独加载 
-    ✔ 利用overflow:hidden加上margin-left偏移隐藏了搜索框下面列表的第一个元素的边界,很巧妙
-    ✔ fieldset标签 
+        ✔ 利用overflow:hidden加上margin-left偏移隐藏了搜索框下面列表的第一个元素的边界,很巧妙
+        ✔ fieldset标签 
     ☐ 做主要导航部分
-    ☐ 横向导航                
-    ☐ 纵向hover导航
-    ☐ 幻灯片部分
+        ☐ 横向导航                
+        ☐ 纵向hover导航
+        ☐ 幻灯片部分
         
         
                                     

@@ -8,9 +8,16 @@ em {
 a {
     text-decoration: none; 
     outline-style: none;
+    cursor: pointer;
 }
-li,
-i {
+a:hover　{
+    color: white;
+}
+a:visited {
+    color: white;
+}
+i,
+li {
     list-style: none;
     font-style: normal;
 }
@@ -42,9 +49,6 @@ i {
     width: 1230px;
     margin: 0 auto;
 }
-a:hover　{
-    color: white;
-}
-a:visited {
-    color: white;
+button{
+    cursor: pointer;
 }
