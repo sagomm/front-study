@@ -1,0 +1,24 @@
+✔ 天猫头部部分 @done
+    ✔ 顶部导航最后一个导航的实现，hover之后，前三个浮动，最后一个无浮动 @done
+
+✔ 搜索部分 @done
+    ✔ 顶部搜索很多不知道干什么的after,before @done
+    ✔ 表单２个隐藏域，可能是SEO @done
+    ✔ 页面广告部分单独处理，可能为了单独加载 @done
+    ✔ 利用overflow:hidden加上margin负值巧妙处理了搜索框下面列表位置 @done
+    ✔ fieldset标签 @done
+
+✔ 做主要导航部分 @done
+    ✔ 横向导航 @done
+        ✔ 单独把extra-header部分显示出来 @done
+        ✔ 添加data-url做的小标 @done
+    ✔ 纵向导航 @done
+        ✔ 与js交互实现extra-header:hover之后的各种变化 @done
+            ✔ extra-header颜色变化 @done
+            ✔ extra-body内容变化 @done
+        ✔ 各种可怕的webfont!! @done
+            ✘ 第二个导航的图标没有解决，不知道是什么编码 @cancelled
+        ✔ 导航介绍字太多了，只做了一个 @done
+        
+☐ 幻灯片部分 
+

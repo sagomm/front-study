@@ -26,6 +26,13 @@ li {
     font-family: "mui-global-iconfont";
     src: url("../fonts/font.eot") format("embedded-opentype"), url("../fonts/font.woff") format("woff"), url("../fonts/font.woff") format("truetype"), url("./font/font.svg") format("svg");
 }
+@font-face {
+    font-family: "fpIconFont";
+    src: url("../fonts/nav-font.eot?#iefix") format("embedded-opentype"), 
+        url("../fonts/nav-font.woff") format("woff"), 
+        url("../fonts/nav-font.ttf") format("truetype"),
+         url("../fonts/nav-font.svg#fpIconFont") format("svg");
+}
 .g-scope {
     width: 1230px;
     margin:auto;
@@ -44,6 +51,10 @@ li {
 .g-icon-mybrand,
 .g-icon-sitemap {
     color: #C40000; 
+}
+/*导航里面的图标*/
+.g-nav-icon {
+    font-family: "fpIconfont";
 }
 .content-wrap {
     width: 1230px;

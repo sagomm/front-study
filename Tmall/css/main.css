@@ -311,19 +311,139 @@ body {
 /*主导航部分*/
 .main-nav {
     height: 36px;
+    background-color: #dd2727;
+    line-height: 36px;
+}
+.main-nav .extra-list,
+.main-nav .category-list {
+    float: left;
 }
 .main-nav .extra-list {
+    position: relative;
     width: 200px;
 }
 .main-nav .extra-item {
-
+    float: left;    
+    width: 100px;
 }
 .main-nav .extra-header {
     width: 100px;
+    font-size:14px;
+    text-align: center;
+    cursor: pointer;
 }
 .main-nav .extra-body{
     position: absolute;
-    
+    left: 0;
+    display: none;
+    width: 200px;
 }
-/*.main-nav .extra-body*/
+.main-nav .category-list {}
+.main-nav .category-list > li {
+    float: left;
+    position: relative;
+    cursor: pointer;
+    padding: 0 15px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #fff;
+    display: block;
+}
+.main-nav .category-list img {
+    width: 90px;
+    height: 36px;
+}
+.main-nav .hover-pic {
+	background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHQAAAA8CAMAAACAT24UAAAAgVBMVEUAAADeKCjeJyfeKSneJyfeJyfdKCjhKirhKireJyffKCjiLCziLi7eKCjeJyffKCjfKSnhKCj/Y2PeJyfeJyfeKCjeKCjeKCjkMjLdJyfeKCjeJyfeJyfeJyfeKCjgLCzoOjreJyfeJyfdKCjeKCjeKCjdKCjgKCjeJyfhKirdJydKcfmVAAAAKnRSTlMAlN1Eycr7JiGvXBcR7th/PjQC5NK6kWgO68e3nYlwHQf18b6jjFNIdSuNN7c5AAABTUlEQVRYw+3V2W7CMBRF0QMUZyADkJCEeYb2/P8HNhFDSZxUKjhGqrwe7YetK13LeKvMtjZo0cAaoMwLY+aCpYU2jF1nS9J3zvjh7nglOhmU68W8mdzHXfFBYEOxTz7oXqsjlkRrKBWyZH45nbMszqCQy4ohcmtWTcZQZihYsUAupaQDVewpq3zkFpSlUCMLKCs2tU+Z6EGF8Zw1TsBGsIZvQYGEdcJij2oFHl6WstZBeqUKV3goWGuSX7FBomZxZTOgxyZLvMLqskH/tygd+4V/xSefmDQnkhGe4bkxm31IUakbdf/Mp0SKqmeiJiozURM1URPVo2+iD0zURE3URGv9j+gM+KJuDuBRtw6AgJq5eXRJvYSXRy1BrRwUFtRJWCgMImoU4mK0pTYOboZTanLY4M7eU4fdCiXnvWDLouMAVd5pdey0JQnTEd7rGzvxPwBZgl5TAAAAAElFTkSuQmCC") no-repeat scroll 0% 0% / 40px 15px;
+	display: block;
+	position: absolute;
+	width: 40px;
+	height: 15px;
+	top: 0px;
+	left: 50%;
+	transform: translate(-20px, -5px);
+	opacity: 0;
+}
+.main-nav li:hover .hover-pic {
+	opacity: 1;
+	transition: opacity 0.4s ease 0s, transform 0.4s ease 0s;
+	transform: translate(-20px, -10px);
+}
+
+/*商品分类以及狂欢会场的样式*/
+.main-nav .extra-active {
+    display: block;
+}
+
+/*商品分类的样式*/
+.main-nav .extra-shopClassify .extra-header{
+    color: #fff;
+}
+.main-nav .extra-shopClassify-active {
+    background: rgba(238, 238, 238, 0.95);
+}
+.main-nav .extra-shopClassify-active .extra-header{
+    color: #dd2727 !important;
+}
+.main-nav .extra-shopClassify-active .extra-body {
+    display: block;
+}
+.main-nav .extra-shopClassify .extra-body {
+    height: 500px;  
+    background: rgba(238, 238, 238, 0.95);
+}
+.main-nav .extra-shopClassify .extra-body > li {
+    height: 31.2px;
+    line-height: 31.2px;
+    font-size: 14px;
+    color: #000;
+}
+.main-nav .extra-shopClassify .extra-body .g-nav-icon {
+    margin-left: 14px;
+    margin-right: 4px; 
+}
+.main-nav .extra-shopClassify .shopClassify-body {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    height: 500px;
+    width: 852px;
+        
+}
+
+/*狂欢会场的样式*/
+.main-nav .extra-meeting .extra-header{
+    color: #ffe013;   
+}
+.main-nav .extra-meeting-active{
+    background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACAQMAAABIeJ9nAAAAA1BMVEUYFRXvJ83tAAAAAXRSTlPM0jRW/QAAAApJREFUCNdjAAIAAAQAASDSLW8AAAAASUVORK5CYII=") repeat scroll 0% 0%;
+}
+.main-nav .extra-meeting-active .extra-header{
+    color: #fff;
+}
+.main-nav .extra-meeting-active .extra-body {
+    display: block;
+}
+.main-nav .extra-meeting .extra-body {
+     background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACAQMAAABIeJ9nAAAAA1BMVEUYFRXvJ83tAAAAAXRSTlPM0jRW/QAAAApJREFUCNdjAAIAAAQAASDSLW8AAAAASUVORK5CYII=") repeat scroll 0% 0%;
+     padding-top:29px;
+     height: 500px; 
+     box-sizing: border-box;
+}
+.main-nav .extra-meeting .extra-body > li {
+    margin: 0px 24px;
+    margin-bottom: 14px;
+    cursor: pointer;
+    font-size: 14px;
+    height: 31px;
+    line-height: 31px;
+    text-align: center;
+    border: 1px solid #CB0C10;
+    border-radius: 10px;
+    color: #fff;
+}
+.main-nav .extra-meeting .extra-body > li:hover {
+    background: #CB0C10;
+}
+
 
