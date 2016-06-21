@@ -36,3 +36,4 @@ meeting.addEventListener('mouseover',function (e) {
 
 // 幻灯片部分
 
+// 定时
