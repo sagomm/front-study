@@ -397,6 +397,7 @@ body {
     line-height: 31.2px;
     font-size: 14px;
     color: #000;
+    cursor: pointer;
 }
 .main-nav .extra-shopClassify .extra-body .g-nav-icon {
     margin-left: 14px;
@@ -407,10 +408,99 @@ body {
     top: 0;
     left: 100%;
     height: 500px;
-    width: 852px;
-        
+    width: 852px;        
+    display: none;
 }
+.main-nav .extra-shopClassify li:hover span,
+.main-nav .extra-shopClassify li:hover i {
+    font-size: 14px;
+    color: #E54077 !important;
+    font-weight: 700;
+}
+.main-nav .extra-shopClassify li:hover {
+    background-color: #fff;
+}
+.main-nav .extra-shopClassify:hover s.shopClassify-body {
+    display: block;
+}
+.main-nav .hot-word {
+    float: left;
+    width: 583px;
+    height: 462px;
+    margin: 19px 20px;
+    overflow: hidden;
+}
+.main-nav .shop-logo {
+    float: left;
+    background-color: #fafafa;
+    width: 189px;
+    padding: 10px;
+    height: 480px;        
+}
+.main-nav .extra-shopClassify .line-title,
+.main-nav .extra-shopClassify .line-arrow,
+.main-nav .extra-shopClassify .line-con {
+    line-height: 22px;
+    float: left;  
+}
+.main-nav .extra-shopClassify .line-title {
+    width: 60px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: justify;
+}
+.main-nav .extra-shopClassify .line-arrow {}
+.main-nav .extra-shopClassify .line-con {
+    color: #666;
+    width: 493px;
+    box-sizing: border-box;
+    padding-left: 30px;
+}
+.main-nav .extra-shopClassify .line-con a {
+    float: left;
+    color: #666;
+    height: 22px;
+    margin-left: 10px;
+    font-size: 14px;
+}
+.main-nav .extra-shopClassify .line-separation {
+    margin-bottom: 10.5px;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+    height: 10.5px;
+    clear: both;
+}
+.main-nav .extra-shopClassify .line-hot {
+    color: #E54077 !important;
+}
+/*logo区域*/
 
+.main-nav .shopClassify .shop-logo .shop-pic-group  {
+
+}
+.main-nav .extra-shopClassify .shop-logo .shop-pic-group a {
+    float: left;
+    width: 73px;
+    margin-right: 1px;
+    margin-bottom: 1px;
+    height: 37px;
+    padding: 5px 10px;
+    overflow: hidden;
+    background-color: #FFF;
+}
+.main-nav .extra-shopClassify .shop-logo .shop-pic-bottom img,
+.main-nav .extra-shopClassify .shop-logo .shop-pic-group img {
+    width: inherit;
+    display: block;
+    margin: 0px auto;
+}
+.main-nav .extra-shopClassify .shop-logo .shop-pic-bottom {
+    width: 100%; 
+}
+.main-nav .extra-shopClassify .shop-logo .shop-pic-bottom img {
+    width: 189px;
+    height: 87px;
+}
 /*狂欢会场的样式*/
 .main-nav .extra-meeting .extra-header{
     color: #ffe013;   
@@ -445,5 +535,42 @@ body {
 .main-nav .extra-meeting .extra-body > li:hover {
     background: #CB0C10;
 }
+/*幻灯片样式*/
+.pic-banner {
+    height: 500px;
+    color: #999;
+    font-size: 12px;
+}
+.pic-banner .slider-content {
+    height: inherit;
+    width: 100%;
+}
+.pic-banner .slider-unit {
+    width: 100%;
+    position: absolute;
+    /*z-index: 0;
+    opacity: 0;
+    display: none*/
+}
+.pic-banner .slider-unit-active {
+    z-index: 1;
+    opacity: 1;
+    display: block;
+}
+.pic-banner .slider-nav .slider-wrap {
+    width: 100%;
+}
+.pic-banner .slider-nav .slider-wrap img{
+    width: 1120px;
+    height: 500px;
+    margin: 0 auto;
+}
+.pic-banner .slider-nav {
 
+}
+.pic-banner .slider-nav .select {
 
+}
+.pic-banner .slider-nav li {
+
+}
