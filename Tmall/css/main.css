@@ -622,7 +622,8 @@ body {
     height: 70px;
     margin: 12px auto;
 }
-.float-login p {
+.float-login p,
+.float-login li {
     font-size: 12px;
     color: #fff;
     cursor: pointer;
@@ -639,9 +640,163 @@ body {
     height: 24px;
     line-height: 24px;
 }
+.float-login .extra-info {
+    margin-top: 7px;
+}
 .float-login .seprate {
     border-bottom: 1px dashed rgba(0, 0, 0, 0.3);
     width: 80px;
     margin: 0px auto;
     height: 0px;
 }
+.float-login .more-info {
+    padding-top: 20px;
+    line-height: 22px;
+    height: 100px;
+}
+.float-login .ad {
+    padding-top: 10px;
+}
+.float-login .ad-title {
+    background: rgba(0, 0, 0, 0.15);
+    line-height: 24px;
+}
+.float-login .ad img {
+    margin:17px auto 7px;
+    height: 57px;
+    width: 57px;
+    border-radius: 28px;
+}
+.float-login .ad p {
+    line-height: 22px;
+}
+.location-feature {
+    margin: 30px auto 0px;
+    padding-right: 30px;
+}
+.location-feature .feature-title {
+    font-size: 18px;
+    color: #DD2727;
+    max-width: 252px;
+    text-align: center;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.location-feature .shopList {
+    margin-top: 20px;
+}
+.location-feature .shopList > li{
+    float: left;
+    width: 236px;
+    height: 130px;
+    margin-right: 10px;
+}
+.hot-brands {
+    margin-top: 30px;
+    padding-right: 30px;
+}
+.hot-brands .hot-brands-title {
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #000;
+    padding-left: 15px;
+    width: 220px;
+}
+.hot-brands .hot-brands-title > span {
+    font-size: 14px;
+}
+.hot-brands .hot-brands-body {
+
+}
+.hot-brands .bot-brands-body-pic,
+.hot-brands .brands-list,
+.hot-brands .recommend-list {
+    float: left;
+}
+.hot-brands .bot-brands-body-pic {
+    width: 245px;
+    height: 371px;
+    background-color: #EEE;
+    margin-right: 1px;
+}
+.hot-brands .bot-brands-body-pic img {
+    width: inherit;
+    height: inherit;
+}
+.hot-brands .brands-list {
+    width: 738px;
+    height: 372px;
+}
+.hot-brands .recommend-list {
+    width: 246px;
+    height: 371px;
+    background-color: #F9F8F3;
+}
+.hot-brands .brand-item {
+    position: relative;
+    width: 122px;
+    height: 92px;
+    margin-right: 1px;
+    margin-bottom: 1px;
+    float: left;
+}
+
+.hot-brands .brand-img {
+    text-align: center;
+    line-height: 92px;
+}
+.hot-brands .brand-img img {
+    width: 82%;
+    height: 50px;
+    vertical-align: middle;
+}
+.hot-brands .brand-item .brand-mark {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-out 0s;    
+}
+.hot-brands .brand-item:hover .brand-mark{
+    opacity: 1;
+}
+.hot-brands .brand-item .brand-mark span {
+    display: block;
+    font-size: 12px;
+    color: #fff;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 25%;
+    margin-bottom: 10%;
+}
+.hot-brands .brand-item .brand-mark a {
+    display: block;
+    color: #FFF;
+    width: 63px;
+    height: 18px;
+    margin: 0 auto;
+    font-size: 12px;
+    line-height: 16px;
+    background-color: #F00;
+    border-radius: 9px;
+}
+.hot-brands .recommend-list .recommend-item {
+    display: block;
+}
+.hot-brands .recommend-list .recommend-item .logo {
+    width: 74px;
+    height: 74px;
+    line-height: 74px;
+    text-align: center;
+    background-color: #FFF;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
+}
+

@@ -40,8 +40,24 @@
                                                 原先的图片opacity减小->
             ✘ 这里的问题是:待切换的图片刚block的同时直接调用opacity动画，会不能正常显示动画 @cancelled
             ✘ 不理解：tmall幻灯片切换为什么要把不切换的幻灯片给display:none掉？ @cancelled
+        ✔ 鼠标hover广告部分有背景变化 @done
 
-    ☐ 登陆部分的完成
+    ✔ 登陆部分的完成 @done
+        ✔ 鼠标hover广告部分有背景变化 @done
+        ✘ 不知道是上面编码方式,webfont依旧无法解决 @cancelled
 
+✔ 地区专享部分 @done
+    ✔ 看到不知道干嘛的div.估计是用来占位的 @done
+
+✔ 热门品牌系列 @done
+
+
+
+
+
+
+☐ 后续修补:
+    ☐ 一些图片的hover背景渐进动画
+    ☐ z-index的调整
 
      
