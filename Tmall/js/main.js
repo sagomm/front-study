@@ -43,55 +43,51 @@ var length = slider_units.length;
 var lastIndex = undefined;
 var timerId = undefined;
 
-// 先变成display:block再去加载动画
-function changeDisplay(node,callback){
-    if(node.style.display == 'block'){
-        node.style.opacity = 0;
-        node.style.opacity = 'none';
-    }else{
-        node.style.display = 'block';
-        node.style.opacity = 1;
-    }
-}
 // 显示动画
 function show(index) {
-    if(typeof lastIndex !== 'undefined'){
-        changeDisplay(slider_units[lastIndex]);
-        // Common.removeClass(slider_units[lastIndex],'slider-unit-active');
+    if (typeof lastIndex !== 'undefined' && index !== lastIndex) {
+        slider_units[lastIndex].style.opacity = 0;
+        slider_units[lastIndex].style.zIndex = 0;
         Common.removeClass(slider_buttons[lastIndex],'select');
+        lastIndex = index;
     }
     lastIndex = index;
-    changeDisplay(slider_units[index]);
-    // Common.addClass(slider_units[index],'slider-unit-active');
-    Common.addClass(slider_buttons[index],'select');
+    slider_units[index].style.opacity = 1;
+    slider_units[index].style.zIndex = 1;
+    Common.addClass(slider_buttons[lastIndex],'select');
 }
 // 定时部分
 function setTimer(startUnitIndex) {
-    var index = startUnitIndex; 
+    var index = startUnitIndex;
     timerId = setInterval(function () {
         show(index);
-        console.info(index);
-        index = (index+1) % length;
-    },2000);
+        index = (index + 1) % length;
+    }, 2000);
 }
-function cancelTimer(){
+function cancelTimer() {
     clearInterval(timerId);
 }
 // 触碰部分
-function _mouseOver(item,index){
-    return function() {
+function _mouseOver(item, index) {
+    return function () {
         cancelTimer();
         show(index);
     }
 }
-function _mouseOut(item,index){
-    return function(){
+function _mouseOut(item, index) {
+    return function () {
         setTimer(index);
     }
-} 
-for(var i = 0 ;i<slider_buttons.length;i++){
-    slider_buttons[i].addEventListener('mouseover',_mouseOver(this,i));
-    slider_buttons[i].addEventListener('mouserout',_mouseOut(this,i));
-} 
+}
+for (var i = 0; i < slider_buttons.length; i++) {
+    slider_buttons[i].addEventListener('mouseover', _mouseOver(this, i));
+    slider_buttons[i].addEventListener('mouseout', _mouseOut(this, i));
+}
 //　初始化
+show(0);
 setTimer(0);
+
+
+
+
+

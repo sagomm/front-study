@@ -555,14 +555,7 @@ body {
     padding-right: 150px;
     z-index: 0;
     opacity: 0;
-    transition:opacity 0.3s ease 0s;
-    display: none;
-}
-.pic-banner .slider-unit-active,
-.pic-banner .slider-unit-active .slider-ad-1,
-.pci-banner .slider-unit-active .slider-ad-2 {
-    z-index: 1;
-    opacity: 1;
+    transition:opacity 0.5s ease 0s;
 }
 .pic-banner .slider-unit .slider-wrap{
     position: relative;

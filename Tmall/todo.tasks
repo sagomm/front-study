@@ -32,4 +32,16 @@
         ✔ active样式包括:z-index.opacty来控制显示 @done
         ✔ z-index问题 @done
         ✔ 动画问题:图片的渐进渐出切换,利用关键帧动画或者是js @done
-        
+            ✘ 用css3过渡的问题是，图片全是display:none的，用过渡动画的话不能展示 @cancelled
+            ✘ 用js的问题是，写的麻烦- - @cancelled
+            ✘ 利用浏览器动画事件去处理 @cancelled
+                ✘ 一开始以为过程是: 原先的图片opacity减小至0->原先的图片display:none->切换的图片display:block->切换的图片opacity增大至１ @cancelled
+            ✔ 过程理解: 切换的图片display:block->切换的图片opacity增大->原先的图片display:none; @done
+                                                原先的图片opacity减小->
+            ✘ 这里的问题是:待切换的图片刚block的同时直接调用opacity动画，会不能正常显示动画 @cancelled
+            ✘ 不理解：tmall幻灯片切换为什么要把不切换的幻灯片给display:none掉？ @cancelled
+
+    ☐ 登陆部分的完成
+
+
+     
