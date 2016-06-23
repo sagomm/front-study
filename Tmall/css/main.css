@@ -707,9 +707,7 @@ body {
 .hot-brands .hot-brands-title > span {
     font-size: 14px;
 }
-.hot-brands .hot-brands-body {
-
-}
+.hot-brands .hot-brands-body {}
 .hot-brands .bot-brands-body-pic,
 .hot-brands .brands-list,
 .hot-brands .recommend-list {
@@ -789,6 +787,7 @@ body {
 .hot-brands .recommend-list .recommend-item {
     display: block;
 }
+
 .hot-brands .recommend-list .recommend-item .logo {
     width: 74px;
     height: 74px;
@@ -798,5 +797,150 @@ body {
     border-radius: 50%;
     overflow: hidden;
     float: left;
+}
+.hot-brands .recommend-list .recommend-item .logo img {
+    width: inherit;
+    height: inherit;
+}
+.hot-brands .recommend-list .recommend-item .meta {
+    height: 74px;
+    margin-left: 90px;
+    padding: 17px 0;
+    line-height: 20px;
+    font-size: 14px;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis; 
+}
+.hot-brands .recommend-list .recommend-item .meta .fast-show{
+    color: #333;
+    white-space: nowrap;
+    transition: all 0.3s ease-out 0s;
+}
+.hot-brands .recommend-list .recommend-item .meta .slow-show{
+    color: #999;
+    font-size: 14px; 
+    white-space: nowrap;
+    transition: all 0.3s ease-out 0s;
+}
+/*.hot-brands .recommend-list .recommend-item */
+.hot-brands .hot-colum-group {
+    margin-top: 30px;
+    padding-right: 30px;
+    height: 577px;
+    overflow: hidden;
+}
+.hot-brands .hot-colum-group .hot-colum {
+    float: left;
+    background-color: #FFF;
+    width: 238px;
+    height: 476px;
+    margin-right: 8px;
+    text-align: center;
+    border-bottom: 1px solid transparent;
+}
+.hot-brands .hot-colum-group .colum-title {
+    font-weight: 700;
+    background-color: #DD2727;
+    height: 36px;
+    line-height: 36px;
+    font-size: 18px;
+    color: #FFF;
+}
+.hot-brands .hot-colum-group .colum-con {
+    width: 238px;
+    height: 220px;
+    display: block;
+    overflow: hidden;
+}
+.hot-brands .colum-con .colum-con-title {
+    display: block;
+    width: 100%;
+    font-size: 22px;
+    height: 24px;
+    line-height: 24px;
+    margin-top: 19px;
+    color: #000;
+}
+.hot-brands .colum-con .colum-con-info {
+    margin-top: 5px;
+    color: #888;
+    font-size: 14px;
+    height: 14px;
+    line-height: 14px;
+}
+.hot-brands .colum-con img {
+    width: 140px;
+    height: 140px;
+    margin: 9px auto 0px;
+    position: relative;
+}
+.hot-brands .seprate {
+    height: 1px;
+    width: 200px;
+    background-color: #EEE;
+    margin: 0px auto;
+}
+.hot-brands .bottom-pic {
+    display: block;
+    width: 1620px;
+    height: 100px; 
+    margin-left: -165px;   
+}
+.good {
+    padding-right: 30px;
+    margin-top: 30px;
+    height: 470px;
+    position: relative;
+}
+
+.good .color-mark,
+.good .good-title .title,
+.good .english {
+    vertical-align: top;    
+}
+.good .color-mark {
+    display: inline-block;
+    background-color: #64C333;
+    width: 5px;
+    height: 20px;
+}
+.good .good-title .title{
+    font-size: 18px;
+    color: #000;
+    line-height: 18px;
+    height: 18px;
+    margin-left: 10px;
+}
+.good .english {
+    font-size: 14px;
+    color: #000;
+    margin-left: 10px;
+    line-height: 24px;
+    height: 18px;
+}
+.good .good-info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 800;
+    height: 31;
+    line-height: 31px;
+}
+.good .good-info > li {
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    margin: 5px 10px;
+    font-size: 14px;
+}
+.good .good-info > li:hover {
+    border-bottom: 1px solid #000;
+}
+.good .good-slide {
+
+}
+.good .good-slide img {
+
 }
 
