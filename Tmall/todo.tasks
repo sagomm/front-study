@@ -57,6 +57,10 @@
     ✔ 栏目下面有个滚动显示动画 @done
         ✔ 找到了一个transitionend事件来解决css动画调用的问题,不用写js做动画啦:) @done
 
+✔ 猜您喜欢部分 @done
+    ✔ 英语咋讲 @done
+    ✘ 不清楚为什么这里用ul>li>a的结构,它前面都是用div>a来展现项目的 @cancelled
+    ✘ html结构很复杂,不清楚原因,为seo? @cancelled
 
 ☐ 后续修补:
     ☐ 一些图片的hover背景渐进动画

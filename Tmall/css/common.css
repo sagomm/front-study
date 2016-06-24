@@ -36,6 +36,7 @@ li {
 .g-scope {
     width: 1230px;
     margin:auto;
+    overflow: hidden;
 }
 .g-clearfix::after {
     content: '';

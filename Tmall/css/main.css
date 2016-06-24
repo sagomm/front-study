@@ -1011,7 +1011,8 @@ body {
     height: 440px;
 }
 .good .good-right {
-    
+    height:440px;
+    width: 248px;
 }
 .good .good-right .good-item ,
 .good .good-middle .good-item {
@@ -1072,3 +1073,77 @@ body {
     width: 100px;
     height: 100px;
 }
+.body-ad {
+    padding-right: 30px;
+    margin-top: 20px;
+}
+.body-ad img {
+    width: inherit;
+    height: inherit;
+}
+
+.favorite {
+    padding-right: 30px;
+    margin-top: 30px;
+}
+.favorite .title {
+    line-height: 20px;
+    color: #666;
+    text-align: center;
+    font-weight: 100;
+    font-size: 18px;
+    font-family: "Microsoft YaHei",SimSun,sans-serif,"方正兰亭黑";
+}
+.favorite .title::after ,
+.favorite .title::before {
+    content: " ";
+    width: 30px;
+    height: 1px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
+    background-color: #979797;
+}
+.favorite .favorite-con {
+    margin-top: 5px;
+    width: 100%;
+}
+.favorite .favorite-con .favorite-item {
+    float: left;
+    width: 235px;
+    height: 315px;
+    color: #999;
+    padding: 2px;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    font-size: 12px;
+}
+.favorite .favorite-con .favorite-item:hover {
+    outline: 1px solid #DD2727;
+}
+.favorite .favorite-item img {
+    display: block;
+    width: inherit;
+    height: 235px;
+} 
+.favorite .favorite-item .info{
+    padding: 14px 12px 8px;
+    text-align: left;
+}
+.favorite .favorite-item .name {
+    font-size: 13px;
+    line-height: 18px;
+    color: #666;
+}
+.favorite .favorite-item .price {
+    line-height: 32px;
+    color: #F00;
+}
+.favorite .favorite-item .price-integer{
+    font-size:16px;
+}   
+.favorite .favorite-item .price-rmb, 
+.favorite .favorite-item .price-decimal {
+    font-size: 14px;
+}
+
