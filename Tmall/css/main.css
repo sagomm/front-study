@@ -957,7 +957,7 @@ body {
     height: 330px;
     transition: opacity 300ms ease-out 0s;
 }
-.good .good-slide img:hover {
+.good .good-slide:hover img{
     opacity: 0.7;
 }
 .good .good-slide .slide {
@@ -983,4 +983,92 @@ body {
 }
 .good .good-slide .show {
     margin-top: -30px;
+}
+.good .good-slide .title-con {
+    height: 110px;
+    color: #fff;
+    margin-top: -30px;
+    text-align: center;
+    background-color: #64C333;  
+}
+.good .good-slide .title {
+    width: 100%;
+    padding-top: 20px;
+    font-weight: 700;
+    font-size: 22px;
+}
+.good .good-slide .sub-title {
+    font-size: 18px;
+}
+.good .good-slide .decoration {
+    width: 100%;
+    height: 30px;
+    margin-top: 7px;
+    background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIsAAAAgBAMAAADQ7JbhAAAAElBMVEUAAAAAAAAAAAAAAAAAAAAAAADgKxmiAAAABnRSTlMUAAQLDwdsKrbGAAAAoUlEQVRIx5zTQQ7CMAxE0a827ONS9u0NDOIAKSeA+18GlSgWm1aavJU3sUYZGbPpSXpYj3ibMXOAV9+WAnDf18xQ5w7OLu1rCj+j6a5UW2aC7jhONWRmqC6mukGVMplmNdFCk4mZQa2JsOA0yTQzwXHCZpJCcAphVNsOhX8fE7w5MkgffGyV2hbiaGHki3BOfWeqRAxQNWAYBaNgFIwCEgEAOu9AM8VSluwAAAAASUVORK5CYII=") no-repeat scroll center 0px;
+}
+.good .good-middle {
+    width: 735px;
+    height: 440px;
+}
+.good .good-right {
+    
+}
+.good .good-right .good-item ,
+.good .good-middle .good-item {
+    float: left;
+    position: relative;
+}
+.good .good-middle .good-item {
+    height: 220px;
+    width: 244px;
+}
+.good .good-right .good-item {
+    width: 248px;
+    height: 146px;
+}
+.good .good-middle .title,
+.good .good-right .title {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 220px;
+    font-size: 18px;
+    line-height: 24px;
+    height: 24px;
+    color: #000;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.good .good-middle .sub-title,
+.good .good-right .sub-title {
+    position: absolute;
+    top: 54px;
+    left: 25px;
+    width: 220px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #64C333;
+    height: 18px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.good .good-middle img,
+.good .good-right img  {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    transition: right 0.3s ease 0s;
+}
+.good .good-item:hover img {
+    right: 5px;
+}
+.good .good-middle img {
+    width: 154px;
+    height: 154px;
+}
+.good .good-right img {
+    width: 100px;
+    height: 100px;
 }
