@@ -87,6 +87,30 @@ for (var i = 0; i < slider_buttons.length; i++) {
 show(0);
 setTimer(0);
 
+// 商品栏目中小滚动条
+
+var slide_body = document.querySelector('.good .slide');
+var slide_items = slide_body.querySelectorAll('.slide-item');
+var slide_index = 0;
+
+// 事件代理,处理它下面的li的transition事件
+slide_body.addEventListener('transitionend',function (e) {
+    if(e.propertyName==='margin-top' && slide_body.hasChildNodes(e.target)){
+        slide_body.removeChild(e.target);
+    }
+})
+
+setInterval(function(){
+    var d0  = slide_body.children[0].cloneNode();
+    d0.innerHTML = slide_body.children[0].innerHTML;
+    slide_body.children[0].style.marginTop = '-30px';
+    slide_body.appendChild(d0);
+},2000);
+
+
+
+
+
 
 
 

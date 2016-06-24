@@ -29,8 +29,8 @@ li {
 @font-face {
     font-family: "fpIconFont";
     src: url("../fonts/nav-font.eot?#iefix") format("embedded-opentype"), 
-        url("../fonts/nav-font.woff") format("woff"), 
-        url("../fonts/nav-font.ttf") format("truetype"),
+         url("../fonts/nav-font.woff") format("woff"), 
+         url("../fonts/nav-font.ttf") format("truetype"),
          url("../fonts/nav-font.svg#fpIconFont") format("svg");
 }
 .g-scope {
