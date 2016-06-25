@@ -1081,7 +1081,6 @@ body {
     width: inherit;
     height: inherit;
 }
-
 .favorite {
     padding-right: 30px;
     margin-top: 30px;
@@ -1105,30 +1104,43 @@ body {
     background-color: #979797;
 }
 .favorite .favorite-con {
-    margin-top: 5px;
+    margin-top: 25px;
     width: 100%;
 }
-.favorite .favorite-con .favorite-item {
+.favorite .favorite-group {
+}
+.favorite .favorite-group .favorite-item {
     float: left;
     width: 235px;
-    height: 315px;
+    height: 336px;
     color: #999;
-    padding: 2px;
-    margin-right: 7px;
-    margin-bottom: 7px;
+    background: #fff;
+    border: 1px solid #FFF;
+    margin-left: 1px;
+    margin-right: 10px;
+    margin-bottom: 14px;
     font-size: 12px;
-}
-.favorite .favorite-con .favorite-item:hover {
-    outline: 1px solid #DD2727;
 }
 .favorite .favorite-item img {
     display: block;
     width: inherit;
     height: 235px;
+    transition: opacity 300ms ease-out 0s;
 } 
+.favorite .favorite-con .favorite-item-last {
+    margin-right: 0px;
+}
+.favorite .favorite-con .favorite-item:hover {
+    outline: 1px solid #DD2727;
+}
+.favorite .favorite-con .favorite-item:hover > img {
+    opacity: 0.7;
+}
 .favorite .favorite-item .info{
     padding: 14px 12px 8px;
+    height: 91px;
     text-align: left;
+    box-sizing: border-box;
 }
 .favorite .favorite-item .name {
     font-size: 13px;
@@ -1136,7 +1148,7 @@ body {
     color: #666;
 }
 .favorite .favorite-item .price {
-    line-height: 32px;
+    line-height: 22px;
     color: #F00;
 }
 .favorite .favorite-item .price-integer{
@@ -1146,4 +1158,68 @@ body {
 .favorite .favorite-item .price-decimal {
     font-size: 14px;
 }
-
+.favorite .favorite-end {
+    width: 100%;
+    height: 80px;   
+    text-align: center;
+}
+.favorite .favorite-end .end {
+    background: transparent url("../images/end-sprite.png") no-repeat scroll 0px -103px;
+    width: 130px;
+    height: 72px;
+    display: inline-block;
+    color:#999;
+}
+.footer {
+    /*margin-top:10px;*/
+    border-top: 1px solid #D1D7DC;
+    text-align: center;
+    background: #FFF;
+}
+.footer .ensure{
+    background: url("../images/footer.jpg");
+    width: 1190px;
+    height: 100px;
+    margin: 25px auto;
+    padding: 0px;
+}
+.footer .desc{
+    width: 1190px;
+    padding-top: 22px;
+    height: 190px;
+    margin: auto;
+    border-top: 1px solid #EDEDED;
+    background: transparent url("data:image/jpg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwMDAwMDBAMDg8QDw4MExMUFBMTHBsbGxwfHx8fHx8fHx8fAQcHBw0MDRgQEBgaFREVGh8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx//wAARCAAZAE4DAREAAhEBAxEB/8QAkAAAAgICAwEAAAAAAAAAAAAABwgABQIGAQMECQEBAQEBAAAAAAAAAAAAAAAAAAIBAxAAAQMCAwQCCgwPAQAAAAAAAQIDBAAFERIGITEHCBMUQVFhcYGRIjJys7FSw9N0hJS0RlY3GPDBQmKyI0NzJDQVNXUWNjgRAQEBAQEBAQAAAAAAAAAAAAABAjEREiH/2gAMAwEAAhEDEQA/ADjxg4jjQGjHb0hlEmc66iLb2HCQ2p9wFWK8u3KlCFKOG/DDEY1lbJ6GPCLmcdv16RY9Ytxob0tWSBcY4U20XCcA08lal5c25KgcOwe3SVVyYRJrUMqCUEoId1BRax1jZNI2CVfLy90UWOMAgbVuOKHkNNJJGZasNnjOAo2QvWnObO/zNaRWbpb4kfTkx9LCkNhZkMIWrKlwulWVRTjioZBiN2FT6r5/DQbfD2qpBeecZ1Y09p1oHyFS3lq76GgAfEo1NXksFvt1wuMxuHb4rsuY95LMdhCnHFEDclKQVHxVizE8M+YDU+nLO3E11bJk2zRnDEav7KC4tpxGA6vIJIQtSAR+WF4bwqtlRYKbPMdwbcQF/wCwhBI2pXFmJI746H2K31Pyz+8Vwa+saPk0v3mnp4n3iuDf1jR8ml+809PFZe+ZzhhDZy2qRJvk5fksQ4kd5JUs7EjM8lsbSexj3qenyXTirqbiZri6ypl6tsmJCs+XNa221lEBLoxSp9PnpWsDHO4Bj2Nmyp9XJIGwOHc/DZRT6P8AWHf6F1j9r1XPj+d0earcgF5yDhY9NfCZHq0VOlZd3L7YYNj4M3nV0ZCTe5jE5zrWGLiERErS20DvSM7ec98doUhrql5SEMXS1aysdxaTKtj3VFuRnRmQrpQ8hzMD7YNp8VIaAfWllYsWr73ZY6s7FunSIrClHaUNOKQnHdtypANSqLfhzw/b1rLuEU3qJaHIMcy/4zP5bKMS6oFIw/VAAq7h7laVqT6G23nG23Q82lSkoeTiAtIOGYBQBGPYxo0xnKFpS0yXrzqSS0l64Q1txYRUAehDiVKcWkHcpQwSD2se3WxGq8vAe9TJXH7U5eUXEXRNx6y2raCRJStOw+1wIFIa4HnHrS1s01xPusC2IS1Bd6OW1HRgEtdYQFrQkDcnPjlHYGFZVS/h2vo18T9yq3MCOcf+yaZ+FSPVpqdcVh7uBH/ne8ejdPVGtnDXVFyab9XelA9mTTJsCNff95qT/KzvnK6mqzxRjzfB+IUhXB84+CjYZ3k3/kdU/vof6L1VHPbXeX77f736Fz+dJrJ1WuNQ5lPtmvvoxPmbNZemeHN+jPxL3KrQ/9k=") no-repeat scroll 45px bottom;
+}
+.footer .desc-item{
+    float: left;
+    width: 186px;
+    padding-left: 52px;
+}
+.footer .desc-item > dt {
+    text-align: left;
+}
+.footer .desc-item > dt > span {
+    color: #646464;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 30px;
+}
+.footer .desc-item > dd > a {
+    display: block;
+    width: 100px;
+    overflow: hidden;
+    text-align: left;
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    color: #8B8B8B;
+}
+.footer .desc-item .mobile {
+    height: 105px;
+    width: 105px;
+}
+.footer .desc-item > img {
+    height: 105px;
+    width: 105px;
+}

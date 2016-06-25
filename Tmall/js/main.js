@@ -107,7 +107,13 @@ setInterval(function(){
     slide_body.appendChild(d0);
 },2000);
 
+// 侧边栏目
 
+// 显示侧边栏
+function showLift() {
+    
+}
+// 
 
 
 

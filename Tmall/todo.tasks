@@ -61,10 +61,23 @@
     ✔ 英语咋讲 @done
     ✘ 不清楚为什么这里用ul>li>a的结构,它前面都是用div>a来展现项目的 @cancelled
     ✘ html结构很复杂,不清楚原因,为seo? @cancelled
+    ✔ 猜您喜欢的一个item图片高度是235,说明部分是91,2px的border,可是一个item的outline的框框跟item大小不匹配 @done
+        折腾半天是因为line-height多写了10px
+
+✔ 页脚 @done
+    ✔ 这页脚是一张整图片,然后在上面添加4个a标签 @done
+    ✔ dl标签 @done
+
+☐ 侧边栏 
+    
+    ☐ 左边
+    ☐ 右边
+    ☐ 顶部
 
 ☐ 后续修补:
     ☐ 一些图片的hover背景渐进动画
     ☐ z-index的调整
     ☐ 一些文字的hover变化
-
+    ☐ webfont
+s
      
