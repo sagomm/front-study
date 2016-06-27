@@ -4,9 +4,11 @@
 
 
 ✔ 天猫头部部分 @done
+    
     ✔ 顶部导航最后一个导航的实现，hover之后，前三个浮动，最后一个无浮动 @done
 
 ✔ 搜索部分 @done
+    
     ✔ 顶部搜索很多不知道干什么的after,before @done
     ✔ 表单２个隐藏域，可能是SEO @done
     ✔ 页面广告部分单独处理，可能为了单独加载 @done
@@ -14,6 +16,7 @@
     ✔ fieldset标签 @done
 
 ✔ 做主要导航部分 @done
+    
     ✔ 横向导航 @done
         ✔ 单独把extra-header部分显示出来 @done
         ✔ 添加data-url做的小标 @done
@@ -28,6 +31,7 @@
             ✔ 大小不合适，估计是空格字符导致的 @done
 
 ✔ 幻灯片部分 @done
+    
     ✔ 幻灯片部分设计 @done
         ✔ 触发条件--时间.鼠标hover @done
         ✔ 触发动画--淡进淡出 ease 1s@done
@@ -52,17 +56,21 @@
         ✘ 不知道是上面编码方式,webfont依旧无法解决 @cancelled
 
 ✔ 地区专享部分 @done
+    
     ✔ 看到不知道干嘛的div.估计是用来占位的 @done
 
 ✔ 热门品牌系列 @done
+    
     ✔ 文本被hover显示的动画不同,一个快,一个慢 @done
 
 ✔ 商品栏目系列 @done
+    
     ✔ 右上的说明文字不符合正常的html结构,那么做的原因可能是为了方便修改吧? @done
     ✔ 栏目下面有个滚动显示动画 @done
         ✔ 找到了一个transitionend事件来解决css动画调用的问题,不用写js做动画啦:) @done
 
 ✔ 猜您喜欢部分 @done
+    
     ✔ 英语咋讲 @done
     ✘ 不清楚为什么这里用ul>li>a的结构,它前面都是用div>a来展现项目的 @cancelled
     ✘ html结构很复杂,不清楚原因,为seo? @cancelled
@@ -70,10 +78,12 @@
         折腾半天是因为line-height多写了10px
 
 ✔ 页脚 @done
+    
     ✔ 这页脚是一张整图片,然后在上面添加4个a标签 @done
     ✔ dl标签 @done
 
 ✔ 侧边栏 @done
+    
     ✔ 左边 @done
     ✔ 右边 @done
         ✔ 一开始用padding做那个侧边栏,后来发现它的提供的背景图片太大,后来采用官方absoulte的做法 @done
