@@ -103,16 +103,19 @@ var sleft = document.getElementById('slide-left');
 var i1 = document.querySelector('#i1');
 var i2 = document.querySelector('#i2');
 var i3 = document.querySelector('#i3'); 
-function setScroll(limit,dom,style) {
+function setScroll(dom,style,limit_up,limit_down) {
     return function (scroll) {
-        if(scroll >= limit) {
+        if(scroll >= limit_up) {
             Common.addClass(dom,style);
         }else{
             Common.removeClass(dom,style);
-        }            
+        }
+        if(scroll <= limit_up){
+            Common.removeClass(dom,style);
+        }               
     }
 }
-var topScroll = setScroll(760,stop,'slide-top-active');
+var topScroll = setScroll(stop,760,'slide-top-active');
 var leftScroll = setScroll(760,sleft,'slide-left-active');
 var leftItem1 = setScroll(970,i1,'i1-active');
 var leftItem2 = setScroll(1995,i2,'i2-active');
@@ -124,7 +127,6 @@ window.onscroll = function (e) {
     leftItem1(s);
     leftItem2(s);
     leftItem3(s);
-
 }
 
 
