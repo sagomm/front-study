@@ -21,19 +21,6 @@ var Common = {
     }
 }
 
-// // 控制商品分类以及狂欢会场的hover
-// var shopClassify = document.getElementById('extra-shopClassify');
-// var meeting = document.getElementById('extra-meeting');
-
-// shopClassify.addEventListener('mouseover',function (e) {
-//     Common.addClass(this,'extra-shopClassify-active');
-//     Common.removeClass(meeting,'extra-meeting-active');
-// })
-// meeting.addEventListener('mouseover',function (e) {
-//     Common.addClass(this,'extra-meeting-active');
-//     Common.removeClass(shopClassify,'extra-shopClassify-active');
-// })
-
 // 幻灯片部分
 
 var slider_units = document.getElementsByClassName('slider-unit');
@@ -107,13 +94,38 @@ setInterval(function(){
     slide_body.appendChild(d0);
 },2000);
 
-// 侧边栏目
-
-// 显示侧边栏
-function showLift() {
-                        
+// 滚动监听与侧边栏
+// 顶部
+var stop = document.getElementById('slide-top');   
+// 左边栏 
+var sleft = document.getElementById('slide-left');
+// 左边栏目小项
+var i1 = document.querySelector('#i1');
+var i2 = document.querySelector('#i2');
+var i3 = document.querySelector('#i3'); 
+function setScroll(limit,dom,style) {
+    return function (scroll) {
+        if(scroll >= limit) {
+            Common.addClass(dom,style);
+        }else{
+            Common.removeClass(dom,style);
+        }            
+    }
 }
-// 
+var topScroll = setScroll(760,stop,'slide-top-active');
+var leftScroll = setScroll(760,sleft,'slide-left-active');
+var leftItem1 = setScroll(970,i1,'i1-active');
+var leftItem2 = setScroll(1995,i2,'i2-active');
+var leftItem3 = setScroll(2510,i3,'i3-active');
+window.onscroll = function (e) {
+    var s = e.pageY;
+    topScroll(s);
+    leftScroll(s);
+    leftItem1(s);
+    leftItem2(s);
+    leftItem3(s);
+
+}
 
 
 

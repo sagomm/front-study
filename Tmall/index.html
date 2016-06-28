@@ -1190,10 +1190,10 @@
             </div>
         </div>
     </div>
-        <!-- 页脚 -->
+    <!-- 页脚 -->
     <div class="footer">
         <div class="ensure">
-            <a href="#"></a>                                                                                    
+            <a href="#"></a>
             <a href="#"></a>
             <a href="#"></a>
             <a href="#"></a>
@@ -1253,25 +1253,29 @@
             </div>
         </div>
     </div>
-        <!-- 左侧边栏 -->
-    <div class="slide-left">
+    <!-- 左侧边栏 -->
+    <div class="slide-left" id="slide-left">
         <a class="slide-nav" href="#">菜单</a>
-        <a href="#">
+        <a href="#" id="i1">
             <div>热门品牌</div>
-            </a>
-        <a href="#">
+        </a>
+        <a href="#" id="i2">
             <div>居家生活</div>
-            </a>
-        <a href="#"><div>猜您喜欢</div></a>
+        </a>
+        <a href="#" id="i3">
+            <div>猜您喜欢</div>
+        </a>
         <a class="toTop" href="#">
             <div>顶部</div>
         </a>
     </div>
     <!-- 右侧边栏 -->
     <div class="slide-right">
-        <div class="top">
+        <div class="top tip-tigger">
             <div class="icon"></div>
-            <div class="tip">我的特权</div>
+            <div class="tip">我的特权
+                <div class="tip-arrow">◆</div>
+            </div>
         </div>
         <div class="cart">
             <div class="icon"></div>
@@ -1279,46 +1283,71 @@
             <div class="sperator"></div>
         </div>
         <ul class="tool">
-            <li class="tool-property">
+            <li class="tool-property tip-tigger">
                 <div class="icon"></div>
-                <div class="tip">我的资产</div>
+                <div class="tip">我的资产
+                    <div class="tip-arrow">◆</div>
+                </div>
             </li>
-            <li class="tool-focus">
+            <li class="tool-focus tip-tigger">
                 <div class="icon"></div>
-                <div class="tip">我关注的品牌</div>
+                <div class="tip">我关注的品牌
+                    <div class="tip-arrow">◆</div>
+                </div>
             </li>
-            <li class="tool-favorite">
+            <li class="tool-favorite tip-tigger">
                 <div class="icon"></div>
-                <div class="tip">我的收藏</div>
+                <div class="tip">我的收藏
+                    <div class="tip-arrow">◆</div>
+                </div>
             </li>
-            <li class="tool-history">
+            <li class="tool-history tip-tigger">
                 <div class="icon"></div>
-                <div class="tip">我看过的</div>
+                <div class="tip">我看过的
+                    <div class="tip-arrow">◆</div>
+                </div>
             </li>
-            <li class="tool-apply">
+            <li class="tool-apply tip-tigger">
                 <div class="icon"></div>
-                <div class="tip">我要充值</div>
+                <div class="tip">我要充值
+                    <div class="tip-arrow">◆</div>
+                </div>
             </li>
         </ul>
         <div class="footer">
-            <div class="feedback">
+            <div class="feedback tip-tigger">
                 <div class="icon"></div>
-                <div class="tip">用户反馈</div>
+                <div class="tip">用户反馈
+                    <div class="tip-arrow">◆</div>
+                </div>
             </div>
             <div class="moblie">
                 <div class="icon"></div>
                 <div class="weixin"></div>
             </div>
-            <div class="toTop">
+            <div class="toTop tip-tigger">
                 <div class="icon"></div>
-                <div class="tip">返回顶部</div>
-            </div>                
+                <div class="tip">返回顶部
+                    <div class="tip-arrow">◆</div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- 顶栏 -->
-    <div class="slide-top">
-        
+    <div class="slide-top" id="slide-top">
+        <div class="slide-top-container g-scope">
+            <div class="logo"></div>
+            <form class="search-wrap" target="#">
+                <fieldset>
+                    <lenged style="display:none">天猫搜索</lenged>
+                    <div class="input-wrap">
+                        <input type="search" name="search" placeholder="XXXXXXX">
+                        <label for="search">搜索</label>
+                    </div>
+                </fieldset>
+            </from>
+        </div>
     </div>
     <script src="./js/main.js"></script>
-</body> 
+</body>
 </html>
