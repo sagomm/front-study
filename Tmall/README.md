@@ -95,4 +95,5 @@
     ✔ 一些图片的hover背景渐进动画 @done
     ✔ z-index的调整 @done
         ✔ background的继承问题 @done
-    ✔ webfont @done                                   
+    ✔ webfont @done         
+    页面的平滑动画js                                  
