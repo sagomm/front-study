@@ -7,11 +7,11 @@ app.picBanner.init(document.getElementById('picBanner'), ['1.png', '2.png', '3.p
  */
 
 
-    // app.customShop.init([
-    //     [],
-    //     [],
-    //     []
-    // ]);
+    app.customShop.init([
+        [],
+        [],
+        []
+    ]);
         
 
 

@@ -50,7 +50,6 @@ app.customShop = (function (document) {
     dropDownSortClassify.header = document.getElementById('drop-down-sort-header');
 
     dropDownSortClassify.onCurrent = function (newEle, current, elements) {
-        console.info(newEle);
         dropDownSortClassify.header.innerHTML = newEle.innerHTML;
         addClass(dropDownSortClassify.header, 'active');
     }
@@ -390,9 +389,3 @@ app.customShop = (function (document) {
     // }
 
 })(window.document);
-// todoList : 
-// 1.测试分类是否能用
-// ２．测试onclick是否能用
-// 4.测试输出的商铺是否正常
-// ３．测试显示区域是否正常
-// 5.完成其他样式--样式添加，优化商铺，优化正则

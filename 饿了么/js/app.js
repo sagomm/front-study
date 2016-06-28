@@ -178,21 +178,42 @@ app.Shop = (function (document) {
      * @param  {int} salePerMonth - 商铺一个月的营销笔数
      * @param  {array} specialArr - 商铺的非必要信息 --> [{属性名字name，属性说明info，属性样式html}] 
      */
-    function Shop(shopId, shopName, shopLogo, shopIntro, shopRate, shippingTime, lessShippingMoney, shippingMoney, location, distance, salePerMonth, specialArr) {
-        this.shopId = shopId;
-        this.shopName = shopName;
-        this.shopLogo = shopLogo;
-        this.shopIntro = shopIntro;
-        this.shopRate = shopRate;
-        this.shippingTime = shippingTime;
-        this.lessShippingMoney = lessShippingMoney;
-        this.shippingMoney = shippingMoney;
-        this.location = location;
-        this.salePerMonth = salePerMonth;
-        this.distance = distance;
-        this.html = app.template.shop.getShop(shopId, shopName, shopLogo, shopIntro, shopRate, shippingTime, lessShippingMoney, shippingMoney, location, distance, salePerMonth, specialArr);
+    /**
+     * @class
+     * @classdesc 商铺的信息类用这个对象封装
+     * @param {json} ShopInfo 
+     */
+    function Shop(ShopInfo) {
+        if(!checkShopInfo(ShopInfo))return;
+        this.shopId = ShopInfo.shopId;
+        this.shopName = ShopInfo.shopName;
+        this.shopLogo = ShopInfo.shopLogo;
+        this.shopIntro = ShopInfo.shopIntro;
+        this.shopRate = ShopInfo.shopRate;
+        this.shippingTime = ShopInfo.shippingTime;
+        this.lessShippingMoney = ShopInfo.lessShippingMoney;
+        this.shippingMoney = ShopInfo.shippingMoney;
+        this.location = ShopInfo.location;
+        this.salePerMonth = ShopInfo.salePerMonth;
+        this.distance = ShopInfo.distance;
+        this.html = app.template.shop.getShop(ShopInfo.shopId,ShopInfo.shopName, ShopInfo.shopLogo, 
+                                              ShopInfo.shopIntro, ShopInfo.shopRate, ShopInfo.shippingTime, ShopInfo.lessShippingMoney, 
+                                              ShopInfo.shippingMoney, ShopInfo.location, ShopInfo.distance, ShopInfo.salePerMonth, ShopInfo.specialArr);
         // 将Special属性放入类中
-        this.setSpecial(specialArr);
+        this.setSpecial(ShopInfo.specialArr);
+    }
+    // 检查传入的参数是否是合法的
+    Shop.prototype.checkShopInfo = function(ShopJson){
+        if(typeof ShopJson.shopId !== 'number'){throw new TypeError('shop arguement number error')}
+        if(typeof ShopJson.shopName !== 'string'){throw new TypeError('shop arguement string error')}
+        if(typeof ShopJson.shopLogo !== 'string'){throw new TypeError('shop arguement shopLogo error')}
+        if(typeof ShopJson.shopIntro !== 'string'){throw new TypeError('shop arguement  shopIntro error')}
+        if(typeof ShopJson.shopRate !== 'number'|| ShopJson.rate > 1 || ShopJson.rate < 0){throw new TypeError('shop arguement shopRate error')}
+        if(typeof ShopJson.shippingTime !== 'number'){throw new TypeError('shop arguement shippingTime error')}
+        if(typeof ShopJson.lessShippingMoney !== 'number'){throw new TypeError('shop arguement lessShippingMoney error')}
+        if(typeof ShopJson.location !== 'string'){throw new TypeError('shop arguement location error')}
+        if(typeof ShopJson.salePerMonth !== 'number'){throw new TypeError('shop arguement salePerMonth error')}
+        if(typeof ShopJson.distance !== 'string'){throw new TypeError('shop arguement distance error')}                    
     }
     // 显示hover出来的商铺信息
     Shop.prototype.showInfo = function () {
