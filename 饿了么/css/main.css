@@ -473,17 +473,20 @@
     margin-bottom: 6px;
 }
 .shop .right .star-base {
+    position: relative;
     vertical-align: baseline;
 }
 .shop .right .star-sales .star-base::before {
     color : #ccc;
 }
-.shop .right i::before {
-    color: #FFC30C;
+.shop .right .star-sales .star-base> i {
     position: absolute;
     left: 0;
+    overflow: hidden;
+}
+.shop .right i::before {
+    color: #FFC30C;
     font-size: 9pt;
-    top: 1px;
 }
 .shop .sales,
 .shop .take-out-info {

@@ -21,7 +21,6 @@ app.Common = {
     },
     removeClass: function (element, className) {
         if (app.Common.isHasClass(element, className)) {
-            console.log(element);
             var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
             element.className = element.className.replace(reg, ' ');
         }
@@ -76,7 +75,6 @@ app.template = {
         },
         // 得到整个商店模板
         getShop: function (shopId, shopName, shopLogo, shopIntro, shopRate, shippingTime, lessShippingMoney, shippingMoney, location, distance, salePerMonth, specialArr) {
-            var _left = '<div class="shop" id= "' + shopId + '"><div class="left">' + this.shopImg(shopLogo) + this.shippingTime(shippingTime) + '</div>';
             var _icons = '';
 
             for (var i in specialArr) {
@@ -84,12 +82,13 @@ app.template = {
                     _icons += specialArr[i].html + ' ';
                 }
             }
+            var _left = '<div class="left">' + this.shopImg(shopLogo) + this.shippingTime(shippingTime) + '</div>';
             var _right = '<div class="right">' + this.shopTitle(shopName, location) + '<div class="star-sales"><span class="star-base icon icon-star"><i class="icon icon-star"></i></span>' +
                 this.salePerMonth(salePerMonth) + '</div>' +
                 this.shipping(lessShippingMoney, shippingMoney) +
                 '<div class="icons">' + _icons + '</div></div>';
             var _shopInfo = this.shopInfo(shopName, lessShippingMoney, shippingMoney, shippingTime, shopIntro, specialArr);
-            var shop = _left + _right + _shopInfo;
+            var shop = '<div class="shop" id="'+shopId+'"><div class="shop-wrap">'+ _left + _right + '</div>' + _shopInfo+ '</div>';
             return shop;
         }
     }
@@ -126,7 +125,7 @@ app.picBanner = (function (document) {
     function showPic(toggle) {
         var ev = document.createEvent('MouseEvents');
         ev.initEvent('click', true, true);
-        toggle.children[0].dispatchEvent(ev);
+        toggle.children[0].dispatchEvent(ev);s
     }
 
 
@@ -163,8 +162,6 @@ app.picBanner = (function (document) {
  */
 app.Shop = (function (document) {
     /**
-     * @class
-     * @classdesc 商铺类
      * @param  {string} shopId - 商铺的编号，在html中为id属性的值
      * @param  {string} shopName - 商铺的名称
      * @param  {string} shopLogo - 商铺的logo地址
@@ -184,7 +181,7 @@ app.Shop = (function (document) {
      * @param {json} ShopInfo 
      */
     function Shop(ShopInfo) {
-        if(!checkShopInfo(ShopInfo))return;
+        if (!this.checkShopInfo(ShopInfo)) return;
         this.shopId = ShopInfo.shopId;
         this.shopName = ShopInfo.shopName;
         this.shopLogo = ShopInfo.shopLogo;
@@ -196,28 +193,31 @@ app.Shop = (function (document) {
         this.location = ShopInfo.location;
         this.salePerMonth = ShopInfo.salePerMonth;
         this.distance = ShopInfo.distance;
-        this.html = app.template.shop.getShop(ShopInfo.shopId,ShopInfo.shopName, ShopInfo.shopLogo, 
-                                              ShopInfo.shopIntro, ShopInfo.shopRate, ShopInfo.shippingTime, ShopInfo.lessShippingMoney, 
-                                              ShopInfo.shippingMoney, ShopInfo.location, ShopInfo.distance, ShopInfo.salePerMonth, ShopInfo.specialArr);
+        this.html = app.template.shop.getShop(ShopInfo.shopId, ShopInfo.shopName, ShopInfo.shopLogo,
+            ShopInfo.shopIntro, ShopInfo.shopRate, ShopInfo.shippingTime, ShopInfo.lessShippingMoney,
+            ShopInfo.shippingMoney, ShopInfo.location, ShopInfo.distance, ShopInfo.salePerMonth, ShopInfo.specialArr);
         // 将Special属性放入类中
         this.setSpecial(ShopInfo.specialArr);
     }
     // 检查传入的参数是否是合法的
-    Shop.prototype.checkShopInfo = function(ShopJson){
-        if(typeof ShopJson.shopId !== 'number'){throw new TypeError('shop arguement number error')}
-        if(typeof ShopJson.shopName !== 'string'){throw new TypeError('shop arguement string error')}
-        if(typeof ShopJson.shopLogo !== 'string'){throw new TypeError('shop arguement shopLogo error')}
-        if(typeof ShopJson.shopIntro !== 'string'){throw new TypeError('shop arguement  shopIntro error')}
-        if(typeof ShopJson.shopRate !== 'number'|| ShopJson.rate > 1 || ShopJson.rate < 0){throw new TypeError('shop arguement shopRate error')}
-        if(typeof ShopJson.shippingTime !== 'number'){throw new TypeError('shop arguement shippingTime error')}
-        if(typeof ShopJson.lessShippingMoney !== 'number'){throw new TypeError('shop arguement lessShippingMoney error')}
-        if(typeof ShopJson.location !== 'string'){throw new TypeError('shop arguement location error')}
-        if(typeof ShopJson.salePerMonth !== 'number'){throw new TypeError('shop arguement salePerMonth error')}
-        if(typeof ShopJson.distance !== 'string'){throw new TypeError('shop arguement distance error')}                    
+    Shop.prototype.checkShopInfo = function (ShopJson) {
+        if (typeof ShopJson.shopId !== 'number') { throw new TypeError('shop arguement number error') }
+        if (typeof ShopJson.shopName !== 'string') { throw new TypeError('shop arguement string error') }
+        if (typeof ShopJson.shopLogo !== 'string') { throw new TypeError('shop arguement shopLogo error') }
+        if (typeof ShopJson.shopIntro !== 'string') { throw new TypeError('shop arguement  shopIntro error') }
+        if (typeof ShopJson.shopRate !== 'number' || ShopJson.rate > 1 || ShopJson.rate < 0) { throw new TypeError('shop arguement shopRate error') }
+        if (typeof ShopJson.shippingTime !== 'number') { throw new TypeError('shop arguement shippingTime error') }
+        if (typeof ShopJson.lessShippingMoney !== 'number') { throw new TypeError('shop arguement lessShippingMoney error') }
+        if (typeof ShopJson.location !== 'string') { throw new TypeError('shop arguement location error') }
+        if (typeof ShopJson.salePerMonth !== 'number') { throw new TypeError('shop arguement salePerMonth error') }
+        if (typeof ShopJson.distance !== 'number') { throw new TypeError('shop arguement distance error') }
+        if (typeof ShopJson.shippingMoney !== 'number') {throw new TypeError('shipping arguement error')}
+        if (!Array.isArray(ShopJson.specialArr)) {throw new TypeError('specialArr error')};
+        return true;
     }
     // 显示hover出来的商铺信息
-    Shop.prototype.showInfo = function () {
-        var shop = document.getElementById(this.shopId);
+    Shop.prototype.showInfo = function (dom) {
+        var shop = dom;
         var dom = shop.getElementsByClassName('shopInfo')[0];
         var offsetRight = shop.parentNode.offsetWidth + shop.parentNode.offsetLeft - shop.offsetLeft - shop.offsetWidth;
         // 计算出距离，一个是视窗的Y距离，一个是距离视窗的X距离 
@@ -236,38 +236,19 @@ app.Shop = (function (document) {
         dom.style.display = 'block';
     }
     // 隐藏hover出来的商铺信息
-    Shop.prototype.hiddenInfo = function () {
-        var _info = document.getElementById(this.shopId).getElementsByClassName('shopInfo')[0];
+    Shop.prototype.hiddenInfo = function (dom) {
+        var _info = dom.getElementsByClassName('shopInfo')[0];
         _info.className = 'shopInfo';
         _info.style.display = 'none';
     }
     // 为商铺设置评分,必须在加载后才能调用
     Shop.prototype.setEvaluation = function (dom, rate) {
-        var eva_star = dom.getElementsByClassName('star-sales')[0];
-        eva_star.style.width = rate * eva_star.offsetWidth;
+        var eva_star = dom.getElementsByClassName('star-sales')[0].getElementsByTagName('i')[0];
+        eva_star.style.width = rate * 100 + '%';
     }
     // 将商铺加载到显示区域中，在页面中显示
     Shop.prototype.show = function (shopArea) {
         shopArea.innerHTML += this.html;
-    }
-    // 设置shopInfo延迟显示
-    Shop.prototype.delayShow = function () {
-        var domInstance = document.getElementById(this.shopId);
-        var _id = undefined;
-        domInstance.addEventListener('mouseleave', function (e) {
-            clearTimeout(_id);
-            _id = undefined;
-            this.hiddenInfo(domInstance);
-        }.bind(this), false);
-        domInstance.addEventListener('mouseover', function (e) {
-            if (_id) {
-                return;
-            } else {
-                _id = setTimeout(function () {
-                    this.showInfo(domInstance);
-                }.bind(this), 300);
-            }
-        }.bind(this), false);
     }
     // 将商铺从显示区域中删除
     Shop.prototype.deleteShop = function (shopArea) {
@@ -288,8 +269,6 @@ app.Shop = (function (document) {
         var domInstance = document.getElementById(this.shopId);
         // 设置该商铺的评分样式
         this.setEvaluation(domInstance, this.shopRate);
-        // 延迟控制hover出来的商铺信息
-        this.delayShow();
     }
     /**
      * 商铺的非重要信息类，包括下面的小标
@@ -316,6 +295,7 @@ app.Shop = (function (document) {
         this.shopFilter = [];
         // 作用在当前页面的Filter方法[string,string,..]
         this.currentFilterState = [];
+        this.setHoverInfo();
     }
     // 添加一个Shop类的实例
     ShopArea.prototype.addShop = function (shop) {
@@ -396,6 +376,30 @@ app.Shop = (function (document) {
             this.domInstance.removeChild(child[i]);
         }
     }
+    // 事件代理:设置hover出来的shopInfo,延迟hover
+    ShopArea.prototype.setHoverInfo = function () {
+        var _id = undefined;
+        this.domInstance.addEventListener('mouseleave', function (e) {
+            var target = e.target;
+            if (target.nodeName.toLowerCase() === 'div' && target.className === 'shop') {
+                Shop.prototype.hiddenInfo(target);
+                if(_id){
+                    clearTimeout(_id)
+                    _id = undefined;
+                };
+            }
+        },true);
+        this.domInstance.addEventListener('mouseover', function (e) {
+            var target = e.target;
+            if (target.nodeName.toLowerCase() === 'div' && target.className === 'shop-wrap') {
+                if(_id) return;
+                _id = setTimeout(function () {
+                    Shop.prototype.showInfo(target.parentNode);
+                }, 300)
+            }
+        });
+    }
+
     /**
      * 管理分类的类
      * 同一个分类中，只有一个有active状态
@@ -464,7 +468,7 @@ app.SlideBar = (function () {
     var sliderTigger = document.getElementById('sliderTigger');
     var silder = document.getElementById('sliderBar');
 
-    // 生产0,1
+    // 开关函数
     var flag = (function () {
         var queue = [0, 1];
         var time = 2;
@@ -473,14 +477,14 @@ app.SlideBar = (function () {
             return queue[time % 2];
         }
     })()
-    
+
     sliderTigger.onclick = function (e) {
-        if(flag()) {
-            app.Common.addClass(silder,'sliderBar-active');
-            app.Common.addClass(sliderTigger,'active');
-        }else {
-            app.Common.removeClass(silder,'sliderBar-active');
-            app.Common.removeClass(sliderTigger,'active');    
+        if (flag()) {
+            app.Common.addClass(silder, 'sliderBar-active');
+            app.Common.addClass(sliderTigger, 'active');
+        } else {
+            app.Common.removeClass(silder, 'sliderBar-active');
+            app.Common.removeClass(sliderTigger, 'active');
         }
     }
 

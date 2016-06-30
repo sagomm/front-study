@@ -6,7 +6,6 @@ app.customShop = (function (document) {
     // 得到几个基础类
     var Classify = app.Shop.Classify;
     var Shop = app.Shop.Shop;
-    var Special = app.Shop.Special;
     var ShopArea = app.Shop.ShopArea;
     var changeEvent = app.Event;
     var isHasClass = app.Common.isHasClass;
@@ -190,25 +189,6 @@ app.customShop = (function (document) {
         _filter(current, all, 'isHasZhiFu');
     })
 
-    // 初始化一个数组，储存shop中出现的小标
-
-    var icons = [];
-    icons.push(new Special('Jian', '<i style="background:#f07373;">减</i>', '在线支付满28减8,满60减16<span style="color:red;">(手机客户端专享)</span>'));
-    icons.push(new Special('Shou', '<i style="background:#70bc46;">首</i>', '(不与其他活动同享)新用户下单首减13元<span style="color:red;">(手机客户端专享)</span>'));
-    icons.push(new Special('Te', '<i style="background:#f1884f;">特</i>', '东西买一送一了，速来抢购'));
-    icons.push(new Special('Fu', '<i style="background:#fff;color:#FF4E00;border:1px solid;padding:1px;">付</i>', '可使用支付宝微信手机QQ在线支付'));
-    icons.push(new Special('FaPiao', '<i style="background:#fff;color:#9071CB;border:1px solid;padding:1px;">票</i>', '该商家支持发票请在下单时候填好发票开头'));
-    icons.push(new Special('Bao', '<i style="background:#fff;color:#4B9A18;border:1px solid;padding:1px;">保</i>', '已经加入国家外卖宝计划，食品安全有保证'));
-    icons.push(new Special('FengNiao'));
-
-    var yieldShopId = (function () {
-        var id = 0;
-        return function () {
-            id++;
-            return 'shop_' + id;
-        }
-    })()
-
 
     /**
      * 设置页面按钮的click事件
@@ -331,61 +311,48 @@ app.customShop = (function (document) {
         cancelable : false,
     })
     // 新开商家
-    document.getElementsByClassName('filter_0')[0].onclick = function () {
+    document.getElementsByClassName('filter_0')[0].onclick = function (e) {
+        e.event.stopPropagation();
         _filterShop('isHasXinKai');
          this.children[0].dispatchEvent(ev);
     }
     // 免费派送
-    document.getElementsByClassName('filter_1')[0].onclick = function () {
+    document.getElementsByClassName('filter_1')[0].onclick = function (e) {
+        e.event.stopPropagation();
         _filterShop('isHasMianSong');
          this.children[0].dispatchEvent(ev);            
     }
     // 蜂鸟快送
-    document.getElementsByClassName('filter_2')[0].onclick = function () {
+    document.getElementsByClassName('filter_2')[0].onclick = function (e) {
+        e.event.stopPropagation();
         _filterShop('isHasFengNiao');
         this.children[0].dispatchEvent(ev);
     }
     // 可开发票
-    document.getElementsByClassName('filter_3')[0].onclick = function () {
+    document.getElementsByClassName('filter_3')[0].onclick = function (e) {
+        e.event.stopPropagation();
         _filterShop('isHasFaPiao');
         this.children[0].dispatchEvent(ev);
     }
     // 在线支付
-    document.getElementsByClassName('filter_4')[0].onclick = function () {
+    document.getElementsByClassName('filter_4')[0].onclick = function (e) {
+        e.event.stopPropagation();
         _filterShop('isHasZhiFu');
         this.children[0].dispatchEvent(ev);
     }
 
-    //   1      2       3           4       5           6           7                   8          9        10          11          12
-    // shopId,shopName,shopLogo,shopIntro,shopRate,shippingTime,lessShippingMoney,shippingMoney,location,distance,salePerMonth,specialArr
 
-    var s1 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 10, '北京', 100, 30, [icons[1], icons[3], icons[4]]);
-    var s2 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 20, '北京', 100, 29, [icons[1], icons[3], icons[4]]);
-    var s3 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 30, '北京', 100, 31, [icons[1], icons[3], icons[4]]);
-    var s4 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 40, '北京', 100, 33, [icons[1], icons[3], icons[4]]);
-    var s5 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 50, '北京', 100, 33, [icons[1], icons[3], icons[4]]);
-    var s6 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 20, '北京', 100, 10, [icons[1], icons[3], icons[4]]);
-    var s7 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 20, '北京', 100, 100, [icons[1], icons[3], icons[4]]);
-    var s8 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 20, '北京', 100, 36, [icons[1], icons[3], icons[4]]);
-    var s9 = new Shop(yieldShopId(), '第一家商铺', 'shop.jpeg', '好好吃的', 0.8, 30, 40, 20, '北京', 100, 37, [icons[1], icons[3], icons[4], icons[6]]);
-    shops.addShop(s1);
-    shops.addShop(s2);
-    shops.addShop(s3);
-    shops.addShop(s4);
-    shops.addShop(s5);
-    shops.addShop(s6);
-    shops.addShop(s7);
-    shops.addShop(s8);
-    shops.addShop(s9);
 
     // 初始化状态
-    shops.addShopFilterState('start');
 
-    // return {
-    //     // 输入一个shops
-    //     init:function () {
-
-    //     }
-    // }
+    return {
+        // 输入一个shop_group
+        init:function (shop_group) {
+            for(var i in shop_group) {
+                shops.addShop(new Shop(shop_group[i]));
+            }
+            shops.addShopFilterState('start');
+        }
+    }
 
 })(window.document);
